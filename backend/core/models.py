@@ -56,7 +56,7 @@ class Character(models.Model):
         GOOD = 'GOOD', 'Good'
         NEUTRAL = 'NEUTRAL', 'Neutral'
         BAD = 'BAD', 'Bad'
-    bondad = models.CharField(choices=Goodness.choices, default=Goodness.NEUTRAL)
+    goodness = models.CharField(choices=Goodness.choices, default=Goodness.NEUTRAL)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -85,7 +85,7 @@ class CharSheet(models.Model):
     atc_bonus = models.IntegerField(blank=True, default=1)
     inspiration = models.BooleanField(default=False)
     others_ca = models.IntegerField(blank=True, default=0)
-    others_iniciativa = models.IntegerField(blank=True, default=0)
+    others_iniciative = models.IntegerField(blank=True, default=0)
     class ClassDnd(models.TextChoices):
         BARBARIAN = 'BARB', 'Barbarian'
         BARD = 'BARD', 'Bard'
