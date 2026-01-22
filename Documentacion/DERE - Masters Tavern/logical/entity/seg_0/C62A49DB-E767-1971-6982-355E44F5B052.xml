@@ -47,7 +47,6 @@
 <engineerTo>
 <item key="167EC7C1-97EE-1CA9-BB92-11C813D6279A" value="true"/>
 </engineerTo>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -67,7 +66,7 @@
 <dataTypeSize>25 CHAR</dataTypeSize>
 <ownDataTypeParameters>25 CHAR,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="Alineamiento" id="B9B84A05-A2BA-BB46-2BA7-39688D4A3EE9">
+<Attribute name="Bondad" id="B9B84A05-A2BA-BB46-2BA7-39688D4A3EE9">
 <createdBy>Judokaliba</createdBy>
 <createdTime>2026-01-19 09:54:46 UTC</createdTime>
 <ownerDesignName>DERE - Masters Tavern</ownerDesignName>
@@ -132,6 +131,19 @@
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Moral" id="4D074638-67E4-9A44-8150-A79FD9864578">
+<createdBy>esteb</createdBy>
+<createdTime>2026-01-21 10:40:59 UTC</createdTime>
+<ownerDesignName>DERE - Masters Tavern</ownerDesignName>
+<engineerTo>
+<item key="167EC7C1-97EE-1CA9-BB92-11C813D6279A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25 CHAR</dataTypeSize>
+<ownDataTypeParameters>25 CHAR,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">

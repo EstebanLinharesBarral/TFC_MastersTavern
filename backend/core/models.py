@@ -162,5 +162,3 @@ class Armor(models.Model):
 
     def __str__(self):
         return self.name
-    
-#RELATIONSHIPS BETWEEN MODELS
