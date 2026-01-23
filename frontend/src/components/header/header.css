@@ -15,10 +15,6 @@ header .logo-link{
     justify-self: center;
 }
 
-img {
-    width: 100%;
-}
-
 .logo-link {
     display: block;
     width: 10rem;

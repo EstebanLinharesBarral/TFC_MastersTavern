@@ -1,4 +1,4 @@
-nav {
+.navigator {
     display: flex;
     justify-content: center;
     width: fit-content;
@@ -31,5 +31,5 @@ nav {
 
 @font-face {
     font-family: "imFellEnglish Regular";
-    src: url('../../fonts/IMFellEnglish-Regular.ttf');
+    src: url('../../fonts/ImFellEnglish/IMFellEnglish-Regular.ttf');
 }

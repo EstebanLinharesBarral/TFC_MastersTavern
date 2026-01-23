@@ -3,7 +3,7 @@ import './navigator.css';
 
 const Navigator = (props) => {
     return(
-        <nav>
+        <nav className={"navigator"}>
             <Link to={'/'} className={"navigator-button"}>Contacto</Link>
             <Link to={'/'} className={"navigator-button"}>Manuales</Link>
             <Link to={'/'} className={"navigator-button"}>Wiki</Link>

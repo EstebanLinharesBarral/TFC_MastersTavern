@@ -1,0 +1,52 @@
+footer {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    background-color: #301B0F;
+    color: #E6D3B0;
+    padding: 1rem;
+}
+
+.info-legal{
+    display: flex;
+    flex-direction: column;
+    font-size: 26px;
+    font-family: 'Caudex';
+    gap: 1rem;
+    padding: 2rem;
+}
+
+.info-legal a {
+    text-decoration: none;
+    color: #E6D3B0;
+    width: fit-content;
+}
+
+footer p {
+    justify-self: center;
+    align-self: flex-end;
+    font-family: 'Caudex';
+}
+
+.redes{
+    display: flex;
+    justify-self: right;
+    align-self: center;
+    gap: 1rem;
+    padding: 2rem;
+}
+
+.redes a{
+    display: block;
+    width: 4.5rem;
+}
+
+@font-face {
+    font-family: 'Caudex';
+    src: url('../../fonts/Caudex/Caudex-Regular.ttf');
+}
