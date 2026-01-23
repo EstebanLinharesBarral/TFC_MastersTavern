@@ -1,0 +1,4 @@
+.mainR{
+    display: flex;
+    flex-direction: column;
+}

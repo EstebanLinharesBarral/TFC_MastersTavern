@@ -1,0 +1,26 @@
+.avatar {
+    width: 3.5rem;
+    border-radius: 100px;
+    overflow: hidden;
+    border: 2px solid #301B0F;
+}
+
+.avatar img{
+    width: 100%;
+}
+
+.log-user {
+    color: #301B0F;
+    font-size: 26px;
+    
+}
+
+.log-sign {
+    text-decoration: none;
+    color: inherit;
+}
+.user-info-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
