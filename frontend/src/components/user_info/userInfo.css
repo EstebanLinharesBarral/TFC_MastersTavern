@@ -10,9 +10,11 @@
 }
 
 .log-user {
+    display: flex;
+    gap:0.5rem;
     color: #301B0F;
     font-size: 26px;
-    
+    font-family: 'imFellEnglish Regular';
 }
 
 .log-sign {
@@ -23,4 +25,9 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+}
+
+@font-face {
+  font-family: "imFellEnglish";
+  src: url('../../fonts/IMFellEnglish-Regular.ttf');
 }

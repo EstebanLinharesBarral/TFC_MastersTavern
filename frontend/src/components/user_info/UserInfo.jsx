@@ -8,7 +8,7 @@ const UserInfo = (props) => {
             <figure className={"avatar"}><img src={avatar}/></figure>
             <div className={"log-user"}>
                 <Link to={'/log-in'} className={"log-sign"}>Log in</Link>
-                /
+                <span>/</span>
                 <Link to={'/sign-up'} className={"log-sign"}>Sign up</Link>
             </div>
         </div>
