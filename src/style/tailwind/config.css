@@ -45,6 +45,12 @@
 
 /* 5. HOVERS PERSONALIZADOS */
 
+
+/* 6. SCROLLBAR */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /*ANIMACIONES*/
 #menu-sidebar {
     transform: translateX(-100%);
@@ -53,4 +59,48 @@
 
 #menu-sidebar.show {
     transform: translateX(0); /* visible */
+}
+
+/* FONTS */
+@font-face {
+  font-family: 'Caudex';
+  src: url('/src/fonts/Caudex/Caudex-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Caudex';
+  src: url('/src/fonts/Caudex/Caudex-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+@font-face {
+    font-family: 'IM Fell English';
+    src: url('/src/fonts/IM_Fell_English/IMFellEnglish-Regular.ttf');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Petrona';
+    src: url('/src/fonts/Petrona/Petrona-Regular.ttf');
+}
+
+.caudex-bold {
+    font-family: 'Caudex';
+    font-weight: bold;
+}
+
+.caudex-regular {
+    font-family: 'Caudex';
+    font-weight: 400;
+}
+
+.english-regular {
+    font-family: 'IM Fell English';
+    font-weight: 400;
+}
+
+.petrona-regular {
+    font-family: 'Petrona';
+    font-weight: 400;
 }

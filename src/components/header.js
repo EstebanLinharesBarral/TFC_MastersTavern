@@ -4,17 +4,25 @@ export function Header() {
     setTimeout(async () => {
         const menuSidebarBtn = document.getElementById('menu-sidebar-btn');
         const menuSidebar = document.getElementById('menu-sidebar');
+        const closeSidebarBtn = document.getElementById('sidebar-close-btn');
 
         if(menuSidebarBtn && menuSidebar) {
             menuSidebarBtn.addEventListener('click', () => {
                 menuSidebar.classList.toggle('show');
             });
         }
+
+        if(closeSidebarBtn && menuSidebar) {
+            closeSidebarBtn.addEventListener('click', () => {
+                menuSidebar.classList.toggle('show');
+            })
+        }
         
     }, 0)
 
     return `
-    <div id="menu-sidebar" class="absolute grid grid-rows-12  grid-cols-1 justify-center block w-80 h-full z-20 back-mt-light shadow-xl">
+    <div id="menu-sidebar" class="absolute scrollbar-hide overflow-y-auto grid grid-rows-12 grid-cols-1 justify-center block w-80 h-full z-60 back-mt-light shadow-xl caudex-regular">
+        <button id="sidebar-close-btn"><i data-lucide="x"></i></button>
         <a class="justify-self-center row-span-3"><img src="src/assets/LogoMastersTavernSinFondo.png"></a>
         <div class="text-xl row-span-6">
             <a href="#" class="block p-4 m-2 border-b">Mis personajes</a>
@@ -35,7 +43,7 @@ export function Header() {
             <button id="menu-sidebar-btn" class="border"><i data-lucide="Menu"></i></button>
             <img src="src/assets/LogoEstiradoSinFondo.png" alt="logo">
         </div>
-        <div class="flex justify-self-end gap-6">
+        <div class="flex justify-self-end caudex-regular gap-6">
             <a href="#">Wiki</a>
             <a href="#">Documentación</a>
             <a href="#">Noticias</a>

@@ -5,8 +5,11 @@ const routes = {
 }
 
 import { Header } from "./components/header.js"
+import { renderHomepage } from "./pages/Homepage.js"
+
 const container = document.querySelector("#app")
 container.innerHTML = Header()
+container.insertAdjacentHTML('afterend', renderHomepage())
 
 lucide.createIcons();
 
