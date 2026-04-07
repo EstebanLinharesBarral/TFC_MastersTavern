@@ -9,7 +9,7 @@ import { renderHomepage } from "./pages/Homepage.js"
 
 const container = document.querySelector("#app")
 container.innerHTML = Header()
-container.insertAdjacentHTML('afterend', renderHomepage())
+container.insertAdjacentHTML('beforeend', renderHomepage())
 
 lucide.createIcons();
 

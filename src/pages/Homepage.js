@@ -26,8 +26,8 @@ export function renderHomepage() {
 
     //SI NO HAY UN USUARIO CONECTADO CAMBIAR EL RETURN
     return `<div class="grid grid-rows-10 pt-6 p-4">
-        <div class="grid grid-cols-10 row-span-5 gap-4">
-            <section class="col-span-4">
+        <div class="grid grid-cols-11 row-span-5 gap-4">
+            <section class="col-span-5">
                 <div id="next-sessions-container" class="border text-center">
                     <p>Próximas sesiones</p>
                     <div class="grid grid-cols-2">
