@@ -1,34 +1,24 @@
-class Router {
-    constructor(routes){
-        this.routes = routes;
-        this.init();
-    }
+// router.js
 
-    init() {
-        window.addEventListener("hashchange", () => this.handleRouteChange());
-        this.handleRouteChange();
-    }
-
-    handleRouteChange() {
-        const currentPath = window.location.hash.slice(1);
-        const route = this.routes[currentPath];
-        if(route) {
-            route();
-        } else {
-            this.routes["/404"]();
-        }
-    }
-}
-
-
+import { Header } from "./components/header.js";
 
 export function createRouter(routes) {
-function router() {
-    const path = window.location.pathname
-    const view = routes[path]
 
-    document.querySelector("#app").innerHTML = view()
-}
+    function router() {
+        // 1. Obtener la ruta actual
+        const path = window.location.hash.slice(1) || "/";
 
-    return router;
+        // 2. Buscar la vista correspondiente
+        const view = routes[path] || routes["/404"];
+
+        // 3. Renderizar en el DOM
+        const app = document.querySelector("#app");
+        app.innerHTML = Header() + view();
+    }
+
+    // 4. Escuchar cambios en el hash
+    window.addEventListener("hashchange", router);
+
+    // 5. Ejecutar al cargar la app
+    window.addEventListener("load", router);
 }

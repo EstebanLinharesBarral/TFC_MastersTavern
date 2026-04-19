@@ -64,25 +64,25 @@
 /* FONTS */
 @font-face {
   font-family: 'Caudex';
-  src: url('/src/fonts/Caudex/Caudex-Regular.ttf') format('truetype');
+  src: url('/front/src/fonts/Caudex/Caudex-Regular.ttf') format('truetype');
   font-weight: 400;
 }
 
 @font-face {
   font-family: 'Caudex';
-  src: url('/src/fonts/Caudex/Caudex-Bold.ttf') format('truetype');
+  src: url('/front/src/fonts/Caudex/Caudex-Bold.ttf') format('truetype');
   font-weight: 700;
 }
 
 @font-face {
     font-family: 'IM Fell English';
-    src: url('/src/fonts/IM_Fell_English/IMFellEnglish-Regular.ttf');
+    src: url('/front/src/fonts/IM_Fell_English/IMFellEnglish-Regular.ttf');
     font-weight: 400;
 }
 
 @font-face {
     font-family: 'Petrona';
-    src: url('/src/fonts/Petrona/Petrona-Regular.ttf');
+    src: url('/front/src/fonts/Petrona/Petrona-Regular.ttf');
 }
 
 .caudex-bold {

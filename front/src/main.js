@@ -1,15 +1,14 @@
-//import { createRouter } from "./router";
+import { Header } from "./components/header.js"
+import { createRouter } from "./router.js";
+import { renderHomepage } from "./pages/Homepage.js";
 
 const routes = {
+    "/": () => renderHomepage(),
+    "/about": () => "<h1>About</h1>",
+    "/404": () => "<h1>404 Not Found</h1>"
+};
 
-}
-
-import { Header } from "./components/header.js"
-import { renderHomepage } from "./pages/Homepage.js"
-
-const container = document.querySelector("#app")
-container.innerHTML = Header()
-container.insertAdjacentHTML('beforeend', renderHomepage())
+createRouter(routes);
 
 lucide.createIcons();
 
