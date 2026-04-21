@@ -17,7 +17,7 @@ export function Header() {
                 menuSidebar.classList.toggle('show');
             })
         }
-        
+        lucide.createIcons();
     }, 0)
 
     return `
