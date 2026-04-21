@@ -72,6 +72,7 @@
 .form-input {
     width: 100%;
     color: var(--default-dark);
+    font-weight: 400;
     background-color: var(--default-light);
     border-bottom: 2px solid var(--default-dark);
     border-radius: 4px 4px 0 0;
@@ -98,7 +99,7 @@
 .form-input:focus + .label-floating {
     position: absolute;
     top: 0;
-    transform: translateY(15%);
+    transform: translateY(25%);
     font-size: 0.70rem;
 }
 .label-focus {
@@ -109,7 +110,7 @@
     pointer-events: none;
     transition: all 0.3s ease;
     top: 0;
-    transform: translateY(15%);
+    transform: translateY(25%);
     font-size: 0.70rem;
 }
 
