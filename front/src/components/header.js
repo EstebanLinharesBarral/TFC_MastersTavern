@@ -38,16 +38,19 @@ export function Header() {
         </div>
     </div>
     
-    <header class="group grid grid-cols-2 border-b border-[#301B0F] back-mt-light text-mt-dark items-center p-3">
-        <div class="flex">
+    <header class="group grid grid-cols-10 text-lg border-b border-[#301B0F] back-mt-light text-mt-dark items-center p-3 caudex-bold">
+        <div class="flex col-span-2">
             <button id="menu-sidebar-btn" class="border"><i data-lucide="Menu"></i></button>
             <img src="src/assets/LogoEstiradoSinFondo.png" alt="logo">
         </div>
-        <div class="flex justify-self-end caudex-regular gap-6">
-            <a href="#">Wiki</a>
-            <a href="#">Documentación</a>
-            <a href="#">Noticias</a>
-            <p><a href="#">Sign up</a><span> / </span><a href="#">Log in</a><p>
+        <div class="flex col-span-6 items-center justify-self-center border-x-2 px-4">
+                <a href="#" class="px-4"><i data-lucide="globe" class="inline"></i> Wiki</a>
+                <a href="#" class="px-4"><i data-lucide="book-text" class="inline"></i> Manuales</a>
+                <a href="#" class="px-4"><i data-lucide="megaphone" class="inline"></i> Noticias</a>
+        </div>
+        <div class="flex col-span-2 justify-self-end items-center gap-2">
+            <div class="rounded-full w-[50px] border-2 overflow-hidden"><img src="./src/assets/avatar.png"></div>
+            <p><a href="#/sign-in">Sign up</a><span> / </span><a href="#">Log in</a><p>
         </div>
     </header>`
 }
