@@ -1,9 +1,14 @@
+import { authService } from "../services/AuthService.js";
+import { fetchService } from "../services/FetchService.js";
+
 // pages/SignInPage.js
 export function renderSignInPage() {
-    setTimeout(() => {
+
+    setTimeout(async () => {
         const form = document.getElementById('register-form');
         const inputs = form.querySelectorAll('input');
         
+        //EVENTO DE LOS INPUTS Y LABELS
         inputs.forEach(i => {
             i.addEventListener('change', () => {
                 if(i.value.length > 0) {
@@ -13,6 +18,13 @@ export function renderSignInPage() {
                 }
             })
         })
+
+        //EVENTO SUBMIT
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const response = await authService.register(e.target);
+        })
     })
     
     return `<div class="grid grid-rows-10 pt-6 p-4">
@@ -21,11 +33,11 @@ export function renderSignInPage() {
     
                 <div class="grid grid-cols-3 row-span-1 gap-4">
                     <div class="relative col-span-1">
-                        <input type="text" required name="name" placeholder=" " class="form-input">
+                        <input type="text" required name="first_name" placeholder=" " class="form-input">
                         <label class="absolute label-floating">Nombre</label>
                     </div>
                     <div class="relative col-span-2">
-                        <input type="text" name="surname" placeholder=" " class="form-input">
+                        <input type="text" name="last_name" placeholder=" " class="form-input">
                         <label class="absolute label-floating">Apellidos</label>
                     </div>
                 </div>
@@ -46,14 +58,14 @@ export function renderSignInPage() {
 
                 <div class="row-span-1">
                     <div class="relative">
-                        <input type="password" required name="password" placeholder=" " class="form-input">
+                        <input type="password" required name="password1" placeholder=" " class="form-input">
                         <label class="absolute label-floating">Contraseña</label>
                     </div>
                 </div>
 
                 <div class="row-span-1">
                     <div class="relative">
-                        <input type="password" required name="re-password" placeholder=" " class="form-input">
+                        <input type="password" required name="password2" placeholder=" " class="form-input">
                         <label class="absolute label-floating">Repetir Contraseña</label>
                     </div>
                 </div>
