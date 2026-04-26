@@ -28,7 +28,6 @@ export function renderSignInPage() {
     })
     
     return `<div class="grid grid-rows-10 pt-6 p-4">
-        <div class="grid grid-cols-11 row-span-5 gap-4">
             <form id="register-form" class="grid grid-rows-7 my-4 col-span-11 gap-8 p-8 back-mt-orange justify-self-center border-solid border-2 shadow-surround rounded-xl caudex-bold">
     
                 <div class="grid grid-cols-3 row-span-1 gap-4">

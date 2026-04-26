@@ -50,7 +50,7 @@ export function Header() {
         </div>
         <div class="flex col-span-2 justify-self-end items-center gap-2">
             <div class="rounded-full w-[50px] border-2 overflow-hidden"><img src="./src/assets/avatar.png"></div>
-            <p><a href="#/sign-in">Sign up</a><span> / </span><a href="#">Log in</a><p>
+            <p><a href="#/sign-in">Sign up</a><span> / </span><a href="#/log-in">Log in</a><p>
         </div>
     </header>`
 }
