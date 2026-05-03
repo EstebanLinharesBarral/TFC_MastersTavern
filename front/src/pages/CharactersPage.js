@@ -68,10 +68,63 @@ export function renderCharactersPage() {
 
             <!-- ASIDE -->
             <aside class="col-span-6 flex flex-col gap-6">
-                <div class="p-8 rounded-xl shadow-surround border-2 border-mt-dark bg-white">
-                    <p class="caudex-regular text-sm">
-                        Información adicional
-                    </p>
+                <div class="grid grid-cols-10 p-8 py-12 rounded-xl shadow-surround border-2 border-mt-dark bg-[#FAF7F2]">
+                    <!--ESTADÍSTICAS PRINCIPALES-->
+                    <aside class="flex flex-col gap-12 col-span-1 text-center">
+                        <div class="relative flex flex-col caudex-regular items-center">
+                            <div class="border-2 border-black rounded-2xl px-8 pb-6 bg-white">
+                                <p class="caudex-bold">Fuerza</p>
+                                <p class="text-7xl">0</p>
+                            </div>
+                            <div class="absolute bottom-0 translate-y-6 translate border-2 border-black bg-white rounded-full p-2">
+                                <p class="text-3xl">10</p>
+                            </div>
+                        </div>
+
+                        <div class="relative flex flex-col caudex-regular items-center">
+                            <div class="border-2 border-black rounded-2xl px-8 pb-6 bg-white">
+                                <p class="caudex-bold">Fuerza</p>
+                                <p class="text-7xl">0</p>
+                            </div>
+                            <div class="absolute bottom-0 translate-y-6 translate border-2 border-black bg-white rounded-full p-2">
+                                <p class="text-3xl">10</p>
+                            </div>
+                        </div>
+
+                        <div class="relative flex flex-col caudex-regular items-center">
+                            <div class="border-2 border-black rounded-2xl px-8 pb-6 bg-white">
+                                <p class="caudex-bold">Fuerza</p>
+                                <p class="text-7xl">0</p>
+                            </div>
+                            <div class="absolute bottom-0 translate-y-6 translate border-2 border-black bg-white rounded-full p-2">
+                                <p class="text-3xl">10</p>
+                            </div>
+                        </div>
+
+                        <div class="relative flex flex-col caudex-regular items-center">
+                            <div class="border-2 border-black rounded-2xl px-8 pb-6 bg-white">
+                                <p class="caudex-bold">Fuerza</p>
+                                <p class="text-7xl">0</p>
+                            </div>
+                            <div class="absolute bottom-0 translate-y-6 translate border-2 border-black bg-white rounded-full p-2">
+                                <p class="text-3xl">10</p>
+                            </div>
+                        </div>
+
+                        <div class="relative flex flex-col caudex-regular items-center">
+                            <div class="border-2 border-black rounded-2xl px-8 pb-6 bg-white">
+                                <p class="caudex-bold">Fuerza</p>
+                                <p class="text-7xl">0</p>
+                            </div>
+                            <div class="absolute bottom-0 translate-y-6 translate border-2 border-black bg-white rounded-full p-2">
+                                <p class="text-3xl">10</p>
+                            </div>
+                        </div>
+                    </aside>
+                    <!--ESTADÍSTICAS SUMADAS-->
+                    <div class="col-span-9">
+
+                    </div>
                 </div>
             </aside>
         </div>
