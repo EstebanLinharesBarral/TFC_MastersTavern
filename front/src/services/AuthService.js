@@ -2,16 +2,14 @@
 import { fetchService } from "./FetchService.js";
 
 class AuthService {
-    async register(form) {
-        const payload = {};
-        const formData = new FormData(form);
-        
-        for (let [key, value] of formData.entries()) {
-            payload[key] = value;
-        }
+    register(form) {
+        const data = Object.fromEntries(new FormData(form));
+        return fetchService.post("/api/register/", data);
+    }
 
-        const response = await fetchService.post('register/', payload);
-        return response;
+    login(form) {
+        const data = Object.fromEntries(new FormData(form));
+        return fetchService.post("/api/login/", data);
     }
 }
 

@@ -1,3 +1,6 @@
+// pages/LogInPage.js
+import { authService } from "../services/AuthService.js";
+
 export function renderLogInPage() {
     setTimeout(async () => {
         const form = document.getElementById('login-form');
@@ -15,7 +18,12 @@ export function renderLogInPage() {
         })
 
         //EVENTO SUBMIT
+        //EVENTO SUBMIT
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
         
+                    const response = await authService.login(form);
+                })
     })
 
     return `<div class="pt-6 p-4">
@@ -23,8 +31,8 @@ export function renderLogInPage() {
 
                 <div class="row-span-1">
                     <div class="relative">
-                        <input type="text" required name="email" placeholder=" " class="form-input">
-                        <label class="absolute label-floating">Email</label>
+                        <input type="text" required name="username" placeholder=" " class="form-input">
+                        <label class="absolute label-floating">Nombre de Usuario</label>
                     </div>
                 </div>
 

@@ -23,7 +23,7 @@ export function renderSignInPage() {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const response = await authService.register(e.target);
+            const response = await authService.register(form);
         })
     })
     
