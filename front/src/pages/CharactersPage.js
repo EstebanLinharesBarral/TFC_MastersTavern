@@ -2,7 +2,7 @@
 
 export function renderCharactersPage() {
 
-    return `<div class="p-8 flex flex-col gap-8">
+    return `<div class="px-8 pt-4 pb-8 flex flex-col gap-8">
 
         <!-- HEADER INTERNO -->
         <div class="border-b-2 pt-4 pb-4 flex flex-col gap-6">
@@ -52,9 +52,9 @@ export function renderCharactersPage() {
         </div>
 
         <!-- CONTENIDO -->
-        <div class="grid grid-cols-12 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <!-- LISTADO -->
-            <section class="col-span-6 flex flex-col gap-6 back-mt-orange p-8 rounded-xl shadow-surround border-2 border-mt-dark min-h-80">
+            <section class="lg:col-span-6 flex flex-col gap-6 back-mt-orange p-8 rounded-xl shadow-surround border-2 border-mt-dark min-h-80">
                 <!-- ITEM EJEMPLO -->
                 <article class="flex justify-between items-center p-4 rounded-lg back-mt-light shadow-surround hover:scale-[1.05] duration-150">
                     <div class="flex flex-col">
@@ -66,67 +66,127 @@ export function renderCharactersPage() {
                 </article>
             </section>
 
-            <!-- ASIDE -->
-            <aside class="col-span-6 flex flex-col gap-6">
-                <div class="grid grid-cols-10 p-8 py-12 rounded-xl shadow-surround border-2 border-mt-dark bg-[#FAF7F2]">
-                    <!--ESTADÍSTICAS PRINCIPALES-->
-                    <aside class="flex flex-col gap-12 col-span-1 text-center">
-                        <div class="relative flex flex-col caudex-regular items-center">
-                            <div class="border-2 border-black rounded-2xl px-8 pb-6 bg-white">
-                                <p class="caudex-bold">Fuerza</p>
-                                <p class="text-7xl">0</p>
-                            </div>
-                            <div class="absolute bottom-0 translate-y-6 translate border-2 border-black bg-white rounded-full p-2">
-                                <p class="text-3xl">10</p>
-                            </div>
-                        </div>
+            <aside class="lg:col-span-6 flex flex-col gap-6">
+    <div class="flex flex-col gap-6 p-4 rounded-xl shadow-surround border-2 border-mt-dark bg-[#FAF7F2]">
 
-                        <div class="relative flex flex-col caudex-regular items-center">
-                            <div class="border-2 border-black rounded-2xl px-8 pb-6 bg-white">
-                                <p class="caudex-bold">Fuerza</p>
-                                <p class="text-7xl">0</p>
-                            </div>
-                            <div class="absolute bottom-0 translate-y-6 translate border-2 border-black bg-white rounded-full p-2">
-                                <p class="text-3xl">10</p>
-                            </div>
-                        </div>
+        <!-- CÍRCULOS -->
+        <div class="flex flex-wrap justify-around gap-4">
+            <div class="flex flex-col items-center gap-1 caudex-regular">
+                <div class="w-14 flex items-center justify-center border-2 border-black rounded-full aspect-square bg-white">
+                    <p class="text-lg">0</p>
+                </div>
+                <p class="text-xs">PG</p>
+            </div>
+            <div class="flex flex-col items-center gap-1 caudex-regular">
+                <div class="w-14 flex items-center justify-center border-2 border-black rounded-full aspect-square bg-white">
+                    <p class="text-lg">0</p>
+                </div>
+                <p class="text-xs">CA</p>
+            </div>
+            <div class="flex flex-col items-center gap-1 caudex-regular">
+                <div class="w-14 flex items-center justify-center border-2 border-black rounded-full aspect-square bg-white">
+                    <p class="text-lg">+0</p>
+                </div>
+                <p class="text-xs">Iniciativa</p>
+            </div>
+            <div class="flex flex-col items-center gap-1 caudex-regular">
+                <div class="w-14 flex items-center justify-center border-2 border-black rounded-full aspect-square bg-white">
+                    <p class="text-lg">0</p>
+                </div>
+                <p class="text-xs">Velocidad</p>
+            </div>
+            <div class="flex flex-col items-center gap-1 caudex-regular">
+                <div class="w-14 flex items-center justify-center border-2 border-black rounded-full aspect-square bg-white">
+                    <p class="text-lg">+0</p>
+                </div>
+                <p class="text-xs">Bono Atq</p>
+            </div>
+            <div class="flex flex-col items-center gap-1 caudex-regular">
+                <div class="w-14 flex items-center justify-center border-2 border-black rounded-full aspect-square bg-white">
+                    <p class="text-lg">0</p>
+                </div>
+                <p class="text-xs">Inspiración</p>
+            </div>
+            <div class="flex flex-col items-center gap-1 caudex-regular">
+                <div class="w-14 flex items-center justify-center border-2 border-black rounded-full aspect-square bg-white">
+                    <p class="text-lg">+0</p>
+                </div>
+                <p class="text-xs">Proficiencia</p>
+            </div>
+        </div>
 
-                        <div class="relative flex flex-col caudex-regular items-center">
-                            <div class="border-2 border-black rounded-2xl px-8 pb-6 bg-white">
-                                <p class="caudex-bold">Fuerza</p>
-                                <p class="text-7xl">0</p>
-                            </div>
-                            <div class="absolute bottom-0 translate-y-6 translate border-2 border-black bg-white rounded-full p-2">
-                                <p class="text-3xl">10</p>
-                            </div>
-                        </div>
-
-                        <div class="relative flex flex-col caudex-regular items-center">
-                            <div class="border-2 border-black rounded-2xl px-8 pb-6 bg-white">
-                                <p class="caudex-bold">Fuerza</p>
-                                <p class="text-7xl">0</p>
-                            </div>
-                            <div class="absolute bottom-0 translate-y-6 translate border-2 border-black bg-white rounded-full p-2">
-                                <p class="text-3xl">10</p>
-                            </div>
-                        </div>
-
-                        <div class="relative flex flex-col caudex-regular items-center">
-                            <div class="border-2 border-black rounded-2xl px-8 pb-6 bg-white">
-                                <p class="caudex-bold">Fuerza</p>
-                                <p class="text-7xl">0</p>
-                            </div>
-                            <div class="absolute bottom-0 translate-y-6 translate border-2 border-black bg-white rounded-full p-2">
-                                <p class="text-3xl">10</p>
-                            </div>
-                        </div>
-                    </aside>
-                    <!--ESTADÍSTICAS SUMADAS-->
-                    <div class="col-span-9">
-
+        <!-- ESTADÍSTICAS BASE -->
+        <div class="grid grid-cols-3 gap-6">
+            <div class="relative flex flex-col caudex-regular items-center">
+                <div class="border-2 border-black rounded-2xl bg-white flex flex-col items-center w-full">
+                    <p class="caudex-bold text-lg py-1 truncate px-1">Fuerza</p>
+                    <div class="border-t-2 border-black w-full flex items-center justify-center aspect-square">
+                        <p class="text-6xl">0</p>
                     </div>
                 </div>
-            </aside>
+                <div class="absolute bottom-0 translate-y-1/2 border-2 border-black bg-white rounded-full aspect-square w-7 flex-shrink-0 flex items-center justify-center">
+                    <p class="text-xs">10</p>
+                </div>
+            </div>
+            <div class="relative flex flex-col caudex-regular items-center">
+                <div class="border-2 border-black rounded-2xl bg-white flex flex-col items-center w-full">
+                    <p class="caudex-bold text-lg py-1 truncate px-1">Destreza</p>
+                    <div class="border-t-2 border-black w-full flex items-center justify-center aspect-square">
+                        <p class="text-6xl">0</p>
+                    </div>
+                </div>
+                <div class="absolute bottom-0 translate-y-1/2 border-2 border-black bg-white rounded-full aspect-square w-7 flex-shrink-0 flex items-center justify-center">
+                    <p class="text-xs">10</p>
+                </div>
+            </div>
+            <div class="relative flex flex-col caudex-regular items-center">
+                <div class="border-2 border-black rounded-2xl bg-white flex flex-col items-center w-full">
+                    <p class="caudex-bold text-lg py-1 truncate px-1">Constitución</p>
+                    <div class="border-t-2 border-black w-full flex items-center justify-center aspect-square">
+                        <p class="text-6xl">0</p>
+                    </div>
+                </div>
+                <div class="absolute bottom-0 translate-y-1/2 border-2 border-black bg-white rounded-full aspect-square w-7 flex-shrink-0 flex items-center justify-center">
+                    <p class="text-xs">10</p>
+                </div>
+            </div>
+            <div class="relative flex flex-col caudex-regular items-center">
+                <div class="border-2 border-black rounded-2xl bg-white flex flex-col items-center w-full">
+                    <p class="caudex-bold text-lg py-1 truncate px-1">Inteligencia</p>
+                    <div class="border-t-2 border-black w-full flex items-center justify-center aspect-square">
+                        <p class="text-6xl">0</p>
+                    </div>
+                </div>
+                <div class="absolute bottom-0 translate-y-1/2 border-2 border-black bg-white rounded-full aspect-square w-7 flex-shrink-0 flex items-center justify-center">
+                    <p class="text-xs">10</p>
+                </div>
+            </div>
+            <div class="relative flex flex-col caudex-regular items-center">
+                <div class="border-2 border-black rounded-2xl bg-white flex flex-col items-center w-full">
+                    <p class="caudex-bold text-lg py-1 truncate px-1">Sabiduría</p>
+                    <div class="border-t-2 border-black w-full flex items-center justify-center aspect-square">
+                        <p class="text-6xl">0</p>
+                    </div>
+                </div>
+                <div class="absolute bottom-0 translate-y-1/2 border-2 border-black bg-white rounded-full aspect-square w-7 flex-shrink-0 flex items-center justify-center">
+                    <p class="text-xs">10</p>
+                </div>
+            </div>
+            <div class="relative flex flex-col caudex-regular items-center">
+                <div class="border-2 border-black rounded-2xl bg-white flex flex-col items-center w-full">
+                    <p class="caudex-bold text-lg py-1 truncate px-1">Carisma</p>
+                    <div class="border-t-2 border-black w-full flex items-center justify-center aspect-square">
+                        <p class="text-6xl">0</p>
+                    </div>
+                </div>
+                <div class="absolute bottom-0 translate-y-1/2 border-2 border-black bg-white rounded-full aspect-square w-7 flex-shrink-0 flex items-center justify-center">
+                    <p class="text-xs">10</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</aside>
         </div>
     </div>`
 }
