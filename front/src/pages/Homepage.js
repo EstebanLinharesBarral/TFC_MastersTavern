@@ -35,7 +35,9 @@ export function renderHomepage() {
                     </div>
                 </div>
                 <div id="prev-sessions-container">
-                    
+                    <div class="bg-red-500 md:bg-green-500 p-4">
+  TEST
+</div>
                 </div>
             </section>
             <section class="col-span-6">

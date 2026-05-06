@@ -1,9 +1,9 @@
 // services/FetchService.js
+import { global } from "../global.js";
 
 class FetchService {
     async post(endpoint, payload) {
-        const BASE_URL = "http://127.0.0.1:8000";
-        const response = await fetch(BASE_URL + endpoint, {
+        const response = await fetch(global.BASE_URL + endpoint, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -21,36 +21,46 @@ export function Header() {
     }, 0)
 
     return `
-    <div id="menu-sidebar" class="absolute scrollbar-hide overflow-y-auto grid grid-rows-12 grid-cols-1 justify-center block w-80 h-full z-60 back-mt-light shadow-xl caudex-regular">
-        <button id="sidebar-close-btn"><i data-lucide="x"></i></button>
-        <a class="justify-self-center row-span-3"><img src="src/assets/LogoMastersTavernSinFondo.png"></a>
-        <div class="text-xl row-span-6">
-            <a href="#" class="block p-4 m-2 border-b">Mis personajes</a>
-            <a href="#" class="block p-4 m-2 border-b">Mis campañas</a>
-            <a href="#" class="block p-4 m-2 border-b">Mis sesiones</a>
-            <a href="#" class="block p-4 m-2 border-b">Social</a>
-            <a href="#" class="block p-4 m-2 border-b">Mi perfil</a>
-        </div>
-        <div class="text-xl row-span-3">
-            <a class="block p-4 m-2 border">Cerrar Sesión</a>
-            <a class="block p-4 m-2 border">Cerrar Sesión</a>
-            <a class="block p-4 m-2 border">Cerrar Sesión</a>
-        </div>
-    </div>
-    
-    <header class="group grid grid-cols-10 text-lg border-b border-[#301B0F] back-mt-light text-mt-dark items-center p-3 caudex-bold">
-        <div class="flex col-span-2">
-            <button id="menu-sidebar-btn" class="border"><i data-lucide="Menu"></i></button>
-            <img src="src/assets/LogoEstiradoSinFondo.png" alt="logo">
-        </div>
-        <div class="flex col-span-6 items-center justify-self-center border-x-2 px-4">
-                <a href="#" class="px-4"><i data-lucide="globe" class="inline"></i> Wiki</a>
-                <a href="#" class="px-4"><i data-lucide="book-text" class="inline"></i> Manuales</a>
-                <a href="#" class="px-4"><i data-lucide="megaphone" class="inline"></i> Noticias</a>
-        </div>
-        <div class="flex col-span-2 justify-self-end items-center gap-2">
-            <div class="rounded-full w-[50px] border-2 overflow-hidden"><img src="./src/assets/avatar.png"></div>
-            <p><a href="#/sign-in">Sign up</a><span> / </span><a href="#/log-in">Log in</a><p>
+    <header class="sticky top-0 z-50 w-full border-b border-[#301B0F] back-mt-light text-mt-dark caudex-bold shadow-lg">
+        <div class="flex items-center justify-between px-4 py-3">
+            <button id="menu-sidebar-btn" class="block md:hidden border"><i data-lucide="Menu"></i></button>
+
+            <!-- LOGO -->
+            <div class="flex items-center gap-3">
+                <img src="src/assets/LogoEstiradoSinFondo.png" alt="logo" class="h-10">
+            </div>
+
+            <!-- NAV (desktop) -->
+            <nav class="hidden md:flex items-center gap-6 border-x-2 px-6">
+                <a href="#/" class="flex items-center gap-2 hover:opacity-70">
+                    <i data-lucide="user"></i> Mis Personajes
+                </a>
+
+                <a href="#/" class="flex items-center gap-2 hover:opacity-70">
+                    <i data-lucide="book-text"></i> Mis Campañas
+                </a>
+
+                <a href="#/" class="flex items-center gap-2 hover:opacity-70">
+                    <i data-lucide="clock"></i> Mis Sesiones
+                </a>
+
+                <a href="#/" class="flex items-center gap-2 hover:opacity-70">
+                    <i data-lucide="globe"></i> Social
+                </a>
+            </nav>
+
+            <!-- USER -->
+            <div class="flex items-center gap-3">
+                <div class="rounded-full w-10 h-10 border-2 overflow-hidden">
+                    <img src="./src/assets/avatar.png" class="w-full h-full object-cover">
+                </div>
+
+                <div class="hidden sm:block text-sm">
+                    <a href="#/sign-in">Sign up</a>
+                    <span> / </span>
+                    <a href="#/log-in">Log in</a>
+                </div>
+            </div>
         </div>
     </header>`
 }
