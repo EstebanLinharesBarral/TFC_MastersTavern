@@ -18,8 +18,3 @@ const routes = {
 createRouter(routes);
 
 lucide.createIcons();
-
-/*const router = createRouter(routes);
-
-window.addEventListener("DOMContentLoaded", router);
-window.addEventListener("popstate", router);*/

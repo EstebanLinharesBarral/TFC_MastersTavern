@@ -5,10 +5,7 @@ function creadeDataCard() {
 
 export function renderHomepage() {
     setTimeout(() => {
-        
             const calendarEl = document.getElementById('calendar');
-            
-            console.log(calendarEl)
 
             if(calendarEl){
                 const calendar = new FullCalendar.Calendar(calendarEl, {
@@ -36,8 +33,8 @@ export function renderHomepage() {
                 </div>
                 <div id="prev-sessions-container">
                     <div class="bg-red-500 md:bg-green-500 p-4">
-  TEST
-</div>
+                        TEST
+                    </div>
                 </div>
             </section>
             <section class="col-span-6">
