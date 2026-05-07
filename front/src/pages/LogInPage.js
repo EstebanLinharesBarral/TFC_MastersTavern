@@ -18,12 +18,21 @@ export function renderLogInPage() {
         })
 
         //EVENTO SUBMIT
-        //EVENTO SUBMIT
-                form.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-        
-                    const response = await authService.login(form);
-                })
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            try{
+                const response = await authService.login(form);
+
+                if(response.access){
+                    localStorage.setItem('auth_token', response.access);
+                    setTimeout(() => {window.location.hash = '#/'}, 1000)
+                }
+            }catch(error){
+                console.error('Error en el login:', error)
+            }
+        })
+
     })
 
     return `<div class="pt-6 p-4">

@@ -19,11 +19,17 @@ export function renderSignInPage() {
             })
         })
 
-        //EVENTO SUBMIT
+        // EVENTO SUBMIT
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const response = await authService.register(form);
+            try{
+                const response = await authService.register(form);
+            }catch(error){
+                console.error('Error en el login:', error)
+            }finally{
+                setTimeout(() => {window.location.hash = '#/log-in'}, 1000)
+            }
         })
     })
     

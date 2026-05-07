@@ -1,3 +1,5 @@
+import { authService } from "../services/AuthService.js";
+
 // components/header.js
 export function Header() {
 
@@ -5,6 +7,9 @@ export function Header() {
         const menuSidebarBtn = document.getElementById('menu-sidebar-btn');
         const menuSidebar = document.getElementById('menu-sidebar');
         const closeSidebarBtn = document.getElementById('sidebar-close-btn');
+
+        const user = await authService.getMe();
+        console.log(user)
 
         if(menuSidebarBtn && menuSidebar) {
             menuSidebarBtn.addEventListener('click', () => {

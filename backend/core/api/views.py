@@ -3,6 +3,9 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 # Create your views here.
 @csrf_exempt
@@ -40,7 +43,7 @@ def register(request):
 
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
-    
+
 @csrf_exempt
 def login(request):
     data = json.loads(request.body)
@@ -56,4 +59,17 @@ def login(request):
     return JsonResponse({
         "message": "Login correcto",
         "username": user.username
+    })
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def me(request):
+    user = request.user
+
+    return Response({
+        "id": user.id,
+        "username": user.username,
+        "email": user.email,
+        "first_name": user.first_name,
+        "last_name": user.last_name,
     })
