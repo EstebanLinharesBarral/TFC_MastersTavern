@@ -12,7 +12,7 @@ export function renderHomepage() {
                 <p><span class="text-amber-600 text-glow-torch">Masters</span>Tavern</p>
             </h2>
             <p class="garamond-italic text-mt-lighter text-lg">Gestiona tus partidas y personajes de rol</p>
-            <a href="#/" class="flex tracking-widest items-center gap-2 justify-center cinzel-regular w-fit text-mt-light text-sm rounded-lg bg-gradient-red border-2 border-gold py-3 px-8 hover:saturate-120"><i data-lucide="swords"></i>  Crear Nuevo Personaje</a>
+            <a href="#/new-character" class="flex tracking-widest items-center gap-2 justify-center cinzel-regular w-fit text-mt-light text-sm rounded-lg bg-gradient-red border-2 border-gold py-3 px-8 hover:saturate-120"><i data-lucide="swords"></i>  Crear Nuevo Personaje</a>
             <a href="#/" class="flex tracking-widest items-center gap-2 justify-center cinzel-regular w-fit text-mt-light text-sm rounded-lg bg-gradient-brown border border-gold py-3 px-8 hover:saturate-150"><i data-lucide="map"></i>  Explorar partidas</a>
         </div>
 
@@ -20,7 +20,7 @@ export function renderHomepage() {
 
             <!-- SECCIÓN SESIONES -->
             <section class="grid grid-rows-10 border border-gold rounded-lg text-center text-mt-light bg-gradient-lightbrown shadow-2xl">
-                <h3 class="cinzel-bold row-span-1 tracking-widest border-b border-gold-light py-3 px-8">Últimas Sesiones</h3>
+                <h3 class="cinzel-bold bg-gradient-brown row-span-1 tracking-widest border-b border-gold-light py-3 px-8">Últimas Sesiones</h3>
                 <div class="p-6 row-span-8">
                     <div class="bg-[url(src/assets/party_bg.jpg)] rounded-md border border-gold-light min-h-[150px] bg-cover bg-[position:70%_75%] overflow-hidden"></div>
                     <ul id="sessions-list" class="garamond-regular list-inside text-start mt-8 divide-y divide-[#2f2207c8]">
@@ -33,7 +33,7 @@ export function renderHomepage() {
 
             <!-- SECCIÓN SOCIAL -->
             <section class="grid grid-rows-10 border border-gold rounded-lg text-center text-mt-light bg-gradient-lightbrown shadow-2xl">
-                <h3 class="cinzel-bold row-span-1 tracking-widest border-b border-gold-light py-3 px-8">Últimas Sesiones</h3>
+                <h3 class="cinzel-bold bg-gradient-brown row-span-1 tracking-widest border-b border-gold-light py-3 px-8">Social</h3>
                 <div class="p-6 row-span-8">
                     <ul id="social-list" class="garamond-regular list-inside text-start mt-4 space-y-6">
                         <li class="flex items-start">
@@ -60,7 +60,7 @@ export function renderHomepage() {
 
             <!-- SECCIÓN NOTICIAS -->
             <section class="grid grid-rows-10 border border-gold rounded-lg text-center text-mt-light bg-gradient-lightbrown shadow-2xl">
-                <h3 class="cinzel-bold row-span-1 tracking-widest border-b border-gold-light py-3 px-8">Últimas Sesiones</h3>
+                <h3 class="cinzel-bold bg-gradient-brown row-span-1 tracking-widest border-b border-gold-light py-3 px-8">Últimas Noticias</h3>
                 <div class="p-6 row-span-8">
                     <ul id="news-list" class="garamond-regular list-inside text-start space-y-4">
                         <li class="flex flex-col items-start gap-4">

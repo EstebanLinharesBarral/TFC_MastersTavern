@@ -91,9 +91,11 @@
 .form-input {
     width: 100%;
     color: black;
+    font-family: 'EB Garamond';
     font-weight: 400;
-    background-color: var(--default-light);
-    border-bottom: 2px solid var(--default-dark);
+    color: var(--default-light);
+    background-color: #30302E;
+    border-bottom: 2px solid var(--default-light);
     border-radius: 4px 4px 0 0;
     height: 3.5rem;
     padding: 1rem;
@@ -101,7 +103,10 @@
 }
 .form-input:focus {
     outline: 0;
-    border-bottom: 4px solid var(--default-dark);
+    border-bottom: 4px solid var(--default-light);
+}
+.form-input::placeholder {
+    color: var(--default-light);
 }
 
 .label-floating {
@@ -111,26 +116,30 @@
     left: 1rem;
     transform: translateY(-50%);
     font-size: 1rem;
-    color: var(--default-dark);
+    color: var(--default-light);
     pointer-events: none;
     transition: all 0.3s ease;
+    font-family: 'Cinzel';
+    font-weight: 400;
 }
 .form-input:focus + .label-floating {
     position: absolute;
     top: 0;
     transform: translateY(25%);
     font-size: 0.80rem;
+    border-bottom: 1px solid var(--default-sublight);
 }
 .label-focus {
     display: block;
     position: absolute;
     left: 1rem;
-    color: var(--default-dark);
+    color: var(--default-light);
     pointer-events: none;
     transition: all 0.3s ease;
     top: 0;
     transform: translateY(25%);
     font-size: 0.80rem;
+    border-bottom: 1px solid var(--default-sublight);
 }
 
 /* 8. BOX-SHADOW */
@@ -165,6 +174,10 @@
 
 .bg-gradient-red {
     background: linear-gradient(to right, #b33234 20%, #8f1d1f 50%, #701314 100%)
+}
+
+.bg-gradient-white {
+    background: linear-gradient(160deg, #F3E6C9 0%, #E4D3A8 100%)
 }
 
 /*TEXT SHADOWS*/

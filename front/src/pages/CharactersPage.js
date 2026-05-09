@@ -8,7 +8,7 @@ export function renderCharactersPage() {
         <div class="border-b-2 pt-4 pb-4 flex flex-col gap-6">
             <!-- TÍTULO -->
             <div class="text-center">
-                <h1 class="english-regular text-mt-dark text-3xl">
+                <h1 class="cinzel-bold text-mt-light text-3xl">
                     Mis Personajes
                 </h1>
                 <p></p>
@@ -54,7 +54,7 @@ export function renderCharactersPage() {
         <!-- CONTENIDO -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <!-- LISTADO -->
-            <section class="lg:col-span-6 flex flex-col gap-6 back-mt-orange p-8 rounded-xl shadow-surround border-2 border-mt-dark min-h-80">
+            <section class="lg:col-span-6 flex flex-col gap-6 bg-gradient-white p-8 rounded-xl shadow-surround border-2 border-mt-dark min-h-80">
                 <!-- ITEM EJEMPLO -->
                 <article class="flex justify-between items-center p-4 rounded-lg back-mt-light shadow-surround hover:scale-[1.05] duration-150">
                     <div class="flex flex-col">

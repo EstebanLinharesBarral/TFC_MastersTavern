@@ -37,26 +37,29 @@ export function renderLogInPage() {
     })
 
     return `<div class="pt-6 p-4">
-            <form id="login-form" class="grid md:w-[500px] grid-rows-3 my-4 gap-8 p-8 back-mt-orange justify-self-center border-solid border-2 shadow-surround rounded-xl caudex-bold">
+            <div class="bg-gradient-white justify-self-center border border-gold shadow-surround rounded-xl overflow-hidden">
+                <h3 class="cinzel-bold bg-gradient-brown text-mt-light tracking-widest border-b border-gold py-3 px-8">Log in</h3>
+                <form id="login-form" class="space-y-8 gap-8 p-8 sm:min-w-[600px]">
 
-                <div class="row-span-1">
-                    <div class="relative">
-                        <input type="text" required name="username" placeholder=" " class="form-input">
-                        <label class="absolute label-floating">Nombre de Usuario</label>
+                    <div class="row-span-1">
+                        <div class="relative">
+                            <input type="text" required name="username" placeholder=" " class="form-input">
+                            <label class="absolute label-floating">Nombre de Usuario</label>
+                        </div>
                     </div>
-                </div>
 
-                <div class="row-span-1">
-                    <div class="relative">
-                        <input type="password" required name="password" placeholder=" " class="form-input">
-                        <label class="absolute label-floating">Contraseña</label>
+                    <div class="row-span-1">
+                        <div class="relative">
+                            <input type="password" required name="password" placeholder=" " class="form-input">
+                            <label class="absolute label-floating">Contraseña</label>
+                        </div>
                     </div>
-                </div>
 
-                <div class="flex justify-center items-center row-span-1">
-                    <button type="submit" class="form-btn whitespace-nowrap">Log in</button>
-                </div>
+                    <div class="flex justify-center items-center row-span-1">
+                        <button type="submit" class="bg-gradient-red border border-gold rounded-lg cinzel-regular text-mt-light tracking-widest px-10 py-4 hover:cursor-pointer hover:saturate-120">Log in</button>
+                    </div>
 
-            </form>
+                </form>
+            </div>
     </div>`
 }
