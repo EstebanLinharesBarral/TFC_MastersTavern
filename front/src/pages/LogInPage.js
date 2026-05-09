@@ -26,6 +26,7 @@ export function renderLogInPage() {
 
                 if(response.access){
                     localStorage.setItem('auth_token', response.access);
+                    localStorage.setItem('refresh_token', response.refresh);
                     setTimeout(() => {window.location.hash = '#/'}, 1000)
                 }
             }catch(error){

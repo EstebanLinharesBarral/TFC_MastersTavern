@@ -12,6 +12,13 @@ class AuthService {
         return fetchService.post("/api/token/", data);
     }
 
+    logout() {
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('refresh_token');
+        
+        setTimeout(() => {window.location.hash = '#/'}, 1000)
+    }
+
     getToken(){
         return localStorage.getItem('auth_token');
     }

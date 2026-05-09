@@ -6,6 +6,18 @@ import { renderLogInPage } from "./pages/LogInPage.js";
 import { renderCharactersPage } from "./pages/CharactersPage.js";
 import { renderCharacterForm } from "./pages/CharacterForm.js";
 
+// Servicios
+import { authService } from "./services/AuthService.js";
+
+export function initGlobalEvents() {
+    document.addEventListener("click", (e) => {
+        const logoutBtn = e.target.closest(".logout-btn");
+        if (logoutBtn) {
+            authService.logout();
+        }
+    });
+}
+
 const routes = {
     "/": () => renderHomepage(),
     "/sign-in": () => renderSignInPage(),
@@ -16,5 +28,6 @@ const routes = {
 };
 
 createRouter(routes);
+initGlobalEvents();
 
 lucide.createIcons();

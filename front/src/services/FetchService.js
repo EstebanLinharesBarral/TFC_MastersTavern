@@ -2,44 +2,104 @@
 import { global } from "../global.js";
 
 class FetchService {
-    async post(endpoint, payload) {
+    async request(endpoint, options = {}, retry = true) {
+
+        const {
+            method = "GET",
+            body = null,
+            requiresAuth = true
+        } = options;
+
+        const headers = {};
+
+        // JWT automático
+        if (requiresAuth) {
+            const token = localStorage.getItem("auth_token");
+
+            if (token) {
+                headers["Authorization"] = `Bearer ${token}`;
+            }
+        }
+
+        // JSON automático
+        if (body) {
+            headers["Content-Type"] = "application/json";
+        }
+
         const response = await fetch(global.BASE_URL + endpoint, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
+            method,
+            headers,
+            body: body ? JSON.stringify(body) : null
         });
 
-        const data = await response.json();
+        // Token expirado
+        if (response.status === 401 && retry) {
 
+            const refresh = localStorage.getItem("refresh_token");
+
+            // Si no hay refresh → logout
+            if (!refresh) {
+                this.logout();
+                throw new Error("Sesión expirada");
+            }
+
+            // Intentar refresh
+            const refreshResponse = await fetch(
+                global.BASE_URL + "/api/token/refresh/",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        refresh
+                    })
+                }
+            );
+
+            // Refresh inválido
+            if (!refreshResponse.ok) {
+                this.logout();
+                throw new Error("Sesión expirada");
+            }
+
+            const refreshData = await refreshResponse.json();
+
+            // Guardar nuevo access token
+            localStorage.setItem("auth_token", refreshData.access);
+
+            // Repetir request original
+            return this.request(endpoint, options, false);
+        }
+
+        // Intentar parsear JSON
+        let data = null;
+
+        const contentType = response.headers.get("content-type");
+
+        if (contentType && contentType.includes("application/json")) {
+            data = await response.json();
+        }
+
+        // Manejo de errores
         if (!response.ok) {
-            throw new Error(data.error || "Error");
+            throw new Error(data?.error || "Error");
         }
 
         return data;
     }
 
-    async get(endpoint, jwt = null) {
-        const headers = {};
-        console.log(jwt)
-
-        if (jwt) {
-            headers["Authorization"] = `Bearer ${jwt}`;
-        }
-
-        const response = await fetch(global.BASE_URL + endpoint, {
-            method: "GET",
-            headers
+    async get(endpoint) {
+        return this.request(endpoint, {
+            method: "GET"
         });
+    }
 
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.error || "Error");
-        }
-
-        return data;
+    async post(endpoint, payload) {
+        return this.request(endpoint, {
+            method: "POST",
+            body: payload
+        });
     }
 }
 

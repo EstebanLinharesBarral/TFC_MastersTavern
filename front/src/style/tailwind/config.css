@@ -1,12 +1,14 @@
 /* 1. PALETA DE COLORES */
 :root{
-    --default-light: #E6D3B0;
+    --default-light: #f4d891;
 
     --default-back: #F4E8D3;
 
     --default-dark: #301B0F;
 
-    --default-orange: #DBAD81
+    --default-orange: #DBAD81;
+
+    --default-gold: #BE9F4A;
 }
 
 /* 2. BOTONES */
@@ -46,6 +48,10 @@
     color: var(--default-light);
 }
 
+.text-mt-lighter{
+    color: var(--default-back);
+}
+
 /* 4. FONDOS PERSONALIZADOS */
 .back-mt-light{
     background-color: var(--default-light);
@@ -60,8 +66,10 @@
     background-color: var(--default-orange);
 }
 
-/* 5. HOVERS PERSONALIZADOS */
-
+/* 5. BORDER COLOR PERSONALIZADOS */
+.border-gold {
+    border-color: var(--default-gold);
+}
 
 /* 6. SCROLLBAR */
 .scrollbar-hide::-webkit-scrollbar {
@@ -71,7 +79,7 @@
 /* 7. INPUTS */
 .form-input {
     width: 100%;
-    color: var(--default-dark);
+    color: black;
     font-weight: 400;
     background-color: var(--default-light);
     border-bottom: 2px solid var(--default-dark);
@@ -82,7 +90,7 @@
 }
 .form-input:focus {
     outline: 0;
-    border-bottom: 3px solid var(--default-dark);
+    border-bottom: 4px solid var(--default-dark);
 }
 
 .label-floating {
@@ -100,7 +108,7 @@
     position: absolute;
     top: 0;
     transform: translateY(25%);
-    font-size: 0.70rem;
+    font-size: 0.80rem;
 }
 .label-focus {
     display: block;
@@ -111,7 +119,7 @@
     transition: all 0.3s ease;
     top: 0;
     transform: translateY(25%);
-    font-size: 0.70rem;
+    font-size: 0.80rem;
 }
 
 /* 8. BOX-SHADOW */
@@ -129,17 +137,37 @@
     transform: translateX(0); /* visible */
 }
 
+/*BACKGORUNDS CON GRADIENTES*/
+.bg-gradient-brown {
+    background: linear-gradient(to bottom, #0d0500 10%, #190D04 50%,  #0d0500 100% )
+}
+
+.bg-gradient-torch {
+    background: radial-gradient(circle at 10% 50%, #482203 0%, transparent 30% ),
+                radial-gradient(circle at 80% 20%, #482203 0%, transparent 30% ),
+                linear-gradient(to bottom, #0d0500 10%, #2B1302 50%,  #0d0500 100% )
+}
+
+.bg-gradient-red {
+    background: linear-gradient(to right, #b33234 20%, #8f1d1f 50%, #701314 100%)
+}
+
+/*TEXT SHADOWS*/
+.text-glow-torch {
+    text-shadow: 0 0 7px #e17000;
+}
+
 /* FONTS */
 @font-face {
-  font-family: 'Caudex';
-  src: url('/front/src/fonts/Caudex/Caudex-Regular.ttf') format('truetype');
-  font-weight: 400;
+    font-family: 'Caudex';
+    src: url('/front/src/fonts/Caudex/Caudex-Regular.ttf') format('truetype');
+    font-weight: 400;
 }
 
 @font-face {
-  font-family: 'Caudex';
-  src: url('/front/src/fonts/Caudex/Caudex-Bold.ttf') format('truetype');
-  font-weight: 700;
+    font-family: 'Caudex';
+    src: url('/front/src/fonts/Caudex/Caudex-Bold.ttf') format('truetype');
+    font-weight: 700;
 }
 
 @font-face {
@@ -151,6 +179,30 @@
 @font-face {
     font-family: 'Petrona';
     src: url('/front/src/fonts/Petrona/Petrona-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Cinzel';
+    src: url('/front/src/fonts/Cinzel/static/Cinzel-Regular.ttf');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Cinzel';
+    src: url('/front/src/fonts/Cinzel/static/Cinzel-Bold.ttf');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'Cinzel Decorative';
+    src: url('/front/src/fonts/Cinzel_Decorative/CinzelDecorative-Bold.ttf');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'EB Garamond';
+    src: url('/front/src/fonts/EB_Garamond/static/EBGaramond-Italic.ttf');
+    font-weight: 400;
 }
 
 .caudex-bold {
@@ -170,5 +222,25 @@
 
 .petrona-regular {
     font-family: 'Petrona';
+    font-weight: 400;
+}
+
+.cinzel-regular {
+    font-family: 'Cinzel';
+    font-weight: 400;
+}
+
+.cinzel-bold {
+    font-family: 'Cinzel';
+    font-weight: bold;
+}
+
+.decorative-bold {
+    font-family: 'Cinzel Decorative';
+    font-weight: bold;
+}
+
+.garamond-regular {
+    font-family: 'EB Garamond';
     font-weight: 400;
 }

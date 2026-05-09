@@ -44,9 +44,9 @@ export function renderCharactersPage() {
                 </div>
 
                 <!-- BOTÓN -->
-                <button class="btn border-2 border-black caudex-regular text-white h-fit">
+                <a href="#/new-character" class="btn border-2 border-black caudex-regular text-white h-fit">
                     + Nuevo Personaje
-                </button>
+                </a>
 
             </div>
         </div>
