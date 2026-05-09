@@ -2,6 +2,8 @@
 :root{
     --default-light: #f4d891;
 
+    --default-sublight: #7F6C4D;
+
     --default-back: #F4E8D3;
 
     --default-dark: #301B0F;
@@ -44,8 +46,13 @@
 .text-mt-dark{
     color: var(--default-dark);
 }
+
 .text-mt-light{
     color: var(--default-light);
+}
+
+.text-mt-sublight{
+    color: var(--default-sublight);
 }
 
 .text-mt-lighter{
@@ -69,6 +76,10 @@
 /* 5. BORDER COLOR PERSONALIZADOS */
 .border-gold {
     border-color: var(--default-gold);
+}
+
+.border-gold-light {
+    border-color: #2f2207c8
 }
 
 /* 6. SCROLLBAR */
@@ -148,6 +159,10 @@
                 linear-gradient(to bottom, #0d0500 10%, #2B1302 50%,  #0d0500 100% )
 }
 
+.bg-gradient-lightbrown {
+    background: linear-gradient(160deg, rgba(40,20,5,0.95) 0%, rgba(20,10,2,0.98) 100%)
+}
+
 .bg-gradient-red {
     background: linear-gradient(to right, #b33234 20%, #8f1d1f 50%, #701314 100%)
 }
@@ -201,8 +216,14 @@
 
 @font-face {
     font-family: 'EB Garamond';
-    src: url('/front/src/fonts/EB_Garamond/static/EBGaramond-Italic.ttf');
+    src: url('/front/src/fonts/EB_Garamond/static/EBGaramond-Medium.ttf');
     font-weight: 400;
+}
+
+@font-face {
+    font-family: 'EB Garamond';
+    src: url('/front/src/fonts/EB_Garamond/static/EBGaramond-Italic.ttf');
+    font-style: italic;
 }
 
 .caudex-bold {
@@ -243,4 +264,9 @@
 .garamond-regular {
     font-family: 'EB Garamond';
     font-weight: 400;
+}
+
+.garamond-italic {
+    font-family: 'EB Garamond';
+    font-style: italic;
 }
