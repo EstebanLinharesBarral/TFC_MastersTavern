@@ -2,6 +2,8 @@
 :root{
     --default-light: #f4d891;
 
+    --default-brownlight: #2a2008;
+
     --default-sublight: #7F6C4D;
 
     --default-back: #F4E8D3;
@@ -11,6 +13,8 @@
     --default-orange: #DBAD81;
 
     --default-gold: #BE9F4A;
+
+    --default-darker: #100902;
 }
 
 /* 2. BOTONES */
@@ -59,6 +63,10 @@
     color: var(--default-back);
 }
 
+.text-mt-lightbrown {
+    color: var(--default-brownlight);
+}
+
 /* 4. FONDOS PERSONALIZADOS */
 .back-mt-light{
     background-color: var(--default-light);
@@ -66,11 +74,17 @@
 .back-mt-dark{
     background-color: var(--default-dark);
 }
+.back-mt-darker{
+    background-color: var(--default-darker);
+}
 .back-mt-lighter{
     background-color: var(--default-back);
 }
 .back-mt-orange{
     background-color: var(--default-orange);
+}
+.back-mt-sublight{
+    background-color: var(--default-sublight);
 }
 
 /* 5. BORDER COLOR PERSONALIZADOS */
@@ -80,6 +94,10 @@
 
 .border-gold-light {
     border-color: #2f2207c8
+}
+
+.border-brown-light {
+    border-color: var(--default-brownlight);
 }
 
 /* 6. SCROLLBAR */
@@ -222,6 +240,12 @@
 }
 
 @font-face {
+    font-family: 'Cinzel';
+    src: url('/front/src/fonts/Cinzel/static/Cinzel-Medium.ttf');
+    font-weight: 600;
+}
+
+@font-face {
     font-family: 'Cinzel Decorative';
     src: url('/front/src/fonts/Cinzel_Decorative/CinzelDecorative-Bold.ttf');
     font-weight: bold;
@@ -237,6 +261,12 @@
     font-family: 'EB Garamond';
     src: url('/front/src/fonts/EB_Garamond/static/EBGaramond-Italic.ttf');
     font-style: italic;
+}
+
+@font-face {
+    font-family: 'EB Garamond';
+    src: url('/front/src/fonts/EB_Garamond/static/EBGaramond-Medium.ttf');
+    font-weight: 600;
 }
 
 .caudex-bold {
@@ -264,6 +294,11 @@
     font-weight: 400;
 }
 
+.cinzel-medium {
+    font-family: 'Cinzel';
+    font-weight: 600;
+}
+
 .cinzel-bold {
     font-family: 'Cinzel';
     font-weight: bold;
@@ -282,4 +317,9 @@
 .garamond-italic {
     font-family: 'EB Garamond';
     font-style: italic;
+}
+
+.garamond-medium {
+    font-family: 'EB Garamond';
+    font-weight: 600;
 }

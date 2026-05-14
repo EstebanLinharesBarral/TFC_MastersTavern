@@ -68,7 +68,7 @@ export function renderHomepage() {
                             <div class="space-y-1">
                                 <p class="cinzel-regular text-base tracking-wide">Nuevo Bestiario Disponible</p>
                                 <p class="garamond-regular text-mt-lighter">Descubre las nuevas criaturas para tus partidas</p>
-                                <a href="#/" class="flex tracking-widest items-center gap-2 justify-center cinzel-regular w-fit text-mt-light text-sm rounded-lg bg-gradient-red border-2 border-gold py-1 px-4 hover:saturate-120 mt-3">Leer Más</a>
+                                <a href="#/" class="flex tracking-widest items-center gap-2 justify-center cinzel-regular w-fit text-mt-light text-sm rounded-lg bg-gradient-red border border-gold py-1 px-4 hover:saturate-120 mt-3">Leer Más</a>
                             </div>
                         </li>
 
@@ -77,7 +77,7 @@ export function renderHomepage() {
                             <div class="space-y-1">
                                 <p class="cinzel-regular text-base tracking-wide">Nuevo Bestiario Disponible</p>
                                 <p class="garamond-regular text-mt-lighter">Descubre las nuevas criaturas para tus partidas</p>
-                                <a href="#/" class="flex tracking-widest items-center gap-2 justify-center cinzel-regular w-fit text-mt-light text-sm rounded-lg bg-gradient-red border-2 border-gold py-1 px-4 hover:saturate-120 mt-3">Leer Más</a>
+                                <a href="#/" class="flex tracking-widest items-center gap-2 justify-center cinzel-regular w-fit text-mt-light text-sm rounded-lg bg-gradient-red border border-gold py-1 px-4 hover:saturate-120 mt-3">Leer Más</a>
                             </div>
                         </li>
                     </ul>
