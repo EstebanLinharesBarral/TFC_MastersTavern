@@ -2,207 +2,468 @@
 
 export function renderCharacterForm() {
 
-    return `<div class="p-6 flex flex-col gap-6 max-w-5xl mx-auto caudex-regular">
+    return `<div class="px-8 pt-4 pb-8 flex flex-col gap-8">
 
-    <h1 class="english-regular text-mt-dark text-3xl text-center">Hoja de Personaje</h1>
+        <!-- TÍTULO -->
+        <div class="mt-8 text-center">
+            <h2 class="decorative-bold text-mt-light text-3xl">Hoja de Personaje</h2>
+            <p class="garamond-italic text-mt-lighter text-md mt-2">Crea a tu próximo/a aventurero/a</p>
+        </div>
 
-    <form id="character-form" class="border-2 border-black bg-[#FAF7F2] p-8 rounded-xl flex flex-col gap-5">
+        <!-- CONTENIDO -->
+        <section class="w-full">
+                <div class=" bg-[#130900] rounded-lg border-2 border-brown-light overflow-hidden">
 
-    <!-- ===================== CABECERA: PERSONAJE + ATRIBUTOS ===================== -->
-    <div class="grid grid-cols-2 gap-4">
+                    <!-- HEADER -->
+                    <div class="flex items-start gap-4 border-b border-brown-light p-4">
 
-        <!-- ================= PERSONAJE ================= -->
-        <div class="border-2 border-mt-dark rounded-xl p-5 bg-[#FAF7F2] flex flex-col gap-4">
-            <h2 class="english-regular text-xl text-center border-b-2 border-mt-dark pb-1">
-                Personaje
-            </h2>
+                        <!-- AVATAR -->
+                        <div class="flex flex-col items-center gap-1 flex-shrink-0">
+                            <label for="avatar" class="cinzel-regular text-mt-light text-xs">Avatar</label>
+                            <div class="rounded-full overflow-hidden border-2 border-gold size-16">
+                                <input type="file" id="avatar" name="avatar" class="size-full">
+                            </div>
+                        </div>
 
-            <!-- Nombre + Nivel -->
-            <div class="flex flex-col gap-1">
-                <label class="text-xs caudex-bold">Nombre</label>
+                        <!-- CAMPOS -->
+                        <div class="flex flex-col gap-2 flex-1 min-w-0">
 
-                <div class="relative flex items-center">
-                    <input type="text" name="nombre"
-                        class="border-2 border-black rounded-lg px-3 py-2 text-sm bg-white w-48 pr-12" />
+                            <!-- FILA 1: Nombre -->
+                            <div class="flex flex-col">
+                                <label for="name" class="cinzel-regular text-mt-light text-xs">Nombre</label>
+                                <input id="name" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg" name="name" type="text" placeholder="Nombre del personaje">
+                            </div>
 
-                    <div class="absolute -bottom-5 right-0 flex items-center gap-1">
-                        <span class="text-xs caudex-bold">Nv</span>
-                        <div class="border-2 border-black rounded-full w-9 h-9 bg-white flex items-center justify-center">
-                            <input type="number" name="nivel" min="1" max="20" value="1"
-                                class="w-full h-full text-center text-xs bg-transparent outline-none" />
+                            <!-- FILA 2: Nivel · Clase · Raza · Alineamiento -->
+                            <div class="grid grid-cols-1 md:grid-cols-[40px_1fr_1fr_1fr] gap-2 items-end">
+                                <div class="flex flex-col">
+                                    <label for="level" class="cinzel-regular text-mt-light text-xs">Nivel</label>
+                                    <input id="level" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-gold rounded-full size-10 text-center" name="level" type="number">
+                                </div>
+                                <div class="flex flex-col">
+                                    <label class="cinzel-regular text-mt-light text-xs">Clase</label>
+                                    <select name="class" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg">
+                                        <option value="">—</option>
+                                        <option value="barbarian">Bárbaro</option>
+                                        <option value="bard">Bardo</option>
+                                        <option value="cleric">Clérigo</option>
+                                        <option value="druid">Druida</option>
+                                        <option value="fighter">Guerrero</option>
+                                        <option value="monk">Monje</option>
+                                        <option value="paladin">Paladín</option>
+                                        <option value="ranger">Explorador</option>
+                                        <option value="rogue">Pícaro</option>
+                                        <option value="sorcerer">Hechicero</option>
+                                        <option value="warlock">Brujo</option>
+                                        <option value="wizard">Mago</option>
+                                        <option value="artificer">Artífice</option>
+                                    </select>
+                                </div>
+                                <div class="flex flex-col">
+                                    <label class="cinzel-regular text-mt-light text-xs">Raza</label>
+                                    <select name="race" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg">
+                                        <option value="">—</option>
+                                        <option value="dragonborn">Dracónido</option>
+                                        <option value="dwarf-hill">Enano de las colinas</option>
+                                        <option value="dwarf-mountain">Enano de la montaña</option>
+                                        <option value="elf-dark">Elfo oscuro</option>
+                                        <option value="elf-high">Elfo alto</option>
+                                        <option value="elf-wood">Elfo del bosque</option>
+                                        <option value="gnome-forest">Gnomo del bosque</option>
+                                        <option value="gnome-rock">Gnomo de las rocas</option>
+                                        <option value="half-elf">Semielfo</option>
+                                        <option value="half-orc">Semiorco</option>
+                                        <option value="halfling-lightfoot">Mediano piesligeros</option>
+                                        <option value="halfling-stout">Mediano fornido</option>
+                                        <option value="human">Humano</option>
+                                        <option value="tiefling">Tiefling</option>
+                                    </select>
+                                </div>
+                                <div class="flex flex-col">
+                                    <label class="cinzel-regular text-mt-light text-xs">Alineamiento</label>
+                                    <select name="alignment" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg">
+                                        <option value="">—</option>
+                                        <option value="lg">Legal Bueno</option>
+                                        <option value="ng">Neutral Bueno</option>
+                                        <option value="cg">Caótico Bueno</option>
+                                        <option value="ln">Legal Neutral</option>
+                                        <option value="tn">Neutral</option>
+                                        <option value="cn">Caótico Neutral</option>
+                                        <option value="le">Legal Malvado</option>
+                                        <option value="ne">Neutral Malvado</option>
+                                        <option value="ce">Caótico Malvado</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Clase + Raza -->
-            <div class="grid grid-cols-2 gap-3">
-                <div class="flex flex-col gap-1">
-                    <label class="text-xs caudex-bold">Clase</label>
-                    <input type="text" name="clase"
-                        class="border-2 border-black rounded-lg px-3 py-2 text-sm bg-white" />
-                </div>
-
-                <div class="flex flex-col gap-1">
-                    <label class="text-xs caudex-bold">Raza</label>
-                    <input type="text" name="raza"
-                        class="border-2 border-black rounded-lg px-3 py-2 text-sm bg-white" />
-                </div>
-            </div>
-
-            <!-- DESCRIPCIÓN -->
-            <div class="flex flex-col gap-1">
-                <label class="text-xs caudex-bold">Descripción</label>
-                <textarea name="descripcion" rows="4"
-                    class="border-2 border-black rounded-lg px-3 py-2 text-xs bg-white resize-none"
-                    placeholder="Describe tu personaje..."></textarea>
-            </div>
-        </div>
-
-        <!-- ================= ATRIBUTOS ================= -->
-        <div class="border-2 border-mt-dark rounded-xl p-5 bg-[#FAF7F2] flex flex-col gap-4">
-            <h2 class="english-regular text-xl text-center border-b-2 border-mt-dark pb-1">
-                Atributos
-            </h2>
-
-            <div class="grid grid-cols-3 gap-4">
-
-                <!-- FUERZA -->
-                <div class="flex flex-col items-center gap-1">
-                <span class="text-xs caudex-bold">Fuerza</span>
-                <div class="w-20 h-20 border-2 border-black rounded-xl bg-white flex flex-col items-center justify-center">
-                    <span class="text-4xl">0</span>
-                    <input type="number" name="fuerza" value="0" placeholder="0" max="99"
-                    class="w-12 text-center text-lg bg-transparent outline-none no-spinner" />
-                </div>
-                </div>
-
-                <!-- DESTREZA -->
-                <div class="flex flex-col items-center gap-1">
-                <span class="text-xs caudex-bold">Destreza</span>
-                <div class="w-20 h-20 border-2 border-black rounded-xl bg-white flex flex-col items-center justify-center">
-                    <span class="text-4xl">0</span>
-                    <input type="number" name="destreza" value="0" placeholder="0" max="99"
-                    class="w-12 text-center text-lg bg-transparent outline-none no-spinner" />
-                </div>
-                </div>
-
-                <!-- CONSTITUCIÓN -->
-                <div class="flex flex-col items-center gap-1">
-                <span class="text-xs caudex-bold">Constitución</span>
-                <div class="w-20 h-20 border-2 border-black rounded-xl bg-white flex flex-col items-center justify-center">
-                    <span class="text-4xl">0</span>
-                    <input type="number" name="constitucion" value="0" placeholder="0" max="99"
-                    class="w-12 text-center text-lg bg-transparent outline-none no-spinner" />
-                </div>
-                </div>
-
-                <!-- INTELIGENCIA -->
-                <div class="flex flex-col items-center gap-1">
-                <span class="text-xs caudex-bold">Inteligencia</span>
-                <div class="w-20 h-20 border-2 border-black rounded-xl bg-white flex flex-col items-center justify-center">
-                    <span class="text-4xl">0</span>
-                    <input type="number" name="inteligencia" value="0" placeholder="0" max="99"
-                    class="w-12 text-center text-lg bg-transparent outline-none no-spinner" />
-                </div>
-                </div>
-
-                <!-- SABIDURÍA -->
-                <div class="flex flex-col items-center gap-1">
-                <span class="text-xs caudex-bold">Sabiduría</span>
-                <div class="w-20 h-20 border-2 border-black rounded-xl bg-white flex flex-col items-center justify-center">
-                    <span class="text-4xl">0</span>
-                    <input type="number" name="sabiduria" value="0" placeholder="0" max="99"
-                    class="w-12 text-center text-lg bg-transparent outline-none no-spinner" />
-                </div>
-                </div>
-
-                <!-- CARISMA -->
-                <div class="flex flex-col items-center gap-1">
-                <span class="text-xs caudex-bold">Carisma</span>
-                <div class="w-20 h-20 border-2 border-black rounded-xl bg-white flex flex-col items-center justify-center">
-                    <span class="text-4xl">0</span>
-                    <input type="number" name="carisma" value="0" placeholder="0" max="99"
-                    class="w-12 text-center text-lg bg-transparent outline-none no-spinner" />
-                </div>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-
-    <!-- ===================== EQUIPO ===================== -->
-    <div class="grid grid-cols-2 gap-4">
-
-        <!-- ARMAS -->
-        <div class="border-2 border-mt-dark rounded-xl p-5 bg-[#FAF7F2] flex flex-col gap-4">
-            <h2 class="english-regular text-xl text-center border-b-2 border-mt-dark pb-1">
-                Armas
-            </h2>
-
-            <div id="armas-container" class="flex flex-col gap-3">
-                <div class="grid grid-cols-2 gap-2">
-                    <input type="text" name="arma_nombre" placeholder="Nombre"
-                        class="border-2 border-black rounded-lg px-2 py-1 text-xs bg-white" />
-                    <input type="text" name="arma_bonificador" placeholder="Bonificador"
-                        class="border-2 border-black rounded-lg px-2 py-1 text-xs bg-white" />
-                    <input type="text" name="arma_tipo" placeholder="Tipo de daño"
-                        class="border-2 border-black rounded-lg px-2 py-1 text-xs bg-white" />
-                    <input type="text" name="arma_dado" placeholder="Dado"
-                        class="border-2 border-black rounded-lg px-2 py-1 text-xs bg-white" />
-                </div>
-            </div>
-
-            <button type="button" id="add-arma"
-                class="btn border-2 border-black text-white text-xs w-fit px-3 py-1 self-center">
-                + Añadir arma
-            </button>
-        </div>
-
-        <!-- ARMADURA -->
-        <div class="border-2 border-mt-dark rounded-xl p-5 bg-[#FAF7F2] flex flex-col gap-4">
-            <h2 class="english-regular text-xl text-center border-b-2 border-mt-dark pb-1">
-                Armadura
-            </h2>
-
-            <div id="armadura-container" class="flex flex-col gap-3">
-                <input type="text" name="armadura_nombre" placeholder="Nombre"
-                    class="border-2 border-black rounded-lg px-2 py-1 text-xs bg-white" />
-
-                <input type="text" name="armadura_tipo" placeholder="Tipo"
-                    class="border-2 border-black rounded-lg px-2 py-1 text-xs bg-white" />
-
-                <div class="flex gap-4 justify-center">
-                    <div class="flex flex-col items-center gap-1">
-                        <input type="number" name="armadura_ca"
-                            class="border-2 border-black rounded-full w-12 h-12 text-center text-sm bg-white" />
-                        <label class="text-xs">CA</label>
+                    <!-- ESTADÍSTICAS -->
+                    <div class="flex items-center justify-around border-b-2 border-brown-light p-4">
+                        <div class="flex flex-col gap-1 items-center cinzel-medium">
+                            <input type="number" min="-999" max="999" class="text-lg text-mt-lighter text-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">
+                            <p class="text-mt-sublight text-[11px]">PG</p>
+                        </div>
+                        <div class="flex flex-col gap-1 items-center cinzel-medium">
+                            <input type="number" min="-999" max="999" class="text-lg text-mt-lighter text-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">
+                            <p class="text-mt-sublight text-[11px]">CA</p>
+                        </div>
+                        <div class="flex flex-col gap-1 items-center cinzel-medium">
+                            <input type="number" min="-999" max="999" class="text-lg text-mt-lighter text-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">
+                            <p class="text-mt-sublight text-[11px]">Init</p>
+                        </div>
+                        <div class="flex flex-col gap-1 items-center cinzel-medium">
+                            <input type="number" min="-999" max="999" class="text-lg text-mt-lighter text-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">
+                            <p class="text-mt-sublight text-[11px]">Vel</p>
+                        </div>
+                        <div class="flex flex-col gap-1 items-center cinzel-medium">
+                            <input type="number" min="-999" max="999" class="text-lg text-mt-lighter text-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">
+                            <p class="text-mt-sublight text-[11px]">Atq</p>
+                        </div>
+                        <div class="flex flex-col gap-1 items-center cinzel-medium">
+                            <input type="number" min="-999" max="999" class="text-lg text-mt-lighter text-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">
+                            <p class="text-mt-sublight text-[11px]">Prof</p>
+                        </div>
                     </div>
 
-                    <div class="flex flex-col items-center gap-1">
-                        <input type="number" name="armadura_sigilo"
-                            class="border-2 border-black rounded-full w-12 h-12 text-center text-sm bg-white" />
-                        <label class="text-xs">Sigilo</label>
+                    <!-- ATRIBUTOS -->
+                    <div class="grid grid-cols-3 divide-x divide-[#2f2207c8] back-mt-darker">
+                        <div class="divide-y divide-[#2f2207c8]">
+                            <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
+                                <p class="text-mt-sublight text-sm md:text-base">Fuerza</p>
+                                <p class="text-mt-lighter text-4xl">8</p>
+                                <input name="str" type="number" class="text-mt-sublight text-[14px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8] text-center w-[40px]">
+                            </div>
+                            <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
+                                <p class="text-mt-sublight text-sm md:text-base">Destreza</p>
+                                <p class="text-mt-lighter text-4xl">8</p>
+                                <input name="dex" type="number" class="text-mt-sublight text-[14px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8] text-center w-[40px]">
+                            </div>
+                        </div>
+    
+                        <div class="divide-y divide-[#2f2207c8]">
+                            <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
+                                <p class="text-mt-sublight text-sm md:text-base">Constitución</p>
+                                <p class="text-mt-lighter text-4xl">8</p>
+                                <input name="con" type="number" class="text-mt-sublight text-[14px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8] text-center w-[40px]">
+                            </div>
+                            <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
+                                <p class="text-mt-sublight text-sm md:text-base">Inteligencia</p>
+                                <p class="text-mt-lighter text-4xl">8</p>
+                                <input name="int" type="number" class="text-mt-sublight text-[14px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8] text-center w-[40px]">
+                            </div>
+                        </div>
+    
+                        <div class="divide-y divide-[#2f2207c8]">
+                            <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
+                                <p class="text-mt-sublight text-sm md:text-base">Sabiduría</p>
+                                <p class="text-mt-lighter text-4xl">8</p>
+                                <input name="wis" type="number" class="text-mt-sublight text-[14px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8] text-center w-[40px]">
+                            </div>
+                            <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
+                                <p class="text-mt-sublight text-sm md:text-base">Carisma</p>
+                                <p class="text-mt-lighter text-4xl">8</p>
+                                <input name="cha" type="number" class="text-mt-sublight text-[14px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8] text-center w-[40px]">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SALVACIÓN Y HABILIDADES -->
+                    <div class="grid grid-cols-2 gap-4 divide-x divide-[#2f2207c8] back-mt-darker p-4">
+                        <div class="flex flex-col gap-6">
+                            <div>
+                                <p class="cinzel-medium text-mt-sublight text-xs mb-2">
+                                    Tiradas de Salvación
+                                </p>
+
+                                <ul>
+                                    <li>
+                                        <label class="flex gap-2 items-center cursor-pointer">
+                                            <input name="save-str" type="checkbox" class="peer hidden">
+                                            <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                            <p class="garamond-regular text-sm md:text-base text-mt-lighter">Fuerza</p>
+                                            <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">-1</p>
+                                        </label>
+                                    </li>
+
+                                    <li>
+                                        <label class="flex gap-2 items-center cursor-pointer">
+                                            <input name="save-dex" type="checkbox" class="peer hidden">
+                                            <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                            <p class="garamond-regular text-sm md:text-base text-mt-lighter">Destreza</p>
+                                            <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">-1</p>
+                                        </label>
+                                    </li>
+
+                                    <li>
+                                        <label class="flex gap-2 items-center cursor-pointer">
+                                            <input name="save-con" type="checkbox" class="peer hidden">
+                                            <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                            <p class="garamond-regular text-sm md:text-base text-mt-lighter">Constitución</p>
+                                            <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">-1</p>
+                                        </label>
+                                    </li>
+
+                                    <li>
+                                        <label class="flex gap-2 items-center cursor-pointer">
+                                            <input name="save-int" type="checkbox" class="peer hidden">
+                                            <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                            <p class="garamond-regular text-sm md:text-base text-mt-lighter">Inteligencia</p>
+                                            <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">-1</p>
+                                        </label>
+                                    </li>
+
+                                    <li>
+                                        <label class="flex gap-2 items-center cursor-pointer">
+                                            <input name="save-wis" type="checkbox" class="peer hidden">
+                                            <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                            <p class="garamond-regular text-sm md:text-base text-mt-lighter">Sabiduría</p>
+                                            <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">-1</p>
+                                        </label>
+                                    </li>
+
+                                    <li>
+                                        <label class="flex gap-2 items-center cursor-pointer">
+                                            <input name="save-cha" type="checkbox" class="peer hidden">
+                                            <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                            <p class="garamond-regular text-sm md:text-base text-mt-lighter">Carisma</p>
+                                            <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">-1</p>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="flex flex-col gap-4 w-full">
+                                <!-- ARMAS -->
+                                <div class="mr-4">
+                                    <p class="cinzel-medium text-mt-sublight text-xs mb-2">Armas</p>
+                                    <ul id="weapon-list" class="flex flex-col gap-1 mb-2"></ul>
+                                    <div class="flex flex-col md:flex-row gap-2 flex-wrap w-full">
+                                        <input name="weapon-name" type="text" placeholder="Nombre" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg flex-1 w-full">
+                                        <input name="weapon-damage" type="text" placeholder="Daño (ej. 1d8)" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg w-full md:w-24">
+                                        <input name="weapon-type" type="text" placeholder="Tipo" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg w-full md:w-24">
+                                        <button type="button" onclick="addWeapon()" class="cinzel-regular text-mt-light text-xs px-3 py-1 border border-brown-light rounded-md hover:bg-amber-100/10 hover:cursor-pointer whitespace-nowrap">+ Añadir</button>
+                                    </div>
+                                </div>
+
+                                <!-- ARMADURA -->
+                                <div class="mr-4">
+                                    <p class="cinzel-medium text-mt-sublight text-xs mb-2">Armadura</p>
+                                    <div class="flex flex-col md:flex-row gap-2 flex-wrap w-full">
+                                        <input name="armor-name" type="text" placeholder="Nombre" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg flex-1 w-full">
+                                        <input name="armor-type" type="text" placeholder="Tipo" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg w-full md:w-24">
+                                        <input name="armor-ac" type="number" placeholder="CA" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg w-full md:w-24 text-center">
+                                    </div>
+                                </div>
+
+                                <!-- HECHIZOS -->
+                                <div class="mr-4">
+                                    <p class="cinzel-medium text-mt-sublight text-xs mb-2">Hechizos</p>
+                                    <ul id="spell-list" class="flex flex-col gap-1 mb-2"></ul>
+                                    <div class="flex flex-col md:flex-row gap-2 flex-wrap w-full">
+                                        <input id="spell-input" type="text" placeholder="Nombre del hechizo" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg flex-1 w-full">
+                                        <button type="button" onclick="addSpell()" class="cinzel-regular text-mt-light text-xs px-3 py-1 border border-brown-light rounded-md hover:bg-amber-100/10 hover:cursor-pointer whitespace-nowrap">+ Añadir</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        <!-- HABILIDADES -->
+                        <div>
+                            <p class="cinzel-medium text-mt-sublight text-xs mb-2">Habilidades</p>
+                            <ul class="space-y-1">
+
+                                <li>
+                                    <label class="flex gap-2 items-center cursor-pointer">
+                                        <input name="acrobatics" type="checkbox" class="peer hidden">
+                                        <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                        <p class="garamond-regular text-sm md:text-base text-mt-lighter">Acrobacias <span class="block sm:inline cinzel-medium text-mt-sublight text-xs md:text-sm ml-auto pr-4">(Des)</span></p>
+                                        <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">0</p>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label class="flex gap-2 items-center cursor-pointer">
+                                        <input name="athletics" type="checkbox" class="peer hidden">
+                                        <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                        <p class="garamond-regular text-sm md:text-base text-mt-lighter">Atletismo <span class="block sm:inline cinzel-medium text-mt-sublight text-xs md:text-sm ml-auto pr-4">(Fue)</span></p>
+                                        <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">0</p>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label class="flex gap-2 items-center cursor-pointer">
+                                        <input name="arcana" type="checkbox" class="peer hidden">
+                                        <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                        <p class="garamond-regular text-sm md:text-base text-mt-lighter">Arcano <span class="block sm:inline cinzel-medium text-mt-sublight text-xs md:text-sm ml-auto pr-4">(Int)</span></p>
+                                        <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">0</p>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label class="flex gap-2 items-center cursor-pointer">
+                                        <input name="deception" type="checkbox" class="peer hidden">
+                                        <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                        <p class="garamond-regular text-sm md:text-base text-mt-lighter">Engaño <span class="block sm:inline cinzel-medium text-mt-sublight text-xs md:text-sm ml-auto pr-4">(Car)</span></p>
+                                        <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">0</p>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label class="flex gap-2 items-center cursor-pointer">
+                                        <input name="history" type="checkbox" class="peer hidden">
+                                        <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                        <p class="garamond-regular text-sm md:text-base text-mt-lighter">Historia <span class="block sm:inline cinzel-medium text-mt-sublight text-xs md:text-sm ml-auto pr-4">(Int)</span></p>
+                                        <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">0</p>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label class="flex gap-2 items-center cursor-pointer">
+                                        <input name="insight" type="checkbox" class="peer hidden">
+                                        <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                        <p class="garamond-regular text-sm md:text-base text-mt-lighter">Interpretación <span class="block sm:inline cinzel-medium text-mt-sublight text-xs md:text-sm ml-auto pr-4">(Car)</span></p>
+                                        <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">0</p>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label class="flex gap-2 items-center cursor-pointer">
+                                        <input name="intimidation" type="checkbox" class="peer hidden">
+                                        <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                        <p class="garamond-regular text-sm md:text-base text-mt-lighter">Intimidación <span class="block sm:inline cinzel-medium text-mt-sublight text-xs md:text-sm ml-auto pr-4">(Car)</span></p>
+                                        <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">0</p>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label class="flex gap-2 items-center cursor-pointer">
+                                        <input name="investigation" type="checkbox" class="peer hidden">
+                                        <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                        <p class="garamond-regular text-sm md:text-base text-mt-lighter">Investigación <span class="block sm:inline cinzel-medium text-mt-sublight text-xs md:text-sm ml-auto pr-4">(Int)</span></p>
+                                        <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">0</p>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label class="flex gap-2 items-center cursor-pointer">
+                                        <input name="sleight-of-hand" type="checkbox" class="peer hidden">
+                                        <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                        <p class="garamond-regular text-sm md:text-base text-mt-lighter">Juego de Manos <span class="block sm:inline cinzel-medium text-mt-sublight text-xs md:text-sm ml-auto pr-4">(Des)</span></p>
+                                        <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">0</p>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label class="flex gap-2 items-center cursor-pointer">
+                                        <input name="medicine" type="checkbox" class="peer hidden">
+                                        <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                        <p class="garamond-regular text-sm md:text-base text-mt-lighter">Medicina <span class="block sm:inline cinzel-medium text-mt-sublight text-xs md:text-sm ml-auto pr-4">(Sab)</span></p>
+                                        <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">0</p>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label class="flex gap-2 items-center cursor-pointer">
+                                        <input name="nature" type="checkbox" class="peer hidden">
+                                        <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                        <p class="garamond-regular text-sm md:text-base text-mt-lighter">Naturaleza <span class="block sm:inline cinzel-medium text-mt-sublight text-xs md:text-sm ml-auto pr-4">(Int)</span></p>
+                                        <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">0</p>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label class="flex gap-2 items-center cursor-pointer">
+                                        <input name="perception" type="checkbox" class="peer hidden">
+                                        <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                        <p class="garamond-regular text-sm md:text-base text-mt-lighter">Percepción <span class="block sm:inline cinzel-medium text-mt-sublight text-xs md:text-sm ml-auto pr-4">(Sab)</span></p>
+                                        <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">0</p>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label class="flex gap-2 items-center cursor-pointer">
+                                        <input name="insight" type="checkbox" class="peer hidden">
+                                        <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                        <p class="garamond-regular text-sm md:text-base text-mt-lighter">Perspicacia <span class="block sm:inline cinzel-medium text-mt-sublight text-xs md:text-sm ml-auto pr-4">(Sab)</span></p>
+                                        <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">0</p>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label class="flex gap-2 items-center cursor-pointer">
+                                        <input name="persuasion" type="checkbox" class="peer hidden">
+                                        <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                        <p class="garamond-regular text-sm md:text-base text-mt-lighter">Persuasión <span class="block sm:inline cinzel-medium text-mt-sublight text-xs md:text-sm ml-auto pr-4">(Car)</span></p>
+                                        <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">0</p>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label class="flex gap-2 items-center cursor-pointer">
+                                        <input name="religion" type="checkbox" class="peer hidden">
+                                        <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                        <p class="garamond-regular text-sm md:text-base text-mt-lighter">Religión <span class="block sm:inline cinzel-medium text-mt-sublight text-xs md:text-sm ml-auto pr-4">(Int)</span></p>
+                                        <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">0</p>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label class="flex gap-2 items-center cursor-pointer">
+                                        <input name="stealth" type="checkbox" class="peer hidden">
+                                        <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                        <p class="garamond-regular text-sm md:text-base text-mt-lighter">Sigilo <span class="block sm:inline cinzel-medium text-mt-sublight text-xs md:text-sm ml-auto pr-4">(Des)</span></p>
+                                        <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">0</p>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label class="flex gap-2 items-center cursor-pointer">
+                                        <input name="survival" type="checkbox" class="peer hidden">
+                                        <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                        <p class="garamond-regular text-sm md:text-base text-mt-lighter">Supervivencia <span class="block sm:inline cinzel-medium text-mt-sublight text-xs md:text-sm ml-auto pr-4">(Sab)</span></p>
+                                        <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">0</p>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label class="flex gap-2 items-center cursor-pointer">
+                                        <input name="animal-handling" type="checkbox" class="peer hidden">
+                                        <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                                        <p class="garamond-regular text-sm md:text-base text-mt-lighter">Trato con Animales <span class="block sm:inline cinzel-medium text-mt-sublight text-xs md:text-sm ml-auto pr-4">(Sab)</span></p>
+                                        <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">0</p>
+                                    </label>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- TRASFONDO -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 border-t border-brown-light px-4 py-2">
+                        <div>
+                            <label class="cinzel-medium text-mt-sublight text-base mb-2">Trasfondo</label>
+                            <textarea name="background" class="garamond-regular text-mt-lighter w-full border border-brown-light"></textarea>
+                        </div>
+                        <div >
+                            <label class="cinzel-medium text-mt-sublight text-base mb-2">Dotes</label>
+                            <textarea name="feats" class="garamond-regular text-mt-lighter w-full border border-brown-light"></textarea>
+                        </div>
+                        <div >
+                            <label class="cinzel-medium text-mt-sublight text-base mb-2">Inventario</label>
+                            <textarea name="inventory" class="garamond-regular text-mt-lighter w-full border border-brown-light"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- BOTONES -->
+                    <div class="flex justify-end border-t gap-2 border-brown-light px-4 py-2">
+                        <button class="text-center border border-brown-light rounded-md cinzel-regular text-mt-light text-xs px-4 py-2 tracking-wide hover:bg-amber-100/10 hover:cursor-pointer">Cancelar</button>
+                        <button type="submit" class="block border border-gold rounded-md text-center text-mt-light cinzel-regular text-xs tracking-wide py-2 px-4 bg-gradient-red hover:saturate-120">Guardar</button>
                     </div>
                 </div>
-            </div>
-        </div>
 
-    </div>
-
-    <!-- ===================== BOTONES ===================== -->
-    <div class="flex gap-4 justify-center pt-2">
-        <button type="submit" class="btn border-2 border-black text-white px-8 py-2 text-sm">
-            Guardar personaje
-        </button>
-        <button type="button" class="btn border-2 border-black text-white px-8 py-2 text-sm">
-            Cancelar
-        </button>
-    </div>
-
-</form>
-</div>
+            </section>
 
 <style>
     input[type=number]::-webkit-outer-spin-button,

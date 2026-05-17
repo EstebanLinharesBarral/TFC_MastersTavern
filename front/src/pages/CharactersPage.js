@@ -11,7 +11,7 @@ return `<div class="px-8 pt-4 pb-8 flex flex-col gap-8">
         </div>
 
         <!-- CONTENIDO -->
-        <div class="flex gap-6 flex-col items-center md:items-start md:flex-row border-t-2 border-gold pt-4">
+        <div class="flex gap-6 flex-col items-center md:items-start md:flex-row border-t-2 border-gold pt-8">
 
             <!-- PERSONAJES -->
             <aside class="flex flex-col gap-4 w-full max-w-[500px]">
