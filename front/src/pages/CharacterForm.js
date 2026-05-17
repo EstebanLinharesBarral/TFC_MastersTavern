@@ -2,6 +2,50 @@
 
 export function renderCharacterForm() {
 
+    setTimeout(async () => {
+        const form = document.querySelector('form');
+
+        
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            for (const [key, value] of formData) {
+                console.log(key, value);
+            }
+
+            const saveList = document.getElementById('save-list');
+            const saveInput = saveList.querySelectorAll('input[type="checkbox"]');
+            const saveArr = [];
+
+            saveInput.forEach(i => {
+                if(i.checked) saveArr.push(i.name);
+            })
+
+            const abilitiesList = document.getElementById('abilities-list');
+            const abilitiesInput = abilitiesList.querySelectorAll('input[type="checkbox"]');
+            const abilitiesArr = [];
+
+            abilitiesInput.forEach(i => {
+                if(i.checked) abilitiesArr.push(i.name);
+            })
+
+            const payload = {
+                name: formData.name,
+                level: formData.level,
+                class: formData.class,
+                race: formData.race,
+                alignment: formData.alignment,
+                salvation: saveArr,
+                abilities: abilitiesArr,
+                background: formData.background,
+                feats: formData.feats,
+                inventory: formData.inventory
+            }
+        })
+
+    }, 0)
+
     return `<div class="px-8 pt-4 pb-8 flex flex-col gap-8">
 
         <!-- TÍTULO -->
@@ -11,7 +55,7 @@ export function renderCharacterForm() {
         </div>
 
         <!-- CONTENIDO -->
-        <section class="w-full">
+        <form class="w-full">
                 <div class=" bg-[#130900] rounded-lg border-2 border-brown-light overflow-hidden">
 
                     <!-- HEADER -->
@@ -101,27 +145,27 @@ export function renderCharacterForm() {
                     <!-- ESTADÍSTICAS -->
                     <div class="flex items-center justify-around border-b-2 border-brown-light p-4">
                         <div class="flex flex-col gap-1 items-center cinzel-medium">
-                            <input type="number" min="-999" max="999" class="text-lg text-mt-lighter text-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">
+                            <input name="PG" type="number" min="-999" max="999" class="text-lg text-mt-lighter text-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">
                             <p class="text-mt-sublight text-[11px]">PG</p>
                         </div>
                         <div class="flex flex-col gap-1 items-center cinzel-medium">
-                            <input type="number" min="-999" max="999" class="text-lg text-mt-lighter text-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">
+                            <input name="CA" type="number" min="-999" max="999" class="text-lg text-mt-lighter text-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">
                             <p class="text-mt-sublight text-[11px]">CA</p>
                         </div>
                         <div class="flex flex-col gap-1 items-center cinzel-medium">
-                            <input type="number" min="-999" max="999" class="text-lg text-mt-lighter text-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">
+                            <input name="INIT" type="number" min="-999" max="999" class="text-lg text-mt-lighter text-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">
                             <p class="text-mt-sublight text-[11px]">Init</p>
                         </div>
                         <div class="flex flex-col gap-1 items-center cinzel-medium">
-                            <input type="number" min="-999" max="999" class="text-lg text-mt-lighter text-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">
+                            <input name="VEL" type="number" min="-999" max="999" class="text-lg text-mt-lighter text-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">
                             <p class="text-mt-sublight text-[11px]">Vel</p>
                         </div>
                         <div class="flex flex-col gap-1 items-center cinzel-medium">
-                            <input type="number" min="-999" max="999" class="text-lg text-mt-lighter text-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">
+                            <input name="ATAQ" type="number" min="-999" max="999" class="text-lg text-mt-lighter text-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">
                             <p class="text-mt-sublight text-[11px]">Atq</p>
                         </div>
                         <div class="flex flex-col gap-1 items-center cinzel-medium">
-                            <input type="number" min="-999" max="999" class="text-lg text-mt-lighter text-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">
+                            <input name="PROF" type="number" min="-999" max="999" class="text-lg text-mt-lighter text-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">
                             <p class="text-mt-sublight text-[11px]">Prof</p>
                         </div>
                     </div>
@@ -176,7 +220,7 @@ export function renderCharacterForm() {
                                     Tiradas de Salvación
                                 </p>
 
-                                <ul>
+                                <ul id="save-list">
                                     <li>
                                         <label class="flex gap-2 items-center cursor-pointer">
                                             <input name="save-str" type="checkbox" class="peer hidden">
@@ -272,7 +316,7 @@ export function renderCharacterForm() {
                         <!-- HABILIDADES -->
                         <div>
                             <p class="cinzel-medium text-mt-sublight text-xs mb-2">Habilidades</p>
-                            <ul class="space-y-1">
+                            <ul id="abilities-list" class="space-y-1">
 
                                 <li>
                                     <label class="flex gap-2 items-center cursor-pointer">
@@ -463,7 +507,7 @@ export function renderCharacterForm() {
                     </div>
                 </div>
 
-            </section>
+            </form>
 
 <style>
     input[type=number]::-webkit-outer-spin-button,
