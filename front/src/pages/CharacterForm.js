@@ -1,11 +1,95 @@
 // pages/CharacterForm.js
 
 import { fetchService } from "../services/FetchService.js";
+import { skills, savingThrows } from "../components/dicc.js";
+import { sheetService } from "../services/SheetService.js";
 
 export function renderCharacterForm() {
 
     setTimeout(async () => {
         const form = document.querySelector('form');
+        let atributes = {
+            STR: '',
+            DEX: '',
+            CON: '',
+            INT: '',
+            WIS: '',
+            CHA: ''
+        };
+
+        const updateAbilities = (dicc, id) => {
+            const abilitiesList = document.getElementById(id);
+            let abilitiesInputs = abilitiesList.querySelectorAll('input');
+            const abilitiesChecked = [];
+            abilitiesInputs.forEach(ab => {if(ab.checked) abilitiesChecked.push(ab.name)} );
+            
+            abilitiesList.innerHTML = '';
+            Object.entries(dicc).forEach(([key, value]) => {
+                const prof = form.querySelector('input[name="PROF"]');
+                const profValue = abilitiesChecked.includes(key) ? prof.value : 0;
+                const attribute = form.querySelector(`input[name="${value.attribute}"]`);
+                const abValue = sheetService.calculateAttribute(attribute.value, profValue);
+    
+                abilitiesList.innerHTML += `<li>
+                    <label class="flex gap-2 items-center cursor-pointer">
+                        <input name="${key}" type="checkbox" ${abilitiesChecked.includes(key) ? 'checked' : ''} class="peer hidden">
+                        <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
+                        <p class="garamond-regular text-sm md:text-base text-mt-lighter">${value.label} <span class="block sm:inline cinzel-medium text-mt-sublight text-xs md:text-sm ml-auto pr-4">(${value.attribute})</span></p>
+                        <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">${abValue}</p>
+                    </label>
+                </li>`
+            })
+
+            abilitiesInputs = abilitiesList.querySelectorAll('input');
+            abilitiesInputs.forEach(input => {
+                input.addEventListener('change', (e) => {
+                    updateAbilities(skills, 'abilities-list')
+                    updateAbilities(savingThrows, 'save-list');
+                })
+            })
+        }
+
+        const limitValue = (input) => {
+            input.value = input.value.slice(0,2);
+            if(Number.parseInt(input.value) > 99) {
+                input.value = 99;
+            }
+        }
+
+        const attributesList = document.getElementById('attributes-list');
+        const att = attributesList.querySelectorAll('input');
+        const prof = form.querySelector('input[name="PROF"]');
+        const abilitiesList = document.getElementById('abilities-list');
+        const abilitiesInputs = abilitiesList.querySelectorAll('input');
+        const statsList = document.getElementById('stats-list');
+        const statsInput = statsList.querySelectorAll('input');
+
+        att.forEach(input => {
+            input.addEventListener('input', (e) => {
+                limitValue(input);
+
+                atributes[input.name.toUpperCase()] = sheetService.calculateAttribute(input.value);
+                updateAbilities(skills, 'abilities-list');
+                updateAbilities(savingThrows, 'save-list');
+
+                input.previousElementSibling.textContent = atributes[input.name.toUpperCase()];
+            })
+        })
+
+        prof.addEventListener('input', (e) => {
+            limitValue(prof);
+            updateAbilities(skills, 'abilities-list');
+            updateAbilities(savingThrows, 'save-list');
+        })
+
+        statsInput.forEach(input => {
+            input.addEventListener('input', (e) => {
+                limitValue(input);
+            })
+        })
+
+        updateAbilities(savingThrows, 'save-list');
+        updateAbilities(skills, 'abilities-list')
         
         form.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -51,12 +135,12 @@ export function renderCharacterForm() {
                 race: formData.get("race"),
                 alignment: formData.get("alignment"),
                 stats: statsArr,
-                STR: formData.get("str"),
-                DEX: formData.get("dex"),
-                CON: formData.get("con"),
-                INT: formData.get("int"),
-                WIS: formData.get("wis"),
-                CHA: formData.get("cha"),
+                STR: formData.get("STR"),
+                DEX: formData.get("DEX"),
+                CON: formData.get("CON"),
+                INT: formData.get("INT"),
+                WIS: formData.get("WIS"),
+                CHA: formData.get("CHA"),
                 salvation: saveArr,
                 abilities: abilitiesArr,
                 background: formData.get("background"),
@@ -67,7 +151,7 @@ export function renderCharacterForm() {
             try{
                 const response = fetchService.post('/api/characters/', payload)
             } catch(e){
-                console.error(e)
+                console.error(e);
             }
         })
 
@@ -198,17 +282,17 @@ export function renderCharacterForm() {
                     </div>
 
                     <!-- ATRIBUTOS -->
-                    <div class="grid grid-cols-3 divide-x divide-[#2f2207c8] back-mt-darker">
+                    <div id="attributes-list" class="grid grid-cols-3 divide-x divide-[#2f2207c8] back-mt-darker">
                         <div class="divide-y divide-[#2f2207c8]">
                             <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
                                 <p class="text-mt-sublight text-sm md:text-base">Fuerza</p>
                                 <p class="text-mt-lighter text-4xl">8</p>
-                                <input name="str" type="number" class="text-mt-sublight text-[14px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8] text-center w-[40px]">
+                                <input name="STR" type="number" class="text-mt-sublight text-[14px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8] text-center w-[40px]">
                             </div>
                             <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
                                 <p class="text-mt-sublight text-sm md:text-base">Destreza</p>
                                 <p class="text-mt-lighter text-4xl">8</p>
-                                <input name="dex" type="number" class="text-mt-sublight text-[14px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8] text-center w-[40px]">
+                                <input name="DEX" type="number" class="text-mt-sublight text-[14px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8] text-center w-[40px]">
                             </div>
                         </div>
     
@@ -216,12 +300,12 @@ export function renderCharacterForm() {
                             <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
                                 <p class="text-mt-sublight text-sm md:text-base">Constitución</p>
                                 <p class="text-mt-lighter text-4xl">8</p>
-                                <input name="con" type="number" class="text-mt-sublight text-[14px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8] text-center w-[40px]">
+                                <input name="CON" type="number" class="text-mt-sublight text-[14px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8] text-center w-[40px]">
                             </div>
                             <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
                                 <p class="text-mt-sublight text-sm md:text-base">Inteligencia</p>
                                 <p class="text-mt-lighter text-4xl">8</p>
-                                <input name="int" type="number" class="text-mt-sublight text-[14px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8] text-center w-[40px]">
+                                <input name="INT" type="number" class="text-mt-sublight text-[14px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8] text-center w-[40px]">
                             </div>
                         </div>
     
@@ -229,12 +313,12 @@ export function renderCharacterForm() {
                             <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
                                 <p class="text-mt-sublight text-sm md:text-base">Sabiduría</p>
                                 <p class="text-mt-lighter text-4xl">8</p>
-                                <input name="wis" type="number" class="text-mt-sublight text-[14px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8] text-center w-[40px]">
+                                <input name="WIS" type="number" class="text-mt-sublight text-[14px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8] text-center w-[40px]">
                             </div>
                             <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
                                 <p class="text-mt-sublight text-sm md:text-base">Carisma</p>
                                 <p class="text-mt-lighter text-4xl">8</p>
-                                <input name="cha" type="number" class="text-mt-sublight text-[14px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8] text-center w-[40px]">
+                                <input name="CHA" type="number" class="text-mt-sublight text-[14px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8] text-center w-[40px]">
                             </div>
                         </div>
                     </div>
@@ -392,7 +476,7 @@ export function renderCharacterForm() {
 
                                 <li>
                                     <label class="flex gap-2 items-center cursor-pointer">
-                                        <input name="insight" type="checkbox" class="peer hidden">
+                                        <input name="interpretation" type="checkbox" class="peer hidden">
                                         <span class="size-3 rounded-full border border-brown-light peer-checked:bg-[#F4D891]"></span>
                                         <p class="garamond-regular text-sm md:text-base text-mt-lighter">Interpretación <span class="block sm:inline cinzel-medium text-mt-sublight text-xs md:text-sm ml-auto pr-4">(Car)</span></p>
                                         <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">0</p>
