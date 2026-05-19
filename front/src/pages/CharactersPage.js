@@ -7,8 +7,11 @@ import { sheetService } from "../services/SheetService.js";
 export function renderCharactersPage() {
 
     setTimeout(async () => {
+        const count = document.getElementById('char-count');
+
         try{
             const response = await fetchService.get('/api/characters');
+            count.textContent = `${response.length} personajes`;
 
             const charList = document.getElementById('character-list');
             if(response && charList){
@@ -70,7 +73,7 @@ export function renderCharactersPage() {
 
                     preview.innerHTML = `<!-- HEADER -->
                     <div class="flex items-center border-b border-brown-light p-4">
-                        <div class="rounded-full overflow-hidden border-2 border-gold size-16 mr-4"><img src="src/assets/Orco icono.png"></div>
+                        <div class="rounded-full overflow-hidden border-2 border-gold size-16 mr-4"><img src="${char.avatar || ''}"></div>
                         <div class="space-y-[1px]">
                             <p class="cinzel-medium text-sm text-mt-lighter tracking-wide">${char.name || 'Sin nombre'}</p>
                             <div class="flex items-center gap-1 garamond-regular text-mt-sublight text-base"><p>${races[char.race] || 'Sin raza'}</p> <span class="relative back-mt-sublight rounded-full size-[2px] self-center -bottom-[1px]"></span> <p>${classes[char.charClass] || 'Sin clase'}</p></div>
@@ -234,7 +237,7 @@ return `<div class="px-8 pt-4 pb-8 flex flex-col gap-8">
 
                 <!-- LISTADO -->
                 <div class="flex flex-col justify-between back-mt-darker rounded-lg border-2 border-brown-light min-h-[300px] overflow-hidden">
-                    <div class="flex justify-between border-b border-brown-light p-4"><h3 class="cinzel-bold text-sm text-mt-light">Personajes</h3> <p class="cinzel-regular text-[11px] text-mt-light">x personajes</p></div>
+                    <div class="flex justify-between border-b border-brown-light p-4"><h3 class="cinzel-bold text-sm text-mt-light">Personajes</h3> <p id="char-count" class="cinzel-regular text-[11px] text-mt-light"></p></div>
                     <ul id="character-list" class="garamond-regular flex-1 list-inside text-start divide-y divide-[#2f2207c8]">
                         
                     </ul>
