@@ -25,10 +25,14 @@ export function renderSignInPage() {
 
             try{
                 const response = await authService.register(form);
+
+                if(response.ok){
+                    setTimeout(() => {window.location.hash = '#/log-in'}, 1000)
+                }
             }catch(error){
-                console.error('Error en el login:', error)
+                console.error('Error en el signin:', error)
             }finally{
-                setTimeout(() => {window.location.hash = '#/log-in'}, 1000)
+                
             }
         })
     })

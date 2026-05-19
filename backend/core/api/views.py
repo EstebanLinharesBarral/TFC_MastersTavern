@@ -6,6 +6,9 @@ from django.contrib.auth import authenticate
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework import viewsets
+from .serializers import CharacterSerializer
+from .models import Characters
 
 # Create your views here.
 @csrf_exempt
@@ -73,3 +76,14 @@ def me(request):
         "first_name": user.first_name,
         "last_name": user.last_name,
     })
+
+# PERSONAJE
+class CharacterViewSet(viewsets.ModelViewSet):
+    queryset = Characters.objects.all()
+    serializer_class = CharacterSerializer
+
+    def get_queryset(self):
+        return Characters.objects.filter(user=self.request.user)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

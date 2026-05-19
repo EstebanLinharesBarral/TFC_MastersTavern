@@ -1,5 +1,7 @@
 // pages/CharacterForm.js
 
+import { fetchService } from "../services/FetchService.js";
+
 export function renderCharacterForm() {
 
     setTimeout(async () => {
@@ -14,6 +16,7 @@ export function renderCharacterForm() {
                 console.log(key, value);
             }
 
+            // ARRAY DE TIRADAS DE SALVACIÓN
             const saveList = document.getElementById('save-list');
             const saveInput = saveList.querySelectorAll('input[type="checkbox"]');
             const saveArr = [];
@@ -22,6 +25,7 @@ export function renderCharacterForm() {
                 if(i.checked) saveArr.push(i.name);
             })
 
+            // ARRAY DE HABILIDADES
             const abilitiesList = document.getElementById('abilities-list');
             const abilitiesInput = abilitiesList.querySelectorAll('input[type="checkbox"]');
             const abilitiesArr = [];
@@ -30,17 +34,41 @@ export function renderCharacterForm() {
                 if(i.checked) abilitiesArr.push(i.name);
             })
 
+            // ARRAY DE ESTADÍSTICAS
+            const statsList = document.getElementById('stats-list');
+            const statsInput = statsList.querySelectorAll('input');
+            const statsArr = [];
+
+            statsInput.forEach(i => {
+                i.value = Number.parseInt(i.value);
+                statsArr.push(i.value);
+            })
+
             const payload = {
-                name: formData.name,
-                level: formData.level,
-                class: formData.class,
-                race: formData.race,
-                alignment: formData.alignment,
+                avatar: formData.get("avatar"),
+                name: formData.get("name"),
+                level: formData.get("level"),
+                charClass: formData.get("class"),
+                race: formData.get("race"),
+                alignment: formData.get("alignment"),
+                stats: statsArr,
+                STR: formData.get("str"),
+                DEX: formData.get("dex"),
+                CON: formData.get("con"),
+                INT: formData.get("int"),
+                WIS: formData.get("wis"),
+                CHA: formData.get("cha"),
                 salvation: saveArr,
                 abilities: abilitiesArr,
-                background: formData.background,
-                feats: formData.feats,
-                inventory: formData.inventory
+                background: formData.get("background"),
+                feats: formData.get("feats"),
+                inventory: formData.get("inventory")
+            }
+
+            try{
+                const response = fetchService.post('/api/characters/', payload)
+            } catch(e){
+                console.error(e)
             }
         })
 
@@ -143,7 +171,7 @@ export function renderCharacterForm() {
                     </div>
 
                     <!-- ESTADÍSTICAS -->
-                    <div class="flex items-center justify-around border-b-2 border-brown-light p-4">
+                    <div id="stats-list" class="flex items-center justify-around border-b-2 border-brown-light p-4">
                         <div class="flex flex-col gap-1 items-center cinzel-medium">
                             <input name="PG" type="number" min="-999" max="999" class="text-lg text-mt-lighter text-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">
                             <p class="text-mt-sublight text-[11px]">PG</p>
