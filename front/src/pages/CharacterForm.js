@@ -56,13 +56,12 @@ export function renderCharacterForm() {
             }
         }
 
+        const numberInputs = form.querySelectorAll('input[type="number"]');
         const attributesList = document.getElementById('attributes-list');
         const att = attributesList.querySelectorAll('input');
         const prof = form.querySelector('input[name="PROF"]');
         const abilitiesList = document.getElementById('abilities-list');
         const abilitiesInputs = abilitiesList.querySelectorAll('input');
-        const statsList = document.getElementById('stats-list');
-        const statsInput = statsList.querySelectorAll('input');
 
         att.forEach(input => {
             input.addEventListener('input', (e) => {
@@ -77,21 +76,30 @@ export function renderCharacterForm() {
         })
 
         prof.addEventListener('input', (e) => {
-            limitValue(prof);
             updateAbilities(skills, 'abilities-list');
             updateAbilities(savingThrows, 'save-list');
         })
 
-        statsInput.forEach(input => {
+        numberInputs.forEach(input => {
             input.addEventListener('input', (e) => {
                 limitValue(input);
             })
         })
 
         updateAbilities(savingThrows, 'save-list');
-        updateAbilities(skills, 'abilities-list')
+        updateAbilities(skills, 'abilities-list');
+
+        const avatar = form.querySelector('input[name="avatar"]');
+        const img = document.getElementById('avatar-img');
+        avatar.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+
+            if (file) {
+                img.src = URL.createObjectURL(file);
+            }
+        })
         
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const formData = new FormData(form);
@@ -127,29 +135,42 @@ export function renderCharacterForm() {
                 statsArr.push(i.value);
             })
 
-            const payload = {
-                avatar: formData.get("avatar"),
-                name: formData.get("name"),
-                level: formData.get("level"),
-                charClass: formData.get("class"),
-                race: formData.get("race"),
-                alignment: formData.get("alignment"),
-                stats: statsArr,
-                STR: formData.get("STR"),
-                DEX: formData.get("DEX"),
-                CON: formData.get("CON"),
-                INT: formData.get("INT"),
-                WIS: formData.get("WIS"),
-                CHA: formData.get("CHA"),
-                salvation: saveArr,
-                abilities: abilitiesArr,
-                background: formData.get("background"),
-                feats: formData.get("feats"),
-                inventory: formData.get("inventory")
-            }
+            const payload = new FormData(form);
+
+            // Avatar (File real desde input)
+            payload.set("avatar", form.querySelector('input[name="avatar"]').files[0]);
+
+            // Campos simples
+            payload.set("name", formData.get("name"));
+            payload.set("level", Number(formData.get("level")));
+            payload.set("charClass", formData.get("class"));
+            payload.set("race", formData.get("race"));
+            payload.set("alignment", formData.get("alignment"));
+
+            // Stats (array → JSON string)
+            payload.set("stats", JSON.stringify(statsArr));
+
+            // Salvaciones (array → JSON string)
+            payload.set("salvation", JSON.stringify(saveArr));
+
+            // Habilidades (array → JSON string)
+            payload.set("abilities", JSON.stringify(abilitiesArr));
+
+            // Stats numéricos
+            payload.set("STR", Number(formData.get("STR")));
+            payload.set("DEX", Number(formData.get("DEX")));
+            payload.set("CON", Number(formData.get("CON")));
+            payload.set("INT", Number(formData.get("INT")));
+            payload.set("WIS", Number(formData.get("WIS")));
+            payload.set("CHA", Number(formData.get("CHA")));
+
+            // Texto libre
+            payload.set("background", formData.get("background"));
+            payload.set("feats", formData.get("feats"));
+            payload.set("inventory", formData.get("inventory"));
 
             try{
-                const response = fetchService.post('/api/characters/', payload)
+                const response = await fetchService.post('/api/characters/', payload)
             } catch(e){
                 console.error(e);
             }
@@ -173,11 +194,12 @@ export function renderCharacterForm() {
                     <div class="flex items-start gap-4 border-b border-brown-light p-4">
 
                         <!-- AVATAR -->
-                        <div class="flex flex-col items-center gap-1 flex-shrink-0">
-                            <label for="avatar" class="cinzel-regular text-mt-light text-xs">Avatar</label>
+                        <div class="flex flex-col items-center gap-2 flex-shrink-0">
                             <div class="rounded-full overflow-hidden border-2 border-gold size-16">
-                                <input type="file" id="avatar" name="avatar" class="size-full">
+                                <img id="avatar-img" src="">
                             </div>
+                            <label for="avatar" class="border border-gold rounded-md text-center text-mt-light cinzel-regular text-xs tracking-wide py-1 px-3 bg-gradient-red hover:saturate-120">Avatar</label>
+                            <input type="file" id="avatar" name="avatar" class="hidden">
                         </div>
 
                         <!-- CAMPOS -->

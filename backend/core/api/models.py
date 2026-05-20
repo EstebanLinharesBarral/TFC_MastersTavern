@@ -14,7 +14,11 @@ user = models.ForeignKey(User, on_delete=models.CASCADE)
 class Characters(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="characters")
     
-    avatar = models.CharField(max_length=255, blank=True)
+    avatar = models.FileField(
+        upload_to="avatars/",
+        blank=True,
+        null=True
+    )
     name = models.CharField(max_length=100, blank=True)
     level = models.IntegerField(blank=True, null=True)
     charClass = models.CharField(max_length=100, blank=True)

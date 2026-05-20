@@ -21,15 +21,16 @@ class FetchService {
             }
         }
 
-        // JSON automático
-        if (body) {
+        const isFormData = body instanceof FormData;
+
+        if (!isFormData && body) {
             headers["Content-Type"] = "application/json";
         }
 
         const response = await fetch(global.BASE_URL + endpoint, {
             method,
             headers,
-            body: body ? JSON.stringify(body) : null
+            body: isFormData ? body : (body ? JSON.stringify(body) : null)
         });
 
         // Token expirado
@@ -98,7 +99,7 @@ class FetchService {
     async post(endpoint, payload) {
         return this.request(endpoint, {
             method: "POST",
-            body: payload
+            body: payload,
         });
     }
 }
