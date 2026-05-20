@@ -1,13 +1,20 @@
 from rest_framework import serializers
-from .models import Characters
+from .models import Characters, Weapons
+import json
 
 class CharacterSerializer(serializers.ModelSerializer):
+
+    weapons = serializers.PrimaryKeyRelatedField(
+        queryset=Weapons.objects.all(),
+        many=True,
+        required=False
+    )
+
     class Meta:
         model = Characters
         fields = "__all__"
         read_only_fields = ["user"]
-    
-    # Conversión automática de strings → ints
+
     def to_internal_value(self, data):
         data = data.copy()
 
@@ -21,12 +28,24 @@ class CharacterSerializer(serializers.ModelSerializer):
             else:
                 try:
                     data[field] = int(value)
-                except (ValueError, TypeError):
+                except:
                     data[field] = None
 
-        # Avatar: evitar objetos raros
         avatar = data.get("avatar")
         if isinstance(avatar, dict):
             data["avatar"] = ""
 
         return super().to_internal_value(data)
+    
+    def create(self, validated_data):
+        weapons = validated_data.pop("weapons", [])
+        character = Characters.objects.create(**validated_data)
+        if weapons:
+            character.weapons.set(weapons)
+
+        return character
+    
+class WeaponSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Weapons
+        fields = "__all__"

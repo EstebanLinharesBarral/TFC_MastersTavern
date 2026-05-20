@@ -8,6 +8,66 @@ export function renderCharacterForm() {
 
     setTimeout(async () => {
         const form = document.querySelector('form');
+
+        // PINTAR ARMAS
+        const weapons = await fetchService.get('/api/weapons');
+
+        const weaponsList = document.getElementById('weapon-list');
+        const weaponsSelect = document.querySelector('select[name="weapon-name"]');
+        const damageInput = document.querySelector('input[name="weapon-damage"]');
+        const wTypeInput = document.querySelector('input[name="weapon-type"]');
+        const weaponBtn = document.getElementById('weapon-btn');
+
+        weaponsSelect.innerHTML += `<option value="">Selecciona un arma...</option>`
+        weapons.forEach(w => {
+            weaponsSelect.innerHTML += `<option value="${w.id}">${w.name}</option>`;
+        })
+
+        weaponsSelect.addEventListener('change', (e) => {
+            const weapon = weapons.filter(w =>
+                w.id === Number.parseInt(weaponsSelect.value)
+            );
+
+            if(weapon.length > 0) {
+                damageInput.value = weapon[0].damage;
+                wTypeInput.value = weapon[0].type;
+            }
+        })
+
+        let weaponArr = [];
+        weaponBtn.addEventListener('click', (e) => {
+            const weapon = weapons.filter(w =>
+                w.id === Number.parseInt(weaponsSelect.value)
+            );
+
+            if (weapon.length > 0) {
+                const w = weapon[0];
+                const li = document.createElement("li");
+                li.className = "flex justify-between ml-4 garamond-regular text-sm text-mt-dark";
+
+                li.innerHTML = `
+                    <p>${w.name} - ${w.damage} - ${w.type}</p>
+                    <button data-id="${w.id}" data-action="delete" class="cursor-pointer">
+                        <i data-lucide="x" class="size-4 hover:text-red-500"></i>
+                    </button>
+                `;
+
+                weaponsList.appendChild(li);
+                weaponArr.push(Number.parseInt(w.id));
+            }
+
+            weaponsList.addEventListener('click', (e) => {
+                const btn = e.target.closest('button[data-action="delete"]');
+                if (!btn) return;
+                const id = btn.dataset.id;
+                weaponArr = weaponArr.filter(w => w != id);
+                btn.closest('li').remove();
+            });
+
+            if(window.lucide) lucide.createIcons();
+        })
+
+        // DINAMISMO DE ATRIBUTOS
         let atributes = {
             STR: '',
             DEX: '',
@@ -168,6 +228,9 @@ export function renderCharacterForm() {
             payload.set("background", formData.get("background"));
             payload.set("feats", formData.get("feats"));
             payload.set("inventory", formData.get("inventory"));
+
+            // Relaciones
+            payload.set("weapons", weaponArr);
 
             try{
                 const response = await fetchService.post('/api/characters/', payload)
@@ -414,13 +477,18 @@ export function renderCharacterForm() {
                                 <!-- ARMAS -->
                                 <div class="mr-4">
                                     <p class="cinzel-medium text-mt-sublight text-xs mb-2">Armas</p>
-                                    <ul id="weapon-list" class="flex flex-col gap-1 mb-2"></ul>
-                                    <div class="flex flex-col md:flex-row gap-2 flex-wrap w-full">
-                                        <input name="weapon-name" type="text" placeholder="Nombre" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg flex-1 w-full">
-                                        <input name="weapon-damage" type="text" placeholder="Daño (ej. 1d8)" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg w-full md:w-24">
-                                        <input name="weapon-type" type="text" placeholder="Tipo" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg w-full md:w-24">
-                                        <button type="button" onclick="addWeapon()" class="cinzel-regular text-mt-light text-xs px-3 py-1 border border-brown-light rounded-md hover:bg-amber-100/10 hover:cursor-pointer whitespace-nowrap">+ Añadir</button>
+                                    
+                                    <div id="weapon-inputs" class="flex flex-col md:flex-row gap-2 flex-wrap w-full">
+                                        <select name="weapon-name" placeholder="Nombre" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg flex-1 w-full"></select>
+                                        <input name="weapon-damage" type="text" readonly placeholder="Daño (ej. 1d8)" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg w-full md:w-24">
+                                        <input name="weapon-type" type="text" readonly placeholder="Tipo" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg w-full md:w-24">
+                                        <button id="weapon-btn" type="button" class="cinzel-regular text-mt-light text-xs px-3 py-1 border border-brown-light rounded-md hover:bg-amber-100/10 hover:cursor-pointer whitespace-nowrap">+ Añadir</button>
                                     </div>
+
+                                    <ul id="weapon-list" class="flex flex-col gap-1 mt-2 bg-gradient-white rounded-lg border-2 border-brown-light p-4">
+                                        <h2 class="cinzel-bold text-mt-dark">Lista de armas</h2>
+                                    </ul>
+                                    <input name="hidden-weapons" type="hidden">
                                 </div>
 
                                 <!-- ARMADURA -->

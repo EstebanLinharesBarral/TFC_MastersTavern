@@ -11,6 +11,22 @@ user = models.ForeignKey(User, on_delete=models.CASCADE)
 #     username = models.CharField(max_length=100, unique=True)
 #     password = models.CharField(max_length=200)
 
+class Weapons(models.Model):
+    name = models.CharField(max_length=100)
+    damage = models.CharField(max_length=100)
+    type = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+    
+class Armors(models.Model):
+    name = models.CharField(max_length=100)
+    armor = models.CharField(max_length=100)
+    type = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
 class Characters(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="characters")
     
@@ -36,3 +52,8 @@ class Characters(models.Model):
     background = models.TextField(blank=True)
     feats = models.TextField(blank=True)
     inventory = models.TextField(blank=True)
+    weapons = models.ManyToManyField(
+        Weapons,
+        blank=True
+    )
+    armor = models.ForeignKey(Armors, on_delete=models.CASCADE, related_name="armors", blank=True, null=True)
