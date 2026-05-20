@@ -17,7 +17,7 @@ export function renderCharactersPage() {
             if(response && charList){
                 response.map(char => {
                     charList.innerHTML += `<li data-id=${char.id} class="flex items-center px-4 py-2 hover:bg-[#221407] cursor-pointer">
-                            <div class="rounded-full overflow-hidden border-2 border-gold size-12 mr-4"><img src="${char.avatar || ''}"></div>
+                            <div class="rounded-full overflow-hidden border-2 border-gold size-12 mr-4"><img src="${char.avatar || ''}" class="size-full object-cover object-center"></div>
                             <div class="space-y-[1px]">
                                 <p class="cinzel-medium text-sm text-mt-lighter tracking-wide">${char.name || 'Sin Nombre'}</p>
                                 <div class="flex items-center gap-1 garamond-regular text-mt-sublight text-sm"><p>${races[char.race] || 'Sin raza'}</p> <span class="relative back-mt-sublight rounded-full size-[2px] self-center -bottom-[1px]"></span> <p>${classes[char.charClass] || 'Sin clase'}</p></div>
@@ -73,7 +73,7 @@ export function renderCharactersPage() {
 
                     preview.innerHTML = `<!-- HEADER -->
                     <div class="flex items-center border-b border-brown-light p-4">
-                        <div class="rounded-full overflow-hidden border-2 border-gold size-16 mr-4"><img src="${char.avatar || ''}"></div>
+                        <div class="rounded-full overflow-hidden border-2 border-gold size-16 mr-4"><img src="${char.avatar || ''}" class="size-full object-cover object-center"></div>
                         <div class="space-y-[1px]">
                             <p class="cinzel-medium text-sm text-mt-lighter tracking-wide">${char.name || 'Sin nombre'}</p>
                             <div class="flex items-center gap-1 garamond-regular text-mt-sublight text-base"><p>${races[char.race] || 'Sin raza'}</p> <span class="relative back-mt-sublight rounded-full size-[2px] self-center -bottom-[1px]"></span> <p>${classes[char.charClass] || 'Sin clase'}</p></div>

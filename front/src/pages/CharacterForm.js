@@ -196,7 +196,7 @@ export function renderCharacterForm() {
                         <!-- AVATAR -->
                         <div class="flex flex-col items-center gap-2 flex-shrink-0">
                             <div class="rounded-full overflow-hidden border-2 border-gold size-16">
-                                <img id="avatar-img" src="">
+                                <img id="avatar-img" src="" class="size-full object-cover object-center">
                             </div>
                             <label for="avatar" class="border border-gold rounded-md text-center text-mt-light cinzel-regular text-xs tracking-wide py-1 px-3 bg-gradient-red hover:saturate-120">Avatar</label>
                             <input type="file" id="avatar" name="avatar" class="hidden">

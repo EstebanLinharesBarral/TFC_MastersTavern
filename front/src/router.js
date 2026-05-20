@@ -1,5 +1,6 @@
 // router.js
 
+import { Footer } from "./components/footer.js";
 import { Header } from "./components/header.js";
 
 export function createRouter(routes) {
@@ -102,7 +103,7 @@ export function createRouter(routes) {
             const content = await Promise.resolve(handler({ params, query: to.query, signal }));
             if (signal.aborted) return;
 
-            app.innerHTML = Header({ currentPath: path }) + content;
+            app.innerHTML = Header({ currentPath: path }) + content + Footer();
             app.classList.remove("route-leave");
             app.classList.add("route-enter");
             requestAnimationFrame(() => app.classList.remove("route-enter"));
