@@ -1,5 +1,6 @@
 // services/FetchService.js
 import { global } from "../global.js";
+import { authService } from "./AuthService.js";
 
 class FetchService {
     async request(endpoint, options = {}, retry = true) {
@@ -40,7 +41,7 @@ class FetchService {
 
             // Si no hay refresh → logout
             if (!refresh) {
-                this.logout();
+                authService.logout();
                 throw new Error("Sesión expirada");
             }
 
@@ -60,7 +61,7 @@ class FetchService {
 
             // Refresh inválido
             if (!refreshResponse.ok) {
-                this.logout();
+                authService.logout();
                 throw new Error("Sesión expirada");
             }
 

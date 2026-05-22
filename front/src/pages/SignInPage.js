@@ -1,5 +1,6 @@
 import { authService } from "../services/AuthService.js";
 import { fetchService } from "../services/FetchService.js";
+import { renderErrorModal } from "../components/modal.js";
 
 // pages/SignInPage.js
 export function renderSignInPage() {
@@ -30,6 +31,8 @@ export function renderSignInPage() {
                     setTimeout(() => {window.location.hash = '#/log-in'}, 1000)
                 }
             }catch(error){
+                const modal = renderErrorModal(error);
+                document.body.insertAdjacentHTML("afterbegin", modal)
                 console.error('Error en el signin:', error)
             }finally{
                 

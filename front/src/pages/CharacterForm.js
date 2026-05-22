@@ -3,6 +3,7 @@
 import { fetchService } from "../services/FetchService.js";
 import { skills, savingThrows } from "../components/dicc.js";
 import { sheetService } from "../services/SheetService.js";
+import { renderErrorModal } from "../components/modal.js";
 
 export function renderCharacterForm() {
 
@@ -269,6 +270,8 @@ export function renderCharacterForm() {
             try{
                 const response = await fetchService.post('/api/characters/', payload)
             } catch(e){
+                const modal = renderErrorModal(error);
+                document.body.insertAdjacentHTML("afterbegin", modal)
                 console.error(e);
             }
         })

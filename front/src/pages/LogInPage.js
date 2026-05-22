@@ -1,5 +1,6 @@
 // pages/LogInPage.js
 import { authService } from "../services/AuthService.js";
+import { renderErrorModal } from "../components/modal.js";
 
 export function renderLogInPage() {
     setTimeout(async () => {
@@ -30,6 +31,9 @@ export function renderLogInPage() {
                     setTimeout(() => {window.location.hash = '#/'}, 1000)
                 }
             }catch(error){
+                const modal = renderErrorModal(error);
+                document.body.insertAdjacentHTML("afterbegin", modal)
+
                 console.error('Error en el login:', error)
             }
         })
