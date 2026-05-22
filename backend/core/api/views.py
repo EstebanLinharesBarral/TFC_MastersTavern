@@ -18,18 +18,23 @@ def register(request):
 
     try:
         data = json.loads(request.body)
+        print(request.body)
 
         first_name = data.get('first_name')
         last_name = data.get('last_name')
         username = data.get("username")
         email = data.get("email")
         password = data.get("password1")
+        password2 = data.get("password2")
 
         if not username or not password:
             return JsonResponse({"error": "Faltan datos"}, status=400)
 
         if User.objects.filter(username=username).exists():
             return JsonResponse({"error": "Usuario ya existe"}, status=400)
+        
+        if password != password2:
+            return JsonResponse({"error": "Las contraseñas no son la misma"}, status=400)
 
         user = User.objects.create_user(
             first_name = first_name,
