@@ -224,7 +224,9 @@ export function renderCharacterForm() {
             const payload = new FormData(form);
 
             // Avatar (File real desde input)
-            payload.set("avatar", form.querySelector('input[name="avatar"]').files[0]);
+            if(form.querySelector('input[name="avatar"]').files[0]){
+                payload.set("avatar", form.querySelector('input[name="avatar"]').files[0]);
+            }
 
             // Campos simples
             payload.set("name", formData.get("name"));
@@ -256,8 +258,13 @@ export function renderCharacterForm() {
             payload.set("inventory", formData.get("inventory"));
 
             // Relaciones
-            payload.set("weapons", weaponArr);
-            payload.set("armor", Number(formData.get('armor-name')))
+            if(weaponArr.length > 0) {
+                payload.set("weapons", weaponArr);
+            }
+
+            if(Number(formData.get('armor-name')) != 0) {
+                payload.set("armor", Number(formData.get('armor-name')))
+            }
 
             try{
                 const response = await fetchService.post('/api/characters/', payload)

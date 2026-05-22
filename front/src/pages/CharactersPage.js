@@ -178,7 +178,7 @@ export function renderCharactersPage() {
                     <!-- BOTONES -->
                     <div class="flex justify-end border-t gap-2 border-brown-light px-4 py-2">
                         <button type="button" data-action="delete" class="text-center border border-brown-light rounded-md cinzel-regular text-mt-light text-xs px-4 py-2 tracking-wide hover:bg-amber-100/10 hover:cursor-pointer">Eliminar</button>
-                        <a href="#/new-character" class="block border border-gold rounded-md text-center text-mt-light cinzel-regular text-xs tracking-wide py-2 px-4 bg-gradient-red hover:saturate-120">Editar Ficha Completa</a>
+                        <a href="#/character-form" class="block border border-gold rounded-md text-center text-mt-light cinzel-regular text-xs tracking-wide py-2 px-4 bg-gradient-red hover:saturate-120">Editar Ficha Completa</a>
                     </div>`
 
                     const deleteBtn = document.querySelector('button[data-action=delete]');
@@ -247,7 +247,7 @@ return `<div class="px-8 pt-4 pb-8 flex flex-col gap-8">
                     <ul id="character-list" class="garamond-regular flex-1 list-inside text-start divide-y divide-[#2f2207c8]">
                         
                     </ul>
-                    <a href="#/new-character" class="block w-full text-center text-mt-light cinzel-regular text-xs tracking-wide py-2 bg-gradient-red hover:saturate-120">+ Nuevo Personaje</a>
+                    <a href="#/character-form" class="block w-full text-center text-mt-light cinzel-regular text-xs tracking-wide py-2 bg-gradient-red hover:saturate-120">+ Nuevo Personaje</a>
                 </div>
             </aside>
 

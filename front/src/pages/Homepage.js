@@ -12,7 +12,7 @@ export function renderHomepage() {
                 <p><span class="text-amber-600 text-glow-torch">Masters</span>Tavern</p>
             </h2>
             <p class="garamond-italic text-mt-lighter text-lg">Gestiona tus partidas y personajes de rol</p>
-            <a href="#/new-character" class="flex tracking-widest items-center gap-2 justify-center cinzel-regular w-fit text-mt-light text-sm rounded-lg bg-gradient-red border-2 border-gold py-3 px-8 hover:saturate-120"><i data-lucide="swords"></i>  Crear Nuevo Personaje</a>
+            <a href="#/character-form" class="flex tracking-widest items-center gap-2 justify-center cinzel-regular w-fit text-mt-light text-sm rounded-lg bg-gradient-red border-2 border-gold py-3 px-8 hover:saturate-120"><i data-lucide="swords"></i>  Crear Nuevo Personaje</a>
             <a href="#/" class="flex tracking-widest items-center gap-2 justify-center cinzel-regular w-fit text-mt-light text-sm rounded-lg bg-gradient-brown border border-gold py-3 px-8 hover:saturate-150"><i data-lucide="map"></i>  Explorar partidas</a>
         </div>
 

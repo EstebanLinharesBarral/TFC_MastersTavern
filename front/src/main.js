@@ -23,7 +23,7 @@ const routes = {
     "/sign-in": () => renderSignInPage(),
     "/log-in": () => renderLogInPage(),
     "/my-characters": () => renderCharactersPage(),
-    "/new-character": () => renderCharacterForm(),
+    "/character-form": () => renderCharacterForm(),
     "/404": () => "<h1>404 Not Found</h1>"
 };
 
