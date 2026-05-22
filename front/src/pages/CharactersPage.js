@@ -29,6 +29,7 @@ export function renderCharactersPage() {
 
             // EVENTO AL CLICAR UN PERSONAJE
             const lis = charList.querySelectorAll('li');
+            
             lis.forEach(li => {
                 li.addEventListener('click', (e) => {
                     const id = li.dataset.id;
@@ -176,14 +177,19 @@ export function renderCharactersPage() {
 
                     <!-- BOTONES -->
                     <div class="flex justify-end border-t gap-2 border-brown-light px-4 py-2">
-                        <button class="text-center border border-brown-light rounded-md cinzel-regular text-mt-light text-xs px-4 py-2 tracking-wide hover:bg-amber-100/10 hover:cursor-pointer">Exportar</button>
+                        <button type="button" data-action="delete" class="text-center border border-brown-light rounded-md cinzel-regular text-mt-light text-xs px-4 py-2 tracking-wide hover:bg-amber-100/10 hover:cursor-pointer">Eliminar</button>
                         <a href="#/new-character" class="block border border-gold rounded-md text-center text-mt-light cinzel-regular text-xs tracking-wide py-2 px-4 bg-gradient-red hover:saturate-120">Editar Ficha Completa</a>
                     </div>`
+
+                    const deleteBtn = document.querySelector('button[data-action=delete]');
+                    deleteBtn.addEventListener('click', (e) => {
+                        fetchService.delete(`/api/characters/${id}/`)
+                    })
                 })
             })
 
         }catch(e){
-
+            console.error(e)
         }
     })
 

@@ -102,6 +102,12 @@ class FetchService {
             body: payload,
         });
     }
+
+    async delete(endpoint) {
+        return this.request(endpoint, {
+            method: "DELETE"
+        });
+    }
 }
 
 export const fetchService = new FetchService();
