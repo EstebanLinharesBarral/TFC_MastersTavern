@@ -7,8 +7,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import viewsets
-from .serializers import CharacterSerializer, WeaponSerializer
-from .models import Characters, Weapons
+from .serializers import CharacterSerializer, WeaponSerializer, ArmorSerializer
+from .models import Characters, Weapons, Armors
 
 # Create your views here.
 @csrf_exempt
@@ -96,4 +96,14 @@ def weapons_list(request):
     
     weapons = Weapons.objects.all()
     serializer = WeaponSerializer(weapons, many=True)
+    return Response(serializer.data)
+
+# ARMADURAS
+@api_view(['GET'])
+def armors_list(request):
+    if request.method != 'GET':
+        return JsonResponse({"error": "Método no permitido"}, status=405)
+    
+    armors = Armors.objects.all()
+    serializer = ArmorSerializer(armors, many=True)
     return Response(serializer.data)

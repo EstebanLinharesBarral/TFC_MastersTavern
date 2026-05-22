@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Characters, Weapons
+from .models import Characters, Weapons, Armors
 import json
 
 class CharacterSerializer(serializers.ModelSerializer):
@@ -7,6 +7,11 @@ class CharacterSerializer(serializers.ModelSerializer):
     weapons = serializers.PrimaryKeyRelatedField(
         queryset=Weapons.objects.all(),
         many=True,
+        required=False
+    )
+
+    armor = serializers.PrimaryKeyRelatedField(
+        queryset=Armors.objects.all(),
         required=False
     )
 
@@ -48,4 +53,9 @@ class CharacterSerializer(serializers.ModelSerializer):
 class WeaponSerializer(serializers.ModelSerializer):
     class Meta:
         model = Weapons
+        fields = "__all__"
+
+class ArmorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Armors
         fields = "__all__"

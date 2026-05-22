@@ -67,6 +67,32 @@ export function renderCharacterForm() {
             if(window.lucide) lucide.createIcons();
         })
 
+        // PINTAR ARMADURAS
+        const armors = await fetchService.get('/api/armors/');
+
+        const armorsSelect = document.querySelector('select[name="armor-name"]');
+        const aTypeInput = document.querySelector('input[name="armor-type"]');
+        const caInput = document.querySelector('input[name="armor-ca"]');
+
+        armorsSelect.innerHTML += `<option value="">Selecciona una armadura...</option>`
+        armors.forEach(w => {
+            armorsSelect.innerHTML += `<option value="${w.id}">${w.name}</option>`;
+        })
+
+        armorsSelect.addEventListener('change', (e) => {
+            const armor = armors.filter(w =>
+                w.id === Number.parseInt(armorsSelect.value)
+            );
+
+            if(armor.length > 0) {
+                aTypeInput.value = armor[0].type;
+                caInput.value = armor[0].armor;
+            } else {
+                aTypeInput.value = '';
+                caInput.value = 0;
+            }
+        })
+
         // DINAMISMO DE ATRIBUTOS
         let atributes = {
             STR: '',
@@ -231,6 +257,7 @@ export function renderCharacterForm() {
 
             // Relaciones
             payload.set("weapons", weaponArr);
+            payload.set("armor", Number(formData.get('armor-name')))
 
             try{
                 const response = await fetchService.post('/api/characters/', payload)
@@ -495,9 +522,9 @@ export function renderCharacterForm() {
                                 <div class="mr-4">
                                     <p class="cinzel-medium text-mt-sublight text-xs mb-2">Armadura</p>
                                     <div class="flex flex-col md:flex-row gap-2 flex-wrap w-full">
-                                        <input name="armor-name" type="text" placeholder="Nombre" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg flex-1 w-full">
-                                        <input name="armor-type" type="text" placeholder="Tipo" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg w-full md:w-24">
-                                        <input name="armor-ac" type="number" placeholder="CA" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg w-full md:w-24 text-center">
+                                        <select name="armor-name" type="text" placeholder="Nombre" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg flex-1 w-full"></select>
+                                        <input name="armor-type" type="text" readonly placeholder="Tipo" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg w-full md:w-24">
+                                        <input name="armor-ca" type="number" readonly placeholder="CA" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg w-full md:w-24 text-center">
                                     </div>
                                 </div>
 

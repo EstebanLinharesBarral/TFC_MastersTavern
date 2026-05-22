@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from api.views import register, login, me, CharacterViewSet, weapons_list
+from api.views import register, login, me, CharacterViewSet, weapons_list, armors_list
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.routers import DefaultRouter
 from django.conf import settings
@@ -33,6 +33,7 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view()),
     path('api/me/', me),
     path('api/weapons/', weapons_list),
+    path('api/armors/', armors_list),
     path('api/', include(router.urls))
 ]
 
