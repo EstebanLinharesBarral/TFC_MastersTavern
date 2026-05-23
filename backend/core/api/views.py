@@ -88,7 +88,22 @@ class CharacterViewSet(viewsets.ModelViewSet):
     serializer_class = CharacterSerializer
 
     def get_queryset(self):
-        return Characters.objects.filter(user=self.request.user)
+        queryset = Characters.objects.filter(user=self.request.user)
+
+        name = self.request.query_params.get("name")
+        char_class = self.request.query_params.get("charClass")
+        race = self.request.query_params.get("race")
+
+        if name:
+            queryset = queryset.filter(name__icontains=name)
+
+        if char_class:
+            queryset = queryset.filter(charClass=char_class)
+        
+        if race:
+            queryset = queryset.filter(race=race)
+
+        return queryset
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

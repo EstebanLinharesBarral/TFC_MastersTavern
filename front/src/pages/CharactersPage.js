@@ -7,193 +7,212 @@ import { sheetService } from "../services/SheetService.js";
 export function renderCharactersPage() {
 
     setTimeout(async () => {
-        const count = document.getElementById('char-count');
+        const updateCharList = async (query = "") => {
+            const count = document.getElementById('char-count');
+            try{
+                const response = await fetchService.get(`/api/characters${query}`);
+                count.textContent = `${response.length} personajes`;
 
-        try{
-            const response = await fetchService.get('/api/characters');
-            count.textContent = `${response.length} personajes`;
+                const charList = document.getElementById('character-list');
+                if(response && charList){
+                    charList.innerHTML = "";
+                    response.map(char => {
+                        charList.innerHTML += `<li data-id=${char.id} class="flex items-center px-4 py-2 hover:bg-[#221407] cursor-pointer">
+                                <div class="rounded-full overflow-hidden border-2 border-gold size-12 mr-4"><img src="${char.avatar || ''}" class="size-full object-cover object-center"></div>
+                                <div class="space-y-[1px]">
+                                    <p class="cinzel-medium text-sm text-mt-lighter tracking-wide">${char.name || 'Sin Nombre'}</p>
+                                    <div class="flex items-center gap-1 garamond-regular text-mt-sublight text-sm"><p>${races[char.race] || 'Sin raza'}</p> <span class="relative back-mt-sublight rounded-full size-[2px] self-center -bottom-[1px]"></span> <p>${classes[char.charClass] || 'Sin clase'}</p></div>
+                                </div>
+                                <p class="cinzel-regular text-mt-sublight text-[11px] px-3 py-[1px] rounded-sm ml-auto border border-brown-light bg-[#2f2207c8]">Nv ${char.level || '0'}</p>
+                            </li>`
+                    })
+                }
 
-            const charList = document.getElementById('character-list');
-            if(response && charList){
-                response.map(char => {
-                    charList.innerHTML += `<li data-id=${char.id} class="flex items-center px-4 py-2 hover:bg-[#221407] cursor-pointer">
-                            <div class="rounded-full overflow-hidden border-2 border-gold size-12 mr-4"><img src="${char.avatar || ''}" class="size-full object-cover object-center"></div>
+                // EVENTO AL CLICAR UN PERSONAJE
+                const lis = charList.querySelectorAll('li');
+                
+                lis.forEach(li => {
+                    li.addEventListener('click', (e) => {
+                        const id = li.dataset.id;
+                        const char = response.filter(r => r.id == id)[0];
+                        const preview = document.getElementById('preview-container');
+                        preview.classList.replace('hidden', 'block')
+
+                        const atributes = {
+                            STR: sheetService.calculateAttribute(char.STR),
+                            DEX: sheetService.calculateAttribute(char.DEX),
+                            CON: sheetService.calculateAttribute(char.CON),
+                            INT: sheetService.calculateAttribute(char.INT),
+                            WIS: sheetService.calculateAttribute(char.WIS),
+                            CHA: sheetService.calculateAttribute(char.CHA),
+                        }
+
+                        // PINTADO DE HABILIDADES CON PROF
+                        let skillsEl = char.abilities.map(ab => {
+                            return `<li class="flex gap-2 items-center">
+                                <span class="size-3 rounded-full border border-brown-light back-mt-light"></span>
+                                <p class="garamond-regular text-mt-lighter">${skills[ab].label}</p>
+                                <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">${sheetService.calculateAttribute(char[skills[ab].attribute], char.stats[5])}</p>
+                            </li>`
+                        }).join('');
+
+                        // PINTADO DE TIRADAS DE SALVACIÓN
+                        let savesEl = Object.entries(savingThrows).map(([key, save]) => {
+                            const isProficient = char.salvation.includes(key);
+
+                            return `<li class="flex gap-2 items-center">
+                                <span class="size-3 rounded-full border border-brown-light ${isProficient ? 'back-mt-light' : ''}"></span>
+                                <p class="garamond-regular text-mt-lighter">${save.label}</p>
+                                <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">${isProficient ? sheetService.calculateAttribute(char[save.attribute], char.stats[5]) : atributes[save.attribute]}</p>
+                            </li>`;
+                        }).join('');
+
+                        // CLASES PARA ELEMENTO ACTIVO
+                        lis.forEach(li => {
+                            li.classList.remove('border-l-3', 'border-l-[#851818]', 'bg-[#7f64293a]');
+                        })
+                        li.classList.add('border-l-3', 'border-l-[#851818]', 'bg-[#7f64293a]');
+
+                        preview.innerHTML = `<!-- HEADER -->
+                        <div class="flex items-center border-b border-brown-light p-4">
+                            <div class="rounded-full overflow-hidden border-2 border-gold size-16 mr-4"><img src="${char.avatar || ''}" class="size-full object-cover object-center"></div>
                             <div class="space-y-[1px]">
-                                <p class="cinzel-medium text-sm text-mt-lighter tracking-wide">${char.name || 'Sin Nombre'}</p>
-                                <div class="flex items-center gap-1 garamond-regular text-mt-sublight text-sm"><p>${races[char.race] || 'Sin raza'}</p> <span class="relative back-mt-sublight rounded-full size-[2px] self-center -bottom-[1px]"></span> <p>${classes[char.charClass] || 'Sin clase'}</p></div>
+                                <p class="cinzel-medium text-sm text-mt-lighter tracking-wide">${char.name || 'Sin nombre'}</p>
+                                <div class="flex items-center gap-1 garamond-regular text-mt-sublight text-base"><p>${races[char.race] || 'Sin raza'}</p> <span class="relative back-mt-sublight rounded-full size-[2px] self-center -bottom-[1px]"></span> <p>${classes[char.charClass] || 'Sin clase'}</p></div>
+                                <p class="cinzel-regular w-fit text-mt-sublight text-[11px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8]">Nivel ${char.level || '0'}</p>
                             </div>
-                            <p class="cinzel-regular text-mt-sublight text-[11px] px-3 py-[1px] rounded-sm ml-auto border border-brown-light bg-[#2f2207c8]">Nv ${char.level || '0'}</p>
-                        </li>`
+                        </div>
+
+                        <!-- ESTADÍSTICAS -->
+                        <div class="flex items-center justify-around border-b-2 border-brown-light p-4">
+                            <div class="flex flex-col gap-1 items-center cinzel-medium">
+                                <div class="flex text-lg text-mt-lighter items-center justify-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">${char.stats[0]}</div>
+                                <p class="text-mt-sublight text-[11px]">PG</p>
+                            </div>
+                            <div class="flex flex-col gap-1 items-center cinzel-medium">
+                                <div class="flex text-lg text-mt-lighter items-center justify-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">${char.stats[1]}</div>
+                                <p class="text-mt-sublight text-[11px]">CA</p>
+                            </div>
+                            <div class="flex flex-col gap-1 items-center cinzel-medium">
+                                <div class="flex text-lg text-mt-lighter items-center justify-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">${char.stats[2]}</div>
+                                <p class="text-mt-sublight text-[11px]">Init</p>
+                            </div>
+                            <div class="flex flex-col gap-1 items-center cinzel-medium">
+                                <div class="flex text-lg text-mt-lighter items-center justify-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">${char.stats[3]}</div>
+                                <p class="text-mt-sublight text-[11px]">Vel</p>
+                            </div>
+                            <div class="flex flex-col gap-1 items-center cinzel-medium">
+                                <div class="flex text-lg text-mt-lighter items-center justify-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">${char.stats[4]}</div>
+                                <p class="text-mt-sublight text-[11px]">Atq</p>
+                            </div>
+                            <div class="flex flex-col gap-1 items-center cinzel-medium">
+                                <div class="flex text-lg text-mt-lighter items-center justify-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">${char.stats[5]}</div>
+                                <p class="text-mt-sublight text-[11px]">Prof</p>
+                            </div>
+                        </div>
+
+                        <!-- ATRIBUTOS -->
+                        <div class="grid grid-cols-3 divide-x divide-[#2f2207c8] back-mt-darker">
+                            <div class="divide-y divide-[#2f2207c8]">
+                                <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
+                                    <p class="text-mt-sublight text-xs">Fuerza</p>
+                                    <p class="text-mt-lighter text-4xl">${atributes.STR || '0'}</p>
+                                    <p class="text-mt-sublight text-[11px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8]">${char.STR || '0'}</p>
+                                </div>
+                                <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
+                                    <p class="text-mt-sublight text-xs">DESTREZA</p>
+                                    <p class="text-mt-lighter text-4xl">${atributes.DEX || '0'}</p>
+                                    <p class="text-mt-sublight text-[11px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8]">${char.DEX || '0'}</p>
+                                </div>
+                            </div>
+        
+                            <div class="divide-y divide-[#2f2207c8]">
+                                <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
+                                    <p class="text-mt-sublight text-xs">CONSTITUCIÓN</p>
+                                    <p class="text-mt-lighter text-4xl">${atributes.CON || '0'}</p>
+                                    <p class="text-mt-sublight text-[11px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8]">${char.CON || '0'}</p>
+                                </div>
+                                <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
+                                    <p class="text-mt-sublight text-xs">INTELIGENCIA</p>
+                                    <p class="text-mt-lighter text-4xl">${atributes.INT || '0'}</p>
+                                    <p class="text-mt-sublight text-[11px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8]">${char.INT || '0'}</p>
+                                </div>
+                            </div>
+        
+                            <div class="divide-y divide-[#2f2207c8]">
+                                <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
+                                    <p class="text-mt-sublight text-xs">SABIDURÍA</p>
+                                    <p class="text-mt-lighter text-4xl">${atributes.WIS || '0'}</p>
+                                    <p class="text-mt-sublight text-[11px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8]">${char.WIS || '0'}</p>
+                                </div>
+                                <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
+                                    <p class="text-mt-sublight text-xs">CARISMA</p>
+                                    <p class="text-mt-lighter text-4xl">${atributes.CHA || '0'}</p>
+                                    <p class="text-mt-sublight text-[11px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8]">${char.CHA || '0'}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SALVACIÓN Y HABILIDADES -->
+                        <div class="grid grid-cols-2 gap-4 divide-x divide-[#2f2207c8] back-mt-darker p-4">
+                            <div>
+                                <p class="cinzel-medium text-mt-sublight text-xs mb-2">Tiradas de Salvación</p>
+                                <ul>
+                                    ${savesEl}
+                                </ul>
+                            </div>
+
+                            <div>
+                                <p class="cinzel-medium text-mt-sublight text-xs mb-2">Habilidades Destacadas</p>
+                                <ul>
+                                    ${skillsEl}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- TRASFONDO -->
+                        <div class="border-t border-brown-light px-4 py-2">
+                            <p class="cinzel-medium text-mt-sublight text-xs mb-2">Trasfondo</p>
+                            <p class="garamond-regular text-mt-lighter">${char.background}</p>
+                        </div>
+
+                        <!-- BOTONES -->
+                        <div class="flex justify-end border-t gap-2 border-brown-light px-4 py-2">
+                            <button type="button" data-action="delete" class="text-center border border-brown-light rounded-md cinzel-regular text-mt-light text-xs px-4 py-2 tracking-wide hover:bg-amber-100/10 hover:cursor-pointer">Eliminar</button>
+                            <a href="#/character-form" class="block border border-gold rounded-md text-center text-mt-light cinzel-regular text-xs tracking-wide py-2 px-4 bg-gradient-red hover:saturate-120">Editar Ficha Completa</a>
+                        </div>`
+
+                        const deleteBtn = document.querySelector('button[data-action=delete]');
+                        deleteBtn.addEventListener('click', (e) => {
+                            fetchService.delete(`/api/characters/${id}/`)
+                        })
+                    })
                 })
+            }catch(e){
+                console.error(e)
             }
-
-            // EVENTO AL CLICAR UN PERSONAJE
-            const lis = charList.querySelectorAll('li');
-            
-            lis.forEach(li => {
-                li.addEventListener('click', (e) => {
-                    const id = li.dataset.id;
-                    const char = response.filter(r => r.id == id)[0];
-                    const preview = document.getElementById('preview-container');
-                    preview.classList.replace('hidden', 'block')
-
-                    const atributes = {
-                        STR: sheetService.calculateAttribute(char.STR),
-                        DEX: sheetService.calculateAttribute(char.DEX),
-                        CON: sheetService.calculateAttribute(char.CON),
-                        INT: sheetService.calculateAttribute(char.INT),
-                        WIS: sheetService.calculateAttribute(char.WIS),
-                        CHA: sheetService.calculateAttribute(char.CHA),
-                    }
-
-                    // PINTADO DE HABILIDADES CON PROF
-                    let skillsEl = char.abilities.map(ab => {
-                        return `<li class="flex gap-2 items-center">
-                            <span class="size-3 rounded-full border border-brown-light back-mt-light"></span>
-                            <p class="garamond-regular text-mt-lighter">${skills[ab].label}</p>
-                            <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">${sheetService.calculateAttribute(char[skills[ab].attribute], char.stats[5])}</p>
-                        </li>`
-                    }).join('');
-
-                    // PINTADO DE TIRADAS DE SALVACIÓN
-                    let savesEl = Object.entries(savingThrows).map(([key, save]) => {
-                        const isProficient = char.salvation.includes(key);
-
-                        return `<li class="flex gap-2 items-center">
-                            <span class="size-3 rounded-full border border-brown-light ${isProficient ? 'back-mt-light' : ''}"></span>
-                            <p class="garamond-regular text-mt-lighter">${save.label}</p>
-                            <p class="cinzel-medium text-mt-sublight text-sm ml-auto pr-4">${isProficient ? sheetService.calculateAttribute(char[save.attribute], char.stats[5]) : atributes[save.attribute]}</p>
-                        </li>`;
-                    }).join('');
-
-                    // CLASES PARA ELEMENTO ACTIVO
-                    lis.forEach(li => {
-                        li.classList.remove('border-l-3', 'border-l-[#851818]', 'bg-[#7f64293a]');
-                    })
-                    li.classList.add('border-l-3', 'border-l-[#851818]', 'bg-[#7f64293a]');
-
-                    preview.innerHTML = `<!-- HEADER -->
-                    <div class="flex items-center border-b border-brown-light p-4">
-                        <div class="rounded-full overflow-hidden border-2 border-gold size-16 mr-4"><img src="${char.avatar || ''}" class="size-full object-cover object-center"></div>
-                        <div class="space-y-[1px]">
-                            <p class="cinzel-medium text-sm text-mt-lighter tracking-wide">${char.name || 'Sin nombre'}</p>
-                            <div class="flex items-center gap-1 garamond-regular text-mt-sublight text-base"><p>${races[char.race] || 'Sin raza'}</p> <span class="relative back-mt-sublight rounded-full size-[2px] self-center -bottom-[1px]"></span> <p>${classes[char.charClass] || 'Sin clase'}</p></div>
-                            <p class="cinzel-regular w-fit text-mt-sublight text-[11px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8]">Nivel ${char.level || '0'}</p>
-                        </div>
-                    </div>
-
-                    <!-- ESTADÍSTICAS -->
-                    <div class="flex items-center justify-around border-b-2 border-brown-light p-4">
-                        <div class="flex flex-col gap-1 items-center cinzel-medium">
-                            <div class="flex text-lg text-mt-lighter items-center justify-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">${char.stats[0]}</div>
-                            <p class="text-mt-sublight text-[11px]">PG</p>
-                        </div>
-                        <div class="flex flex-col gap-1 items-center cinzel-medium">
-                            <div class="flex text-lg text-mt-lighter items-center justify-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">${char.stats[1]}</div>
-                            <p class="text-mt-sublight text-[11px]">CA</p>
-                        </div>
-                        <div class="flex flex-col gap-1 items-center cinzel-medium">
-                            <div class="flex text-lg text-mt-lighter items-center justify-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">${char.stats[2]}</div>
-                            <p class="text-mt-sublight text-[11px]">Init</p>
-                        </div>
-                        <div class="flex flex-col gap-1 items-center cinzel-medium">
-                            <div class="flex text-lg text-mt-lighter items-center justify-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">${char.stats[3]}</div>
-                            <p class="text-mt-sublight text-[11px]">Vel</p>
-                        </div>
-                        <div class="flex flex-col gap-1 items-center cinzel-medium">
-                            <div class="flex text-lg text-mt-lighter items-center justify-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">${char.stats[4]}</div>
-                            <p class="text-mt-sublight text-[11px]">Atq</p>
-                        </div>
-                        <div class="flex flex-col gap-1 items-center cinzel-medium">
-                            <div class="flex text-lg text-mt-lighter items-center justify-center rounded-full overflow-hidden border border-gold bg-[#ffffff04] size-10 md:size-14">${char.stats[5]}</div>
-                            <p class="text-mt-sublight text-[11px]">Prof</p>
-                        </div>
-                    </div>
-
-                    <!-- ATRIBUTOS -->
-                    <div class="grid grid-cols-3 divide-x divide-[#2f2207c8] back-mt-darker">
-                        <div class="divide-y divide-[#2f2207c8]">
-                            <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
-                                <p class="text-mt-sublight text-xs">Fuerza</p>
-                                <p class="text-mt-lighter text-4xl">${atributes.STR || '0'}</p>
-                                <p class="text-mt-sublight text-[11px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8]">${char.STR || '0'}</p>
-                            </div>
-                            <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
-                                <p class="text-mt-sublight text-xs">DESTREZA</p>
-                                <p class="text-mt-lighter text-4xl">${atributes.DEX || '0'}</p>
-                                <p class="text-mt-sublight text-[11px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8]">${char.DEX || '0'}</p>
-                            </div>
-                        </div>
-    
-                        <div class="divide-y divide-[#2f2207c8]">
-                            <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
-                                <p class="text-mt-sublight text-xs">CONSTITUCIÓN</p>
-                                <p class="text-mt-lighter text-4xl">${atributes.CON || '0'}</p>
-                                <p class="text-mt-sublight text-[11px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8]">${char.CON || '0'}</p>
-                            </div>
-                            <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
-                                <p class="text-mt-sublight text-xs">INTELIGENCIA</p>
-                                <p class="text-mt-lighter text-4xl">${atributes.INT || '0'}</p>
-                                <p class="text-mt-sublight text-[11px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8]">${char.INT || '0'}</p>
-                            </div>
-                        </div>
-    
-                        <div class="divide-y divide-[#2f2207c8]">
-                            <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
-                                <p class="text-mt-sublight text-xs">SABIDURÍA</p>
-                                <p class="text-mt-lighter text-4xl">${atributes.WIS || '0'}</p>
-                                <p class="text-mt-sublight text-[11px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8]">${char.WIS || '0'}</p>
-                            </div>
-                            <div class="flex flex-col gap-2 items-center cinzel-medium py-4">
-                                <p class="text-mt-sublight text-xs">CARISMA</p>
-                                <p class="text-mt-lighter text-4xl">${atributes.CHA || '0'}</p>
-                                <p class="text-mt-sublight text-[11px] px-3 py-[1px] rounded-sm border border-brown-light bg-[#2f2207c8]">${char.CHA || '0'}</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- SALVACIÓN Y HABILIDADES -->
-                    <div class="grid grid-cols-2 gap-4 divide-x divide-[#2f2207c8] back-mt-darker p-4">
-                        <div>
-                            <p class="cinzel-medium text-mt-sublight text-xs mb-2">Tiradas de Salvación</p>
-                            <ul>
-                                ${savesEl}
-                            </ul>
-                        </div>
-
-                        <div>
-                            <p class="cinzel-medium text-mt-sublight text-xs mb-2">Habilidades Destacadas</p>
-                            <ul>
-                                ${skillsEl}
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- TRASFONDO -->
-                    <div class="border-t border-brown-light px-4 py-2">
-                        <p class="cinzel-medium text-mt-sublight text-xs mb-2">Trasfondo</p>
-                        <p class="garamond-regular text-mt-lighter">${char.background}</p>
-                    </div>
-
-                    <!-- BOTONES -->
-                    <div class="flex justify-end border-t gap-2 border-brown-light px-4 py-2">
-                        <button type="button" data-action="delete" class="text-center border border-brown-light rounded-md cinzel-regular text-mt-light text-xs px-4 py-2 tracking-wide hover:bg-amber-100/10 hover:cursor-pointer">Eliminar</button>
-                        <a href="#/character-form" class="block border border-gold rounded-md text-center text-mt-light cinzel-regular text-xs tracking-wide py-2 px-4 bg-gradient-red hover:saturate-120">Editar Ficha Completa</a>
-                    </div>`
-
-                    const deleteBtn = document.querySelector('button[data-action=delete]');
-                    deleteBtn.addEventListener('click', (e) => {
-                        fetchService.delete(`/api/characters/${id}/`)
-                    })
-                })
-            })
-
-        }catch(e){
-            console.error(e)
         }
+
+        updateCharList();
+
+        // FILTRADO
+        const filters = document.getElementById('filters');
+        const filterBtn = filters.querySelector('button');
+        
+        filterBtn.addEventListener('click', (e) => {
+            const filterInputs = filters.querySelectorAll('input, select');
+            const params = new URLSearchParams();
+            filterInputs.forEach(i => {
+                if(i.value != "" && i.value != undefined && i.value != null){
+                    params.append(i.name, i.value);
+                }
+            })
+            const query = `?${params.toString()}`;
+            updateCharList(query);
+        })
     })
 
-return `<div class="px-8 pt-4 pb-8 flex flex-col gap-8">
+    return `<div class="px-8 pt-4 pb-8 flex flex-col gap-8">
 
         <!-- TÍTULO -->
         <div class="mt-8 text-center">
@@ -207,7 +226,7 @@ return `<div class="px-8 pt-4 pb-8 flex flex-col gap-8">
             <!-- PERSONAJES -->
             <aside class="flex flex-col gap-4 w-full max-w-[500px]">
                 <!-- FILTROS -->
-                <div class="back-mt-darker rounded-lg p-4 border-2 border-brown-light">
+                <div id="filters" class="back-mt-darker rounded-lg p-4 border-2 border-brown-light">
                     <h3 class="cinzel-bold text-sm text-mt-light border-b border-brown-light pb-2 mb-4">Filtrar Personajes</h3>
                     <div class="space-y-4">
                         <div class="flex flex-col">
@@ -218,26 +237,46 @@ return `<div class="px-8 pt-4 pb-8 flex flex-col gap-8">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="flex flex-col">
                                 <label class="cinzel-regular text-mt-light text-xs">Clase</label>
-                                <select class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg">
-                                    <option value="">Todas</option>
+                                <select name="charClass" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg">
+                                    <option value="">—</option>
+                                    <option value="barbarian">Bárbaro</option>
+                                    <option value="bard">Bardo</option>
+                                    <option value="cleric">Clérigo</option>
+                                    <option value="druid">Druida</option>
+                                    <option value="fighter">Guerrero</option>
+                                    <option value="monk">Monje</option>
+                                    <option value="paladin">Paladín</option>
+                                    <option value="ranger">Explorador</option>
+                                    <option value="rogue">Pícaro</option>
+                                    <option value="sorcerer">Hechicero</option>
+                                    <option value="warlock">Brujo</option>
+                                    <option value="wizard">Mago</option>
+                                    <option value="artificer">Artífice</option>
                                 </select>
                             </div>
                             <div class="flex flex-col">
                                 <label class="cinzel-regular text-mt-light text-xs">Raza</label>
-                                <select class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg">
-                                    <option value="">Todas</option>
+                                <select name="race" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg">
+                                    <option value="">—</option>
+                                    <option value="dragonborn">Dracónido</option>
+                                    <option value="dwarf-hill">Enano de las colinas</option>
+                                    <option value="dwarf-mountain">Enano de la montaña</option>
+                                    <option value="elf-dark">Elfo oscuro</option>
+                                    <option value="elf-high">Elfo alto</option>
+                                    <option value="elf-wood">Elfo del bosque</option>
+                                    <option value="gnome-forest">Gnomo del bosque</option>
+                                    <option value="gnome-rock">Gnomo de las rocas</option>
+                                    <option value="half-elf">Semielfo</option>
+                                    <option value="half-orc">Semiorco</option>
+                                    <option value="halfling-lightfoot">Mediano piesligeros</option>
+                                    <option value="halfling-stout">Mediano fornido</option>
+                                    <option value="human">Humano</option>
+                                    <option value="tiefling">Tiefling</option>
                                 </select>
                             </div>
                         </div>
 
-                        <div class="flex flex-col">
-                            <label class="cinzel-regular text-mt-light text-xs">Nivel Mínimo</label>
-                            <select class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg">
-                                <option value="">Cualquiera</option>
-                            </select>
-                        </div>
-
-                        <button class="text-center border border-brown-light rounded-md p-1 cinzel-regular text-mt-light text-xs w-full hover:bg-amber-100/10 hover:cursor-pointer">Limpiar Filtros</button>
+                        <button class="text-center border border-brown-light rounded-md p-1 cinzel-regular text-mt-light text-xs w-full hover:bg-amber-100/10 hover:cursor-pointer">Buscar</button>
                     </div>
                 </div>
 
