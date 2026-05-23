@@ -599,16 +599,6 @@ export function renderCharacterForm(id = 0) {
                                         <input name="armor-ca" type="number" readonly placeholder="CA" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg w-full md:w-24 text-center">
                                     </div>
                                 </div>
-
-                                <!-- HECHIZOS -->
-                                <div class="mr-4">
-                                    <p class="cinzel-medium text-mt-sublight text-xs mb-2">Hechizos</p>
-                                    <ul id="spell-list" class="flex flex-col gap-1 mb-2"></ul>
-                                    <div class="flex flex-col md:flex-row gap-2 flex-wrap w-full">
-                                        <input id="spell-input" type="text" placeholder="Nombre del hechizo" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg flex-1 w-full">
-                                        <button type="button" onclick="addSpell()" class="cinzel-regular text-mt-light text-xs px-3 py-1 border border-brown-light rounded-md hover:bg-amber-100/10 hover:cursor-pointer whitespace-nowrap">+ Añadir</button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         
