@@ -5,7 +5,7 @@ import { skills, savingThrows } from "../components/dicc.js";
 import { sheetService } from "../services/SheetService.js";
 import { renderErrorModal } from "../components/modal.js";
 
-export function renderCharacterForm() {
+export function renderCharacterForm(id = 0) {
 
     setTimeout(async () => {
         const form = document.querySelector('form');
@@ -275,6 +275,35 @@ export function renderCharacterForm() {
                 console.error(e);
             }
         })
+
+        if(id != 0 && id != undefined && id != null) {
+            try {
+                const response = await fetchService.get(`/api/characters?id=${id}`);
+                const char = response[0];
+
+                // ERROR SI NO EXISTE EL PERSONAJE
+                if(char.length < 1) {
+                    throw new Error("El personaje buscado no existe");
+                }
+                
+                // PINTADO DE DATOS
+                const avatarPreview = document.getElementById('avatar-img');
+                avatarPreview.src= char.avatar;
+
+                Object.keys(char).forEach(key => {
+                    const input = form.querySelector(`[name="${key}"]`);
+                    if (input && input.type != 'file') {
+                        input.value = char[key] ?? "";
+                    }
+                });
+                
+            } catch(e) {
+                console.error(e);
+                const modal = renderErrorModal(e);
+                document.body.insertAdjacentHTML("afterbegin", modal)
+                window.location.hash = "#/my-characters";
+            }
+        }
 
     }, 0)
 

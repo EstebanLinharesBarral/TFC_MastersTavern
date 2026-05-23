@@ -93,6 +93,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
         name = self.request.query_params.get("name")
         char_class = self.request.query_params.get("charClass")
         race = self.request.query_params.get("race")
+        id = self.request.query_params.get("id")
 
         if name:
             queryset = queryset.filter(name__icontains=name)
@@ -102,6 +103,9 @@ class CharacterViewSet(viewsets.ModelViewSet):
         
         if race:
             queryset = queryset.filter(race=race)
+
+        if id:
+            queryset = queryset.filter(id=id)
 
         return queryset
     

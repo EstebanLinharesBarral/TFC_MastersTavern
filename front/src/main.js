@@ -24,6 +24,7 @@ const routes = {
     "/log-in": () => renderLogInPage(),
     "/my-characters": () => renderCharactersPage(),
     "/character-form": () => renderCharacterForm(),
+    "/character-form/:id": ({params}) => renderCharacterForm(params.id),
     "/404": () => "<h1>404 Not Found</h1>"
 };
 
