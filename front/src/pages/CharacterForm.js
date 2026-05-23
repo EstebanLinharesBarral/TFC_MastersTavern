@@ -232,7 +232,7 @@ export function renderCharacterForm(id = 0) {
             // Campos simples
             payload.set("name", formData.get("name"));
             payload.set("level", Number(formData.get("level")));
-            payload.set("charClass", formData.get("class"));
+            payload.set("charClass", formData.get("charClass"));
             payload.set("race", formData.get("race"));
             payload.set("alignment", formData.get("alignment"));
 
@@ -268,7 +268,11 @@ export function renderCharacterForm(id = 0) {
             }
 
             try{
-                const response = await fetchService.post('/api/characters/', payload)
+                if(id != 0 && id != undefined && id != null) {
+                    const response = await fetchService.put(`/api/characters/${id}/`, payload)
+                } else {
+                    const response = await fetchService.post('/api/characters/', payload)
+                }
             } catch(e){
                 const modal = renderErrorModal(error);
                 document.body.insertAdjacentHTML("afterbegin", modal)
@@ -296,6 +300,35 @@ export function renderCharacterForm(id = 0) {
                         input.value = char[key] ?? "";
                     }
                 });
+
+                const statsList = document.getElementById('stats-list');
+                const statsInputs = statsList.querySelectorAll('input');
+                statsInputs.forEach((input, i) => {
+                    input.value = char.stats[i];
+                })
+
+                const abilitiesList = document.getElementById('abilities-list');
+                const abilitiesInputs = abilitiesList.querySelectorAll('input');
+                abilitiesInputs.forEach(input => {
+                    input.checked = char.abilities.includes(input.name);
+                });
+
+                const saveList = document.getElementById('save-list');
+                const saveInputs = saveList.querySelectorAll('input');
+                saveInputs.forEach(input => {
+                    input.checked = char.salvation.includes(input.name);
+                });
+
+                // ANTES DE ESTO TENGO QUE TENER LOS SELECTS DE HABILIDADES Y SALVACIONES
+                const attributesList = document.getElementById('attributes-list');
+                const att = attributesList.querySelectorAll('input');
+                att.forEach(input => {
+                    atributes[input.name.toUpperCase()] = sheetService.calculateAttribute(input.value);
+                    updateAbilities(skills, 'abilities-list');
+                    updateAbilities(savingThrows, 'save-list');
+
+                    input.previousElementSibling.textContent = atributes[input.name.toUpperCase()];
+                })
                 
             } catch(e) {
                 console.error(e);
@@ -348,7 +381,7 @@ export function renderCharacterForm(id = 0) {
                                 </div>
                                 <div class="flex flex-col">
                                     <label class="cinzel-regular text-mt-light text-xs">Clase</label>
-                                    <select name="class" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg">
+                                    <select name="charClass" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg">
                                         <option value="">—</option>
                                         <option value="barbarian">Bárbaro</option>
                                         <option value="bard">Bardo</option>

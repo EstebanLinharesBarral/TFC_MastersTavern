@@ -104,6 +104,13 @@ class FetchService {
         });
     }
 
+    async put(endpoint, payload) {
+        return this.request(endpoint, {
+            method: "PUT",
+            body: payload,
+        });
+    }
+
     async delete(endpoint) {
         return this.request(endpoint, {
             method: "DELETE"
