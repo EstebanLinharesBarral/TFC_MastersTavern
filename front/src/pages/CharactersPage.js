@@ -231,7 +231,7 @@ export function renderCharactersPage() {
                     <div class="space-y-4">
                         <div class="flex flex-col">
                             <label class="cinzel-regular text-mt-light text-xs">Nombre</label>
-                            <input class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg" type="text" placeholder="Buscar por nombre...">
+                            <input name="name"  class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg" type="text" placeholder="Buscar por nombre...">
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
