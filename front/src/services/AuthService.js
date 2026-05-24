@@ -1,5 +1,6 @@
 // services/AuthService.js
 import { fetchService } from "./FetchService.js";
+import { router } from "../main.js";
 
 class AuthService {
     register(form) {
@@ -16,7 +17,8 @@ class AuthService {
         sessionStorage.removeItem('auth_token');
         sessionStorage.removeItem('refresh_token');
         
-        setTimeout(() => {window.location.hash = '#/'}, 1000)
+        window.location.hash = '/';
+        router.render();
     }
 
     getToken(){

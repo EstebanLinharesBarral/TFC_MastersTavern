@@ -1,7 +1,4 @@
 // pages/Homepage.js
-function creadeDataCard() {
-    return ``
-}
 
 export function renderHomepage() {
     //SI NO HAY UN USUARIO CONECTADO CAMBIAR EL CONTENIDO DE LAS SECTIONS

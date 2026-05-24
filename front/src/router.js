@@ -1,7 +1,7 @@
 // router.js
 
 import { Footer } from "./components/footer.js";
-import { Header } from "./components/header.js";
+import { Header, updateActiveLink } from "./components/header.js";
 
 export function createRouter(routes) {
     let currentController = null;
@@ -103,7 +103,7 @@ export function createRouter(routes) {
             const content = await Promise.resolve(handler({ params, query: to.query, signal }));
             if (signal.aborted) return;
 
-            app.innerHTML = Header({ currentPath: path }) + content + Footer();
+            app.innerHTML = content;
             app.classList.remove("route-leave");
             app.classList.add("route-enter");
             requestAnimationFrame(() => app.classList.remove("route-enter"));
@@ -117,6 +117,7 @@ export function createRouter(routes) {
             }
 
             afterEachHooks.forEach(hook => hook(to, from));
+            updateActiveLink(path);
         } catch (err) {
             if (err.name !== "AbortError") {
                 console.error("[Router] Error al renderizar vista:", err);
@@ -159,6 +160,7 @@ export function createRouter(routes) {
 
     return {
         navigate,
+        render,
         back:           () => window.history.back(),
         forward:        () => window.history.forward(),
         beforeEach:     (fn) => beforeEachHooks.push(fn),

@@ -1,4 +1,5 @@
-import { Header } from "./components/header.js"
+import { Header } from "./components/header.js";
+import { Footer } from "./components/footer.js";
 import { createRouter } from "./router.js";
 import { renderHomepage } from "./pages/Homepage.js";
 import { renderSignInPage } from "./pages/SignInPage.js";
@@ -10,6 +11,8 @@ import { renderCharacterForm } from "./pages/CharacterForm.js";
 import { authService } from "./services/AuthService.js";
 
 export function initGlobalEvents() {
+    document.getElementById('header-root').innerHTML = Header();
+    document.getElementById('footer-root').innerHTML = Footer();
     document.addEventListener("click", (e) => {
         const logoutBtn = e.target.closest(".logout-btn");
         if (logoutBtn) {
@@ -28,7 +31,7 @@ const routes = {
     "/404": () => "<h1>404 Not Found</h1>"
 };
 
-createRouter(routes);
+export const router = createRouter(routes);
 initGlobalEvents();
 
 lucide.createIcons();

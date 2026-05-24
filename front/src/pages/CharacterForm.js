@@ -4,8 +4,14 @@ import { fetchService } from "../services/FetchService.js";
 import { skills, savingThrows } from "../components/dicc.js";
 import { sheetService } from "../services/SheetService.js";
 import { renderErrorModal } from "../components/modal.js";
+import { authService } from "../services/AuthService.js";
 
 export function renderCharacterForm(id = 0) {
+
+    if (!authService.getToken()) {
+        window.location.hash = '/log-in';
+        return '';
+    }
 
     setTimeout(async () => {
         const form = document.querySelector('form');
@@ -357,7 +363,6 @@ export function renderCharacterForm(id = 0) {
             try{
                 if(id != 0 && id != undefined && id != null) {
                     if(avatar.files.length === 0) {
-                        console.log("ENTRO")
                         payload.delete("avatar");
                         const response = await fetchService.patch(`/api/characters/${id}/`, payload)
                     } else {

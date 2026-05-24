@@ -3,8 +3,14 @@
 import { fetchService } from "../services/FetchService.js";
 import { classes, races, skills, savingThrows } from "../components/dicc.js";
 import { sheetService } from "../services/SheetService.js";
+import { authService } from "../services/AuthService.js";
 
 export function renderCharactersPage() {
+
+    if (!authService.getToken()) {
+        window.location.hash = '/log-in';
+        return '';
+    }
 
     setTimeout(async () => {
         const updateCharList = async (query = "") => {

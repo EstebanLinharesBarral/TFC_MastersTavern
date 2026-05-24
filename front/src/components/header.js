@@ -23,9 +23,9 @@ export function Header() {
                     console.error(error);
                 }
             } else {
-                profile = `<div class="hidden sm:block text-xs tracking-widest">
-                    <a href="#/sign-in" class="rounded-lg py-2 px-4 border border-gold hover:bg-amber-100/10">Sign up</a>
-                    <a href="#/log-in" class="rounded-lg py-2 px-4 border border-gold bg-gradient-red hover:saturate-120">Log in</a>
+                profile = `<div class="hidden sm:flex gap-2 flex-col lg:flex-row text-xs tracking-widest">
+                    <a href="#/sign-in" class="whitespace-nowrap rounded-lg py-2 px-4 border border-gold hover:bg-amber-100/10">Sign up</a>
+                    <a href="#/log-in" class="whitespace-nowrap rounded-lg py-2 px-4 border border-gold bg-gradient-red hover:saturate-120">Log in</a>
                 </div>`
             }
 
@@ -50,43 +50,115 @@ export function Header() {
     return `
     <header class="sticky top-0 z-50 w-full border-b-2 border-gold bg-gradient-brown text-mt-light cinzel-regular shadow-lg">
         <div class="flex items-center justify-between px-4 py-3">
-            <button id="menu-sidebar-btn" class="block md:hidden border"><i data-lucide="Menu"></i></button>
+            <button id="menu-sidebar-btn" class="block md:hidden"><i data-lucide="Menu"></i></button>
 
             <!-- LOGO -->
-            <a href="#/" class="flex items-center gap-3 text-xl decorative-bold">
+            <a href="#/" class="flex items-center gap-3 text:lg lg:text-xl decorative-bold">
                 MastersTavern
             </a>
 
             <!-- NAV (desktop) -->
-            <nav class="hidden md:flex items-center gap-6 px-6 tracking-widest">
+            <nav class="hidden md:flex items-center gap-6 px-6 md: text-sm lg:text-base tracking-widest">
                 <a href="#/my-characters" class="flex items-center p-2 rounded-xl hover:bg-amber-100/10">
                     Mis Personajes
                 </a>
 
-                <a href="#/" class="flex items-center p-2 rounded-xl hover:bg-amber-100/10">
+                <a href="#/my-campaings" class="flex items-center p-2 rounded-xl hover:bg-amber-100/10">
                     Mis Campañas
                 </a>
 
-                <a href="#/" class="flex items-center p-2 rounded-xl hover:bg-amber-100/10">
+                <a href="#/my-sessions" class="flex items-center p-2 rounded-xl hover:bg-amber-100/10">
                     Mis Sesiones
                 </a>
 
-                <a href="#/" class="flex items-center p-2 rounded-xl hover:bg-amber-100/10">
+                <a href="#/social" class="flex items-center p-2 rounded-xl hover:bg-amber-100/10">
                     Social
                 </a>
             </nav>
 
             <!-- USER -->
-            <div id="profile-container" class="flex items-center gap-3">
-                <div class="rounded-full w-10 h-10 border-2 overflow-hidden">
-                    <img src="./src/assets/avatar.png" class="w-full h-full object-cover">
-                </div>
-
-                <div class="hidden sm:block text-sm">
-                    <a href="#/sign-in" class="p-2 border border-gold">Sign up</a>
-                    <a href="#/log-in" class="p-2 border border-gold bg-gradient-red">Log in</a>
-                </div>
+            <div id="profile-container" class="hidden md:flex items-center gap-3">
+                
             </div>
         </div>
-    </header>`
+    </header>
+
+    <aside id="menu-sidebar" class="md:hidden w-[220px] h-screen fixed left-0 top-0 z-40 flex flex-col bg-gradient-brown border-r border-gold-light">
+
+        <!-- LOGO -->
+        <div class="px-4 py-[18px] border-b border-gold-light">
+            <p class="decorative-bold text-mt-light text-[13px] tracking-wide">MastersTavern</p>
+        </div>
+
+        <!-- NAV -->
+        <nav class="flex-1 flex flex-col gap-0.5 px-2 py-3 overflow-y-auto">
+
+            <p class="cinzel-bold text-xs tracking-[.18em] uppercase text-mt-sublight px-2 pt-2 pb-1">Principal</p>
+
+            <!-- Activo -->
+            <a href="#/" class="flex items-center gap-2.5 px-2.5 py-2 rounded-md hover:bg-[rgba(201,168,76,0.05)] transition-colors">
+                <i data-lucide="layout-panel-left" class="size-4"></i> 
+                <span class="cinzel-regular text-[11px] tracking-[.08em]">Inicio</span>
+            </a>
+
+            <!-- Inactivo (repetir para cada enlace) -->
+            <a href="#/my-characters" class="flex items-center gap-2.5 px-2.5 py-2 rounded-md hover:bg-[rgba(201,168,76,0.05)] transition-colors">
+                <i data-lucide="sword" class="size-4"></i> 
+                <span class="cinzel-regular text-[11px] tracking-[.08em]">Mis Personajes</span>
+            </a>
+
+            <a href="#" class="flex items-center gap-2.5 px-2.5 py-2 rounded-md hover:bg-[rgba(201,168,76,0.05)] transition-colors">
+                <i data-lucide="map" class="size-4"></i> 
+                <span class="cinzel-regular text-[11px] tracking-[.08em]">Mis Campañas</span>
+            </a>
+
+            <a href="#" class="flex items-center gap-2.5 px-2.5 py-2 rounded-md hover:bg-[rgba(201,168,76,0.05)] transition-colors">
+                <i data-lucide="calendar" class="size-4"></i> 
+                <span class="cinzel-regular text-[11px] tracking-[.08em]">Mis Sesiones</span>
+            </a>
+
+            <p class="cinzel-bold text-xs tracking-[.18em] uppercase text-mt-sublight px-2 pt-4 pb-1">Comunidad</p>
+
+            <a href="#" class="flex items-center gap-2.5 px-2.5 py-2 rounded-md hover:bg-[rgba(201,168,76,0.05)] transition-colors">
+                <i data-lucide="user" class="size-4"></i> 
+                <span class="cinzel-regular text-[11px] tracking-[.08em]">Social</span>
+            </a>
+
+            <a href="#" class="flex items-center gap-2.5 px-2.5 py-2 rounded-md hover:bg-[rgba(201,168,76,0.05)] transition-colors">
+                <i data-lucide="book" class="size-4"></i> 
+                <span class="cinzel-regular text-[11px] tracking-[.08em]">Manuales</span>
+            </a>
+
+            <a href="#" class="flex items-center gap-2.5 px-2.5 py-2 rounded-md hover:bg-[rgba(201,168,76,0.05)] transition-colors">
+                <i data-lucide="newspaper" class="size-4"></i> 
+                <span class="cinzel-regular text-[11px] tracking-[.08em]">Noticias</span>
+            </a>
+        </nav>
+
+        <!-- USUARIO -->
+        <div class="flex items-center gap-2.5 px-2 py-3 border-t border-[rgba(201,168,76,0.1)]">
+            <div class="size-8 rounded-full flex-shrink-0 flex items-center justify-center bg-gradient-to-br from-[#2a1208] to-[#5a2a10] border border-[rgba(201,168,76,0.25)]">
+            <i class="ti ti-user text-[14px] text-[rgba(201,168,76,0.6)]"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+            <p class="cinzel-regular text-[10px] text-mt-lighter truncate">Rogar el Eterno</p>
+            <p class="garamond-italic text-[11px] text-mt-sublight">Máster</p>
+            </div>
+            <i class="ti ti-settings text-[15px] text-[rgba(201,168,76,0.25)] flex-shrink-0"></i>
+        </div>
+
+    </aside>`
+}
+
+export function updateActiveLink(currentPath) {
+    document.querySelectorAll('nav a[href]').forEach(link => {
+        const href = link.getAttribute('href').replace('#', '');
+        const isActive = href === currentPath;
+
+        link.classList.toggle('bg-[rgba(139,26,26,0.25)]', isActive);
+        link.classList.toggle('border', isActive);
+        link.classList.toggle('border-[rgba(139,26,26,0.4)]', isActive);
+        link.classList.toggle('text-mt-light', isActive)
+        link.classList.toggle('text-mt-sublight', !isActive)
+    });
 }
