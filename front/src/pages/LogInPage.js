@@ -59,7 +59,8 @@ export function renderLogInPage() {
                         </div>
                     </div>
 
-                    <div class="flex justify-center items-center row-span-1">
+                    <div class="flex flex-col gap-4 justify-center items-center row-span-1">
+                        <p class="garamond-medium text-mt-dark">¿No tienes cuenta? <a class="text-mt-dark underline hover:text-[]" href="#/sign-in">Crea tu cuenta aquí</a></p>
                         <button type="submit" class="bg-gradient-red border border-gold rounded-lg cinzel-regular text-mt-light tracking-widest px-10 py-4 hover:cursor-pointer hover:saturate-120">Log in</button>
                     </div>
 

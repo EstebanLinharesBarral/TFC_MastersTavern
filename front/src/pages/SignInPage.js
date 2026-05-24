@@ -28,7 +28,7 @@ export function renderSignInPage() {
                 const response = await authService.register(form);
 
                 if(response.ok){
-                    setTimeout(() => {window.location.hash = '#/log-in'}, 1000)
+                    window.location.hash = '#/log-in'
                 }
             }catch(error){
                 const modal = renderErrorModal(error);
