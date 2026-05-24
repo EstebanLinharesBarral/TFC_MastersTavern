@@ -12,19 +12,19 @@ export function Footer() {
 
             <!-- NAV (desktop) -->
             <nav class="flex flex-col md:flex-row items-center gap-2 md:gap-6 px-6 text-sm">
-                <a href="#/" class="flex items-center p-2 rounded-xl hover:text-[#f4d891]">
+                <a href="#" class="flex items-center p-2 rounded-xl hover:text-[#f4d891]">
                     Acerca de
                 </a>
 
-                <a href="#/" class="flex items-center p-2 rounded-xl hover:text-[#f4d891]">
+                <a href="#" class="flex items-center p-2 rounded-xl hover:text-[#f4d891]">
                     Contacto
                 </a>
 
-                <a href="#/" class="flex items-center p-2 rounded-xl hover:text-[#f4d891]">
+                <a href="#" class="flex items-center p-2 rounded-xl hover:text-[#f4d891]">
                     Privacidad
                 </a>
 
-                <a href="#/" class="flex items-center p-2 rounded-xl hover:text-[#f4d891]">
+                <a href="#" class="flex items-center p-2 rounded-xl hover:text-[#f4d891]">
                     Términos
                 </a>
             </nav>

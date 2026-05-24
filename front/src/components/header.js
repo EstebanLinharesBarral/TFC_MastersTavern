@@ -4,34 +4,6 @@ import { authService } from "../services/AuthService.js";
 export function Header() {
 
     setTimeout(async () => {
-        const menuSidebarBtn = document.getElementById('menu-sidebar-btn');
-        const menuSidebar = document.getElementById('menu-sidebar');
-        const closeSidebarBtn = document.getElementById('sidebar-close-btn');
-
-        const profileContainer = document.getElementById('profile-container');
-        if(profileContainer) {
-            let profile;
-
-            if(authService.getToken()){
-                try{
-                    const user = await authService.getMe();
-                    profile = `<div class="hidden sm:flex gap-2 text-lg">
-                        <p>${user.username}</p>
-                        <button class="logout-btn cursor-pointer hover:text-red-500 transition duration-100"><i data-lucide="log-out"></i></button>
-                    </div>`
-                }catch(error) {
-                    console.error(error);
-                }
-            } else {
-                profile = `<div class="hidden sm:flex gap-2 flex-col lg:flex-row text-xs tracking-widest">
-                    <a href="#/sign-in" class="whitespace-nowrap rounded-lg py-2 px-4 border border-gold hover:bg-amber-100/10">Sign up</a>
-                    <a href="#/log-in" class="whitespace-nowrap rounded-lg py-2 px-4 border border-gold bg-gradient-red hover:saturate-120">Log in</a>
-                </div>`
-            }
-
-            profileContainer.innerHTML = profile;
-        }
-
         if(menuSidebarBtn && menuSidebar) {
             menuSidebarBtn.addEventListener('click', () => {
                 menuSidebar.classList.toggle('show');
@@ -137,16 +109,10 @@ export function Header() {
 
         <!-- USUARIO -->
         <div class="flex items-center gap-2.5 px-2 py-3 border-t border-[rgba(201,168,76,0.1)]">
-            <div class="size-8 rounded-full flex-shrink-0 flex items-center justify-center bg-gradient-to-br from-[#2a1208] to-[#5a2a10] border border-[rgba(201,168,76,0.25)]">
-            <i class="ti ti-user text-[14px] text-[rgba(201,168,76,0.6)]"></i>
+            <div id="profile-container-sidebar" class="flex-1 min-w-0">
+                
             </div>
-            <div class="flex-1 min-w-0">
-            <p class="cinzel-regular text-[10px] text-mt-lighter truncate">Rogar el Eterno</p>
-            <p class="garamond-italic text-[11px] text-mt-sublight">Máster</p>
-            </div>
-            <i class="ti ti-settings text-[15px] text-[rgba(201,168,76,0.25)] flex-shrink-0"></i>
         </div>
-
     </aside>`
 }
 
@@ -161,4 +127,48 @@ export function updateActiveLink(currentPath) {
         link.classList.toggle('text-mt-light', isActive)
         link.classList.toggle('text-mt-sublight', !isActive)
     });
+}
+
+export async function updateHeaderProfile() {
+    const menuSidebarBtn = document.getElementById('menu-sidebar-btn');
+    const menuSidebar = document.getElementById('menu-sidebar');
+    const closeSidebarBtn = document.getElementById('sidebar-close-btn');
+
+    const profileContainer = document.getElementById('profile-container');
+    const profileContainerSide = document.getElementById('profile-container-sidebar');
+    if(profileContainer) {
+        let profile;
+        let profileSidebar;
+
+        if(authService.getToken()){
+            try{
+                const user = await authService.getMe();
+                profile = `<div class="hidden sm:flex gap-2 text-lg">
+                    <p>${user.username}</p>
+                    <button class="logout-btn cursor-pointer hover:text-red-500 transition duration-100"><i data-lucide="log-out"></i></button>
+                </div>`
+
+                profileSidebar = `<div class="flex gap-2 text-lg cinzel-regular text-mt-light">
+                    <p>${user.username}</p>
+                    <button class="logout-btn cursor-pointer hover:text-red-500 transition duration-100"><i data-lucide="log-out"></i></button>
+                </div>`
+            }catch(error) {
+                console.error(error);
+            }
+        } else {
+            profile = `<div class="hidden sm:flex gap-2 flex-col lg:flex-row text-xs tracking-widest">
+                <a href="#/sign-in" class="whitespace-nowrap rounded-lg py-2 px-4 border border-gold hover:bg-amber-100/10">Sign up</a>
+                <a href="#/log-in" class="whitespace-nowrap rounded-lg py-2 px-4 border border-gold bg-gradient-red hover:saturate-120">Log in</a>
+            </div>`
+
+            profileSidebar = `<div class="flex cinzel-regular text-mt-light gap-2 flex-col text-xs tracking-widest">
+                <a href="#/sign-in" class="whitespace-nowrap rounded-lg py-2 px-4 border border-gold hover:bg-amber-100/10">Sign up</a>
+                <a href="#/log-in" class="whitespace-nowrap rounded-lg py-2 px-4 border border-gold bg-gradient-red hover:saturate-120">Log in</a>
+            </div>`
+        }
+
+        profileContainer.innerHTML = profile;
+        profileContainerSide.innerHTML = profileSidebar;
+    }
+    if(window.lucide) lucide.createIcons();
 }

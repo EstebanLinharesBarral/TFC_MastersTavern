@@ -1,7 +1,7 @@
 // router.js
 
 import { Footer } from "./components/footer.js";
-import { Header, updateActiveLink } from "./components/header.js";
+import { Header, updateActiveLink, updateHeaderProfile } from "./components/header.js";
 
 export function createRouter(routes) {
     let currentController = null;
@@ -118,6 +118,7 @@ export function createRouter(routes) {
 
             afterEachHooks.forEach(hook => hook(to, from));
             updateActiveLink(path);
+            updateHeaderProfile();
         } catch (err) {
             if (err.name !== "AbortError") {
                 console.error("[Router] Error al renderizar vista:", err);

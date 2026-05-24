@@ -1,10 +1,10 @@
-* {
-    box-sizing: border-box;
+body {
+    min-height: 100dvh;
 }
 
-html, body, #app {
-    overflow-x: hidden;
-    max-width: 100%;
+option {
+    background-color: #190D04;
+    color: var(--default-light);
 }
 
 /* 1. PALETA DE COLORES */

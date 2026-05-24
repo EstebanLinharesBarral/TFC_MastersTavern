@@ -831,11 +831,10 @@ export function renderCharacterForm(id = 0) {
 
                     <!-- BOTONES -->
                     <div class="flex justify-end border-t gap-2 border-brown-light px-4 py-2">
-                        <button class="text-center border border-brown-light rounded-md cinzel-regular text-mt-light text-xs px-4 py-2 tracking-wide hover:bg-amber-100/10 hover:cursor-pointer">Cancelar</button>
-                        <button type="submit" class="block border border-gold rounded-md text-center text-mt-light cinzel-regular text-xs tracking-wide py-2 px-4 bg-gradient-red hover:saturate-120">Guardar</button>
+                        <a href="#/my-characters" class="text-center border border-brown-light rounded-md cinzel-regular text-mt-light text-xs px-4 py-2 tracking-wide hover:bg-amber-100/10 hover:cursor-pointer">Cancelar</a>
+                        <button type="submit" class="block border border-gold rounded-md text-center text-mt-light cinzel-regular text-xs tracking-wide py-2 px-4 bg-gradient-red hover:saturate-120 hover:cursor-pointer">Guardar</button>
                     </div>
                 </div>
-
             </form>
 
 <style>
