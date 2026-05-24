@@ -41,7 +41,7 @@ export function renderCharacterForm(id = 0) {
                 w.id === Number.parseInt(weaponsSelect.value)
             );
 
-            if (weapon.length > 0) {
+            if (weapon.length > 0 && !weaponArr.includes(weapon[0].id)) {
                 const w = weapon[0];
                 const li = document.createElement("li");
                 li.className = "flex justify-between ml-4 garamond-regular text-sm text-mt-dark";
@@ -50,8 +50,7 @@ export function renderCharacterForm(id = 0) {
                     <p>${w.name} - ${w.damage} - ${w.type}</p>
                     <button data-id="${w.id}" data-action="delete" class="cursor-pointer">
                         <i data-lucide="x" class="size-4 hover:text-red-500"></i>
-                    </button>
-                `;
+                    </button>`;
 
                 weaponsList.appendChild(li);
                 weaponArr.push(Number.parseInt(w.id));
@@ -185,14 +184,102 @@ export function renderCharacterForm(id = 0) {
                 img.src = URL.createObjectURL(file);
             }
         })
+
+        if(id != 0 && id != undefined && id != null) {
+            try {
+                const response = await fetchService.get(`/api/characters?id=${id}`);
+                const char = response[0];
+
+                // ERROR SI NO EXISTE EL PERSONAJE
+                if(char.length < 1) {
+                    throw new Error("El personaje buscado no existe");
+                }
+                
+                // PINTADO DE DATOS
+                const avatarPreview = document.getElementById('avatar-img');
+                avatarPreview.src= char.avatar;
+
+                Object.keys(char).forEach(key => {
+                    const input = form.querySelector(`[name="${key}"]`);
+                    if (input && input.type != 'file') {
+                        input.value = char[key] ?? "";
+                    }
+                });
+
+                const statsList = document.getElementById('stats-list');
+                const statsInputs = statsList.querySelectorAll('input');
+                statsInputs.forEach((input, i) => {
+                    input.value = char.stats[i];
+                })
+
+                const abilitiesList = document.getElementById('abilities-list');
+                const abilitiesInputs = abilitiesList.querySelectorAll('input');
+                abilitiesInputs.forEach(input => {
+                    input.checked = char.abilities.includes(input.name);
+                });
+
+                const saveList = document.getElementById('save-list');
+                const saveInputs = saveList.querySelectorAll('input');
+                saveInputs.forEach(input => {
+                    input.checked = char.salvation.includes(input.name);
+                });
+
+                const attributesList = document.getElementById('attributes-list');
+                const att = attributesList.querySelectorAll('input');
+                att.forEach(input => {
+                    atributes[input.name.toUpperCase()] = sheetService.calculateAttribute(input.value);
+                    updateAbilities(skills, 'abilities-list');
+                    updateAbilities(savingThrows, 'save-list');
+
+                    input.previousElementSibling.textContent = atributes[input.name.toUpperCase()];
+                })
+
+                // ARMADURA
+                const armor = armors.filter(a => a.id === char.armor);
+                if(armor.length > 0) {
+                    armorsSelect.value = armor[0].id;
+                    aTypeInput.value = armor[0].type;
+                    caInput.value = armor[0].armor;
+                }
+
+                // ARMAS
+                char.weapons.forEach(weapon => {
+                    const w = weapons.filter(w => w.id == weapon)[0];
+                    const li = document.createElement("li");
+                    li.className = "flex justify-between ml-4 garamond-regular text-sm text-mt-dark";
+
+                    li.innerHTML = `
+                        <p>${w.name} - ${w.damage} - ${w.type}</p>
+                        <button data-id="${w.id}" data-action="delete" class="cursor-pointer">
+                            <i data-lucide="x" class="size-4 hover:text-red-500"></i>
+                        </button>`;
+
+                    weaponsList.appendChild(li);
+                    weaponArr.push(Number.parseInt(w.id));
+
+                    weaponsList.addEventListener('click', (e) => {
+                    const btn = e.target.closest('button[data-action="delete"]');
+                    if (!btn) return;
+                    const id = btn.dataset.id;
+                    weaponArr = weaponArr.filter(w => w != id);
+                    btn.closest('li').remove();
+                });
+
+                    if(window.lucide) lucide.createIcons();
+                })
+
+            } catch(e) {
+                console.error(e);
+                const modal = renderErrorModal(e);
+                document.body.insertAdjacentHTML("afterbegin", modal)
+                window.location.hash = "#/my-characters";
+            }
+        }
         
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const formData = new FormData(form);
-            for (const [key, value] of formData) {
-                console.log(key, value);
-            }
 
             // ARRAY DE TIRADAS DE SALVACIÓN
             const saveList = document.getElementById('save-list');
@@ -269,7 +356,13 @@ export function renderCharacterForm(id = 0) {
 
             try{
                 if(id != 0 && id != undefined && id != null) {
-                    const response = await fetchService.put(`/api/characters/${id}/`, payload)
+                    if(avatar.files.length === 0) {
+                        console.log("ENTRO")
+                        payload.delete("avatar");
+                        const response = await fetchService.patch(`/api/characters/${id}/`, payload)
+                    } else {
+                        const response = await fetchService.put(`/api/characters/${id}/`, payload);
+                    }
                 } else {
                     const response = await fetchService.post('/api/characters/', payload)
                 }
@@ -279,65 +372,6 @@ export function renderCharacterForm(id = 0) {
                 console.error(e);
             }
         })
-
-        if(id != 0 && id != undefined && id != null) {
-            try {
-                const response = await fetchService.get(`/api/characters?id=${id}`);
-                const char = response[0];
-
-                // ERROR SI NO EXISTE EL PERSONAJE
-                if(char.length < 1) {
-                    throw new Error("El personaje buscado no existe");
-                }
-                
-                // PINTADO DE DATOS
-                const avatarPreview = document.getElementById('avatar-img');
-                avatarPreview.src= char.avatar;
-
-                Object.keys(char).forEach(key => {
-                    const input = form.querySelector(`[name="${key}"]`);
-                    if (input && input.type != 'file') {
-                        input.value = char[key] ?? "";
-                    }
-                });
-
-                const statsList = document.getElementById('stats-list');
-                const statsInputs = statsList.querySelectorAll('input');
-                statsInputs.forEach((input, i) => {
-                    input.value = char.stats[i];
-                })
-
-                const abilitiesList = document.getElementById('abilities-list');
-                const abilitiesInputs = abilitiesList.querySelectorAll('input');
-                abilitiesInputs.forEach(input => {
-                    input.checked = char.abilities.includes(input.name);
-                });
-
-                const saveList = document.getElementById('save-list');
-                const saveInputs = saveList.querySelectorAll('input');
-                saveInputs.forEach(input => {
-                    input.checked = char.salvation.includes(input.name);
-                });
-
-                // ANTES DE ESTO TENGO QUE TENER LOS SELECTS DE HABILIDADES Y SALVACIONES
-                const attributesList = document.getElementById('attributes-list');
-                const att = attributesList.querySelectorAll('input');
-                att.forEach(input => {
-                    atributes[input.name.toUpperCase()] = sheetService.calculateAttribute(input.value);
-                    updateAbilities(skills, 'abilities-list');
-                    updateAbilities(savingThrows, 'save-list');
-
-                    input.previousElementSibling.textContent = atributes[input.name.toUpperCase()];
-                })
-                
-            } catch(e) {
-                console.error(e);
-                const modal = renderErrorModal(e);
-                document.body.insertAdjacentHTML("afterbegin", modal)
-                window.location.hash = "#/my-characters";
-            }
-        }
-
     }, 0)
 
     return `<div class="px-8 pt-4 pb-8 flex flex-col gap-8">

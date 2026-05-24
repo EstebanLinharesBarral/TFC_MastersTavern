@@ -15,7 +15,7 @@ class FetchService {
 
         // JWT automático
         if (requiresAuth) {
-            const token = localStorage.getItem("auth_token");
+            const token = sessionStorage.getItem("auth_token");
 
             if (token) {
                 headers["Authorization"] = `Bearer ${token}`;
@@ -37,7 +37,7 @@ class FetchService {
         // Token expirado
         if (response.status === 401 && retry) {
 
-            const refresh = localStorage.getItem("refresh_token");
+            const refresh = sessionStorage.getItem("refresh_token");
 
             // Si no hay refresh → logout
             if (!refresh) {
@@ -68,7 +68,7 @@ class FetchService {
             const refreshData = await refreshResponse.json();
 
             // Guardar nuevo access token
-            localStorage.setItem("auth_token", refreshData.access);
+            sessionStorage.setItem("auth_token", refreshData.access);
 
             // Repetir request original
             return this.request(endpoint, options, false);
@@ -107,6 +107,13 @@ class FetchService {
     async put(endpoint, payload) {
         return this.request(endpoint, {
             method: "PUT",
+            body: payload,
+        });
+    }
+
+    async patch(endpoint, payload) {
+        return this.request(endpoint, {
+            method: "PATCH",
             body: payload,
         });
     }

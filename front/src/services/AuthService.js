@@ -13,14 +13,14 @@ class AuthService {
     }
 
     logout() {
-        localStorage.removeItem('auth_token');
-        localStorage.removeItem('refresh_token');
+        sessionStorage.removeItem('auth_token');
+        sessionStorage.removeItem('refresh_token');
         
         setTimeout(() => {window.location.hash = '#/'}, 1000)
     }
 
     getToken(){
-        return localStorage.getItem('auth_token');
+        return sessionStorage.getItem('auth_token');
     }
 
     async getMe() {

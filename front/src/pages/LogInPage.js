@@ -26,8 +26,8 @@ export function renderLogInPage() {
                 const response = await authService.login(form);
 
                 if(response.access){
-                    localStorage.setItem('auth_token', response.access);
-                    localStorage.setItem('refresh_token', response.refresh);
+                    sessionStorage.setItem('auth_token', response.access);
+                    sessionStorage.setItem('refresh_token', response.refresh);
                     setTimeout(() => {window.location.hash = '#/'}, 1000)
                 }
             }catch(error){
