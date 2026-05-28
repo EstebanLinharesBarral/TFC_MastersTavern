@@ -21,6 +21,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.routers import DefaultRouter
 from django.conf import settings
 from django.conf.urls.static import static
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 router = DefaultRouter()
 router.register(r'characters', CharacterViewSet)
@@ -34,7 +35,12 @@ urlpatterns = [
     path('api/me/', me),
     path('api/weapons/', weapons_list),
     path('api/armors/', armors_list),
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
+    
+    # Schema OpenAPI
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    # Documentación Swagger UI
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -46,6 +46,10 @@ export function Header() {
                 <a href="#/social" class="flex items-center p-2 rounded-xl hover:bg-amber-100/10">
                     Social
                 </a>
+
+                <a href="#/social" class="flex items-center p-2 rounded-xl hover:bg-amber-100/10">
+                    Manuales
+                </a>
             </nav>
 
             <!-- USER -->

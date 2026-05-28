@@ -299,7 +299,6 @@ export function renderCharactersPage() {
             <!-- PREVIEW -->
             <section class="w-full">
                 <div id="preview-container" class=" hidden bg-[#130900] rounded-lg border-2 border-brown-light overflow-hidden">
-
                     
                 </div>
 
