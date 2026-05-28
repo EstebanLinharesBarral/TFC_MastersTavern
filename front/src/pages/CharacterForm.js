@@ -1,7 +1,7 @@
 // pages/CharacterForm.js
 
 import { fetchService } from "../services/FetchService.js";
-import { skills, savingThrows } from "../components/dicc.js";
+import { skills, savingThrows, classes, races, alignments } from "../components/dicc.js";
 import { sheetService } from "../services/SheetService.js";
 import { renderErrorModal } from "../components/modal.js";
 import { authService } from "../services/AuthService.js";
@@ -15,6 +15,20 @@ export function renderCharacterForm(id = 0) {
 
     setTimeout(async () => {
         const form = document.querySelector('form');
+
+        const paintDiccOptions = (name, dicc) => {
+            const select = form.querySelector(`select[name="${name}"]`);
+            Object.entries(dicc).forEach(([key, label]) => {
+                select.innerHTML += `<option value="${key}">${label}</option>`
+            })
+        }
+
+        // PINTAR CLASES
+        paintDiccOptions('charClass', classes);
+        // PINTAR RAZAS
+        paintDiccOptions('race', races);
+        // PINTAR ALINEAMIENTOS
+        paintDiccOptions('alignment', alignments)
 
         // PINTAR ARMAS
         const weapons = await fetchService.get('/api/weapons');
@@ -422,54 +436,18 @@ export function renderCharacterForm(id = 0) {
                                     <label class="cinzel-regular text-mt-light text-xs">Clase</label>
                                     <select name="charClass" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg">
                                         <option value="">—</option>
-                                        <option value="barbarian">Bárbaro</option>
-                                        <option value="bard">Bardo</option>
-                                        <option value="cleric">Clérigo</option>
-                                        <option value="druid">Druida</option>
-                                        <option value="fighter">Guerrero</option>
-                                        <option value="monk">Monje</option>
-                                        <option value="paladin">Paladín</option>
-                                        <option value="ranger">Explorador</option>
-                                        <option value="rogue">Pícaro</option>
-                                        <option value="sorcerer">Hechicero</option>
-                                        <option value="warlock">Brujo</option>
-                                        <option value="wizard">Mago</option>
-                                        <option value="artificer">Artífice</option>
                                     </select>
                                 </div>
                                 <div class="flex flex-col">
                                     <label class="cinzel-regular text-mt-light text-xs">Raza</label>
                                     <select name="race" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg">
                                         <option value="">—</option>
-                                        <option value="dragonborn">Dracónido</option>
-                                        <option value="dwarf-hill">Enano de las colinas</option>
-                                        <option value="dwarf-mountain">Enano de la montaña</option>
-                                        <option value="elf-dark">Elfo oscuro</option>
-                                        <option value="elf-high">Elfo alto</option>
-                                        <option value="elf-wood">Elfo del bosque</option>
-                                        <option value="gnome-forest">Gnomo del bosque</option>
-                                        <option value="gnome-rock">Gnomo de las rocas</option>
-                                        <option value="half-elf">Semielfo</option>
-                                        <option value="half-orc">Semiorco</option>
-                                        <option value="halfling-lightfoot">Mediano piesligeros</option>
-                                        <option value="halfling-stout">Mediano fornido</option>
-                                        <option value="human">Humano</option>
-                                        <option value="tiefling">Tiefling</option>
                                     </select>
                                 </div>
                                 <div class="flex flex-col">
                                     <label class="cinzel-regular text-mt-light text-xs">Alineamiento</label>
                                     <select name="alignment" class="garamond-italic text-mt-light p-1 bg-[#ffffff04] border border-brown-light rounded-lg">
                                         <option value="">—</option>
-                                        <option value="lg">Legal Bueno</option>
-                                        <option value="ng">Neutral Bueno</option>
-                                        <option value="cg">Caótico Bueno</option>
-                                        <option value="ln">Legal Neutral</option>
-                                        <option value="tn">Neutral</option>
-                                        <option value="cn">Caótico Neutral</option>
-                                        <option value="le">Legal Malvado</option>
-                                        <option value="ne">Neutral Malvado</option>
-                                        <option value="ce">Caótico Malvado</option>
                                     </select>
                                 </div>
                             </div>

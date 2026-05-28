@@ -4,6 +4,34 @@ import { authService } from "../services/AuthService.js";
 export function Header() {
 
     setTimeout(async () => {
+        const menuSidebarBtn = document.getElementById('menu-sidebar-btn');
+        const menuSidebar = document.getElementById('menu-sidebar');
+        const closeSidebarBtn = document.getElementById('sidebar-close-btn');
+
+        const profileContainer = document.getElementById('profile-container');
+        if(profileContainer) {
+            let profile;
+
+            if(authService.getToken()){
+                try{
+                    const user = await authService.getMe();
+                    profile = `<div class="hidden sm:flex gap-2 text-lg">
+                        <p>${user.username}</p>
+                        <button class="logout-btn cursor-pointer hover:text-red-500 transition duration-100"><i data-lucide="log-out"></i></button>
+                    </div>`
+                }catch(error) {
+                    console.error(error);
+                }
+            } else {
+                profile = `<div class="hidden sm:flex gap-2 flex-col lg:flex-row text-xs tracking-widest">
+                    <a href="#/sign-in" class="whitespace-nowrap rounded-lg py-2 px-4 border border-gold hover:bg-amber-100/10">Sign up</a>
+                    <a href="#/log-in" class="whitespace-nowrap rounded-lg py-2 px-4 border border-gold bg-gradient-red hover:saturate-120">Log in</a>
+                </div>`
+            }
+
+            profileContainer.innerHTML = profile;
+        }
+
         if(menuSidebarBtn && menuSidebar) {
             menuSidebarBtn.addEventListener('click', () => {
                 menuSidebar.classList.toggle('show');

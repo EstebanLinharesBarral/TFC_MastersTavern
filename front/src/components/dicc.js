@@ -31,6 +31,18 @@ export const races = {
   tiefling: "Tiefling"
 };
 
+export const alignments = {
+  lg: "Legal Bueno",
+  ng: "Neutral Bueno",
+  cg: "Caótico Bueno",
+  ln: "Legal Neutral",
+  tn: "Neutral",
+  cn: "Caótico Neutral",
+  le: "Legal Malvado",
+  ne: "Neutral Malvado",
+  ce: "Caótico Malvado"
+};
+
 export const skills = {
     acrobatics: { label: "Acrobacias", attribute: "DEX" },
     athletics: { label: "Atletismo", attribute: "STR" },

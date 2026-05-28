@@ -18,6 +18,7 @@ export function renderCharactersPage() {
             try{
                 const response = await fetchService.get(`/api/characters${query}`);
                 count.textContent = `${response.length != 1 ? `${response.length} personajes` : `${response.length} personaje`}`;
+                console.log(response)
 
                 const charList = document.getElementById('character-list');
                 if(response && charList){
