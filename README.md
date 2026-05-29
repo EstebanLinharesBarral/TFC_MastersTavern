@@ -18,7 +18,7 @@ Antes de empezar, asegúrate de tener instalado:
 
 Clona el proyecto desde GitHub:
 
-urlRepositorio del proyecto[https://github.com/EstebanLinharesBarral/TFC_MastersTavern.git](https://github.com/EstebanLinharesBarral/TFC_MastersTavern.git)
+Repositorio del proyecto[https://github.com/EstebanLinharesBarral/TFC_MastersTavern.git](https://github.com/EstebanLinharesBarral/TFC_MastersTavern.git)
 
 Comando:
 
