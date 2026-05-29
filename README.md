@@ -104,4 +104,4 @@ Para facilitar la navegación hay usuarios que ya están creado tanto como admin
 * User: Admin | Password: Admin2026!
 
 ### Usuario de MastersTavern con datos:
-* User: Afundacion | Password: Afundacion123
+* User: Afundacion | Password: Contrasena123
