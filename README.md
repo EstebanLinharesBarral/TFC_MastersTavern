@@ -1,4 +1,4 @@
-# 🍻 TFC Masters Tavern - Backend Setup Guide
+# 🍻 TFC Masters Tavern - Guía para el Setup
 
 Este documento explica cómo clonar el repositorio y ejecutar el entorno de desarrollo del backend.
 
@@ -11,6 +11,7 @@ Antes de empezar, asegúrate de tener instalado:
 * Git
 * Python 3.10 o superior
 * Acceso a terminal (CMD, PowerShell o Git Bash)
+* Extensión Live Server o similares para levantar el frontal
 
 ---
 
