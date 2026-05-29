@@ -97,6 +97,11 @@ python manage.py runserver
 
 ---
 
-## 🧑‍💻 Autoría
+## 🧑‍💻 Usuarios ya registrados
 
-Proyecto desarrollado como parte del TFC de desarrollo de aplicaciones web.
+Para facilitar la navegación hay usuarios que ya están creado tanto como administrador como usuario habitual de la página.
+### Administrador:
+* User: Admin | Password: Admin2026!
+
+### Usuario de MastersTavern con datos:
+* User: Afundacion | Password: Afundacion123
