@@ -386,7 +386,7 @@ export function renderCharacterForm(id = 0) {
                     const response = await fetchService.post('/api/characters/', payload)
                 }
             } catch(e){
-                const modal = renderErrorModal(error);
+                const modal = renderErrorModal(e);
                 document.body.insertAdjacentHTML("afterbegin", modal)
                 console.error(e);
             }

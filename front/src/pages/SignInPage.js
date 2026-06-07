@@ -26,10 +26,8 @@ export function renderSignInPage() {
 
             try{
                 const response = await authService.register(form);
-
-                if(response.ok){
-                    window.location.hash = '#/log-in'
-                }
+                
+                window.location.hash = '#/log-in'
             }catch(error){
                 const modal = renderErrorModal(error);
                 document.body.insertAdjacentHTML("afterbegin", modal)
